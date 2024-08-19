@@ -1,6 +1,7 @@
 import "./main.scss";
-import { rootlayout } from "./view/components/layouts/rootlayout";
+import { router } from "./routes";
+// import { rootlayout } from "./view/components/layouts/rootlayout";
 
-document.querySelector('#app').innerHTML = rootlayout();
-
+// document.querySelector('#app').innerHTML = rootlayout();
+new router();
 

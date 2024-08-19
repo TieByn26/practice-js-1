@@ -7,7 +7,4 @@ export class categories {
             <div> categories </div>
         `;
     }
-    render(){
-        return this.mainMethod();
-    }
 }

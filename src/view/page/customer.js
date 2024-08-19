@@ -1,10 +1,10 @@
-export class product {
+export class customer {
     constructor() {
         
     }
     mainMethod(){
         return /*html*/`
-            <div> product </div>
+            <div> customer </div>
         `;
     }
     render(){

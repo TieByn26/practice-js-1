@@ -1,5 +1,13 @@
-export const seller = () => {
-    return /*html*/ `
-    <div> seller </div>
-    `;
-};
+export class seller {
+    constructor() {
+        
+    }
+    mainMethod(){
+        return /*html*/`
+            <div> seller </div>
+        `;
+    }
+    render(){
+        return this.mainMethod();
+    }
+}

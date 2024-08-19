@@ -1,5 +1,13 @@
-export const menu = () => {
-    return /*html*/ `
-    <div> menu </div>
-    `;
-};
+export class menu {
+    constructor() {
+        
+    }
+    mainMethod(){
+        return /*html*/`
+            <div> menu </div>
+        `;
+    }
+    render(){
+        return this.mainMethod();
+    }
+}

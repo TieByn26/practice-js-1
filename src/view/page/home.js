@@ -1,5 +1,13 @@
-export const home = () => {
-    return /*html*/ `
-    <div> home </div>
-    `;
-};
+export class home {
+    constructor() {
+        
+    }
+    mainMethod(){
+        return /*html*/`
+            <div> home </div>
+        `;
+    }
+    render(){
+        return this.mainMethod();
+    }
+}
