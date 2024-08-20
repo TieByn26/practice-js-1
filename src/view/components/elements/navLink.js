@@ -15,4 +15,5 @@ export const navActive = ({ icon = '', icon2 = '', to = '', label = '' } = {}) =
         </a>
     `;
 }
+
     
