@@ -21,4 +21,4 @@ export const routeComponents = {
     [routesPath.customer]: new customer().render(),
     [routesPath.analytics]: new analytics().render()
   };
-        
+
