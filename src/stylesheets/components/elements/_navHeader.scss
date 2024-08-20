@@ -1,0 +1,50 @@
+@use "../../abstracts/" as *;
+@use "../../base/" as *;
+
+.nav-header{
+    .nav-header-top{
+        @include size($height: 72px);
+        @include flex($display: flex, $align: center, $justify: space-between);
+        align-self: stretch;
+        padding: 16px 24px; 
+        .nav-header_menu{
+
+        }
+        .nav-header_container{
+            @include flex($display: flex,  $align: center, $gap: 16px);
+            &-leftmenu{
+                border-right: 1px solid $li-line-color;
+                ul{
+                    @include flex($display: flex, $align: center, $gap: 16px); 
+                    li:hover{
+                        transform: scale(1.05);
+                    }
+                    li:nth-child(5){
+                        margin-right: 16px ;
+                    }
+                }
+            }
+            &-rightmenu{ 
+                @include flex($display: flex, $align: center,$gap: 12px);
+                span{
+                    @include flex($display: flex,$align:flex-start, $justify:center, $direction:column);
+                    @include font($font-family: $primary-font,$font-size: 14px, $font-weight: 500, $line-height: 20px);
+                    color: $color-name-font;
+                    letter-spacing: 0.07px;
+                    padding: 2px;
+                }
+                span:nth-child(2){
+                    @include font($font-size: 12px, $line-height: 18px);
+                    color: $color-second-font;
+                    margin-bottom: 5px;
+                }
+                a{
+                    img{
+                        transform: rotate(-90deg);
+                    }
+                }
+            }
+        }
+    }
+
+}
