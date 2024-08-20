@@ -40,6 +40,7 @@ export class NavList {
         </ul>
     `;
     }
+    
 
     render() {
         return this.navListMethod();
