@@ -1,4 +1,3 @@
-import { navHeaderLink } from "./navHeaderLink";
 import {
     ic_menu, ic_search, ic_calendar, ic_notification,
     ic_envelope_menu, ic_gray, ic_chevron, ic_avatar
@@ -6,16 +5,29 @@ import {
 
 export class NavHeader {
     list = [
-        navHeaderLink(ic_search),
-        navHeaderLink(ic_calendar),
-        navHeaderLink(ic_notification),
-        navHeaderLink(ic_envelope_menu),
-        navHeaderLink(ic_gray)
+        this.navHeaderLink(ic_search),
+        this.navHeaderLink(ic_calendar),
+        this.navHeaderLink(ic_notification),
+        this.navHeaderLink(ic_envelope_menu),
+        this.navHeaderLink(ic_gray)
     ];
 
     constructor() {
         
     }
+    navHeaderLink(icon){
+        const a = document.createElement("a");
+        a.href = "#";
+
+        const img = document.createElement("img");
+        img.src = icon;
+        img.alt = "icon";
+
+        a.appendChild(img);
+
+        return a.outerHTML;
+    };
+    
 
     navList() {
         const ul = document.createElement("ul");
@@ -48,7 +60,7 @@ export class NavHeader {
         div.appendChild(spanPosition);
 
         const chevron = document.createElement("div");
-        chevron.innerHTML = navHeaderLink(ic_chevron);
+        chevron.innerHTML = this.navHeaderLink(ic_chevron);
 
         const container = document.createElement("div");
         container.className = "container-admin";
@@ -59,11 +71,11 @@ export class NavHeader {
         return container;
     }
 
-    headerTop() {
+    header() {
         // nav-header_menu
         const divContainer1 = document.createElement("div");
         divContainer1.className = "nav-header_menu";
-        divContainer1.innerHTML = navHeaderLink(ic_menu);
+        divContainer1.innerHTML = this.navHeaderLink(ic_menu);
 
         // nav-header_container
         const divContainer2 = document.createElement("div");
@@ -92,6 +104,6 @@ export class NavHeader {
     }
 
     render() {
-        return this.headerTop().outerHTML;
+        return this.header().outerHTML;
     }
 }

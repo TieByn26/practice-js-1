@@ -8,11 +8,19 @@ export const navActive = ({ icon = '', icon2 = '', to = '', label = '' } = {}) =
         return ``;
     }
     const navClass = `nav-link ${active()}`.trim();
-    return /*html*/ `
-        <a href="${to}" class="${navClass}">
-            <img src="${icon}" alt="icon">
-            <span>${label}</span>
-        </a>
-    `;
+    const a = document.createElement("a");
+    a.className = navClass;
+
+    const img = document.createElement("img");
+    img.src = icon;
+    img.alt = "icon";
+
+    const span = document.createElement("span");
+    span.textContent = label;
+
+    a.appendChild(img);
+    a.appendChild(span);
+
+    return a.outerHTML;
 }
     

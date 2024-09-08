@@ -1,4 +1,4 @@
-import { navActive } from "./navLink";
+import { navActive } from "../link";
 import {
     ic_dashboard, ic_analysis, ic_seller,
     ic_cart_menu, ic_shoping, ic_customer,
