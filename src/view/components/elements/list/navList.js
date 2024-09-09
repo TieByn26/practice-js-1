@@ -1,4 +1,5 @@
 import { navActive } from "../link";
+import { elementHtml } from "@/utils";
 import {
     ic_dashboard, ic_analysis, ic_seller,
     ic_cart_menu, ic_shoping, ic_customer,
@@ -7,6 +8,7 @@ import {
 } from "@/constants";
 
 export class NavList {
+    elHtml = new elementHtml();
     navItems = [
         { icon: ic_dashboard_gray, icon2: ic_dashboard, to: routesPath.home, label: `Dashboard` },
         { icon: ic_shoping, icon2: ic_product_blue, to: routesPath.product, label: `Product` },
@@ -21,15 +23,9 @@ export class NavList {
     constructor() {}
 
     logoApp() {
-        const li = document.createElement('li');
-        li.className = 'logo';
-
-        const img = document.createElement('img');
-        img.src = ic_logo;
-        img.alt = 'logo';
-
-        const span = document.createElement('span');
-        span.textContent = 'Dashlab';
+        const li = this.elHtml.liElement("logo");
+        const img = this.elHtml.imgElement(ic_logo,"logo","");
+        const span = this.elHtml.spanElement("","Dashlab");
 
         li.appendChild(img);
         li.appendChild(span);
@@ -39,7 +35,6 @@ export class NavList {
 
     navListMethod() {
         const ul = document.createElement('ul');
-
         ul.appendChild(this.logoApp());
 
         this.navItems.forEach(item => {

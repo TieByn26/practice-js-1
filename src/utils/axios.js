@@ -11,7 +11,7 @@ export const axiosIntance = axios.create({
 //function getdata by endpoint url
 export const axiosApi = async (endPointUrl) =>{
     try {
-        const res = await axios.get(endPointUrl);
+        const res = await axiosIntance.get(endPointUrl);
         return res.data;
     } catch(err){
         console.log(">>>message error: ",err.message);

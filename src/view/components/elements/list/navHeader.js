@@ -1,9 +1,11 @@
+import { elementHtml } from "@/utils";
 import {
     ic_menu, ic_search, ic_calendar, ic_notification,
     ic_envelope_menu, ic_gray, ic_chevron, ic_avatar
 } from "@/constants";
 
 export class NavHeader {
+    elhtml = new elementHtml();
     list = [
         this.navHeaderLink(ic_search),
         this.navHeaderLink(ic_calendar),
@@ -16,13 +18,8 @@ export class NavHeader {
         
     }
     navHeaderLink(icon){
-        const a = document.createElement("a");
-        a.href = "#";
-
-        const img = document.createElement("img");
-        img.src = icon;
-        img.alt = "icon";
-
+        const a = this.elhtml.aElement("","#");
+        const img = this.elhtml.imgElement(icon,"icon","");
         a.appendChild(img);
 
         return a.outerHTML;
@@ -41,20 +38,12 @@ export class NavHeader {
 
     manager() {
         const figure = document.createElement("figure");
-        const img = document.createElement("img");
-        img.src = ic_avatar;
-        img.alt = "icon";
+        const img = this.elhtml.imgElement(ic_avatar,"icon","");
         figure.appendChild(img);
 
         const div = document.createElement("div");
-
-        const spanName = document.createElement("span");
-        spanName.className = "span-name";
-        spanName.textContent = "Jay Hargudson";
-
-        const spanPosition = document.createElement("span");
-        spanPosition.className = "span-position";
-        spanPosition.textContent = "Manager";
+        const spanName = this.elhtml.spanElement("span-name","Jay Hargudson");
+        const spanPosition = this.elhtml.spanElement("span-position","Manager");
 
         div.appendChild(spanName);
         div.appendChild(spanPosition);
@@ -62,8 +51,7 @@ export class NavHeader {
         const chevron = document.createElement("div");
         chevron.innerHTML = this.navHeaderLink(ic_chevron);
 
-        const container = document.createElement("div");
-        container.className = "container-admin";
+        const container = this.elhtml.divELement("container-admin");
         container.appendChild(figure);
         container.appendChild(div);
         container.appendChild(chevron);
@@ -73,30 +61,25 @@ export class NavHeader {
 
     header() {
         // nav-header_menu
-        const divContainer1 = document.createElement("div");
-        divContainer1.className = "nav-header_menu";
+        const divContainer1 = this.elhtml.divELement("nav-header_menu");
         divContainer1.innerHTML = this.navHeaderLink(ic_menu);
 
         // nav-header_container
-        const divContainer2 = document.createElement("div");
-        divContainer2.className = "nav-header_container";
+        const divContainer2 = this.elhtml.divELement("nav-header_container");
 
         // nav-header_container-leftmenu
-        const divContainer3 = document.createElement("div");
-        divContainer3.className = "nav-header_container-leftmenu";
+        const divContainer3 = this.elhtml.divELement("nav-header_container-leftmenu");
         divContainer3.appendChild(this.navList());
 
         // nav-header_container-rightmenu
-        const divContainer4 = document.createElement("div");
-        divContainer4.className = "nav-header_container-rightmenu";
+        const divContainer4 = this.elhtml.divELement("nav-header_container-rightmenu");
         divContainer4.appendChild(this.manager());
 
         divContainer2.appendChild(divContainer3);
         divContainer2.appendChild(divContainer4);
 
         // Append all to a container div and return it
-        const navTop = document.createElement("div");
-        navTop.className = "nav-header-top";
+        const navTop = this.elhtml.divELement("nav-header-top");;
         navTop.appendChild(divContainer1);
         navTop.appendChild(divContainer2);
 
