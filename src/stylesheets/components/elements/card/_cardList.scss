@@ -1,0 +1,30 @@
+@use "../../../abstracts/" as *;
+@use "../../../base/" as *;
+
+.card-container{
+    padding: 32px 24px; 
+    background-color: $background-color-second;
+    .card-container_list{
+        @include flex($display: flex, $align: flex-start, $gap: 24px);
+        align-self: stretch;
+
+        li:nth-child(3){
+            .card-container_list-item{
+                .grow{
+                    @include color($color:$color-second-font, $background: $li-line-color);
+                }
+            }
+        }
+        li:nth-child(4){
+            .card-container_list-item{
+                .grow{
+                    @include color($color:#F04438, $background: #FEEDEC);
+                }
+            }
+        }
+        li:hover{
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            transform: scale(1.01);
+        }
+    }
+}
