@@ -4,3 +4,6 @@ export * from "./button/index";
 export * from "./chevron/index";
 export * from "./card/index";
 export * from "./chart/index";
+export * from "./head/index";
+export * from "./table/index";
+export * from "./foot/index";

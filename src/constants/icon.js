@@ -40,7 +40,7 @@ import ic_product_blue from "@/assets/icons/menu/ic-product_blue.svg";
 import ic_dashboard_gray from "@/assets/icons/menu/ic-dashboard_gray.svg";
 import ic_customer_white from "@/assets/icons/menu/ic-customer_white.svg";
 import ic_envelope_menu from "@/assets/icons/menu/ic-envelope.svg";
-
+import ic_chevron_down from "@/assets/icons/menu/ic-chevron.svg";
 
 
 //icon of order
@@ -140,8 +140,8 @@ const [] = await Promise.all([
     loadIcon(ic_customer_white),
     loadIcon(ic_product_blue),
     loadIcon(ic_dashboard_gray),
-    loadIcon(ic_envelope_menu)
-
+    loadIcon(ic_envelope_menu),
+    loadIcon(ic_chevron_down)
 ]);
 
 export {ic_cart, ic_evenlope, ic_lock, ic_phone,
@@ -153,5 +153,6 @@ export {ic_cart, ic_evenlope, ic_lock, ic_phone,
     ic_address, ic_calendar_c, ic_customer_c, ic_invoice, ic_order, ic_packer, ic_payment,
     ic_phone_c, ic_processing, ic_reward, ic_shipping, ic_success_gray,
     ic_cross,ic_dollar, ic_export, ic_eye, ic_image, ic_pen, ic_plus, ic_save, ic_success_green, ic_trash, ic_video,
-    ic_shoping, ic_cart_menu, ic_cart_white,ic_customer_white,ic_dashboard_gray,ic_product_blue,ic_envelope_menu
+    ic_shoping, ic_cart_menu, ic_cart_white,ic_customer_white,ic_dashboard_gray,ic_product_blue,ic_envelope_menu,
+    ic_chevron_down
 };
