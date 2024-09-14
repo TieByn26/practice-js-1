@@ -5,7 +5,7 @@ export const rootlayout = () => {
         <div class = "root-container">
             ${nav()}
             <div class = "node-container">
-                ${header()} 
+                ${new header().render()} 
                 ${main()}
             </div>
         </div>
