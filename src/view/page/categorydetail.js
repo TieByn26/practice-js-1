@@ -1,10 +1,10 @@
-export class menu {
+export class categorydetail {
     constructor() {
         
     }
     mainMethod(){
         return /*html*/`
-            <div> menu </div>
+            <div> categorydetail </div>
         `;
     }
     render(){

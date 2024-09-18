@@ -1,10 +1,10 @@
-export class analytics {
+export class orderdetail {
     constructor() {
         
     }
     mainMethod(){
         return /*html*/`
-            <div> analytics </div>
+            <div> order detail </div>
         `;
     }
     render(){
