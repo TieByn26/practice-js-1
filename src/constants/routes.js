@@ -10,49 +10,36 @@ export const routesPath = {
     categorydetail: "/category-detail/:categoryId",
     order: "/order",
     orderdetail: "/order-detail/:orderId",
-    customer : "/customer", 
+    customer: "/customer", 
     customerdetail: "/customer-detail/:customerId",
     seller: "/seller"
 };
-export const getPath = {
-    [routesPath.home]: () => routesPath.home,
-    [routesPath.product]: () => routesPath.product, 
-    [routesPath.addproduct]: () => routesPath.addproduct,
-    [routesPath.productdetail]() {
-        const {productId} = router.extractParams(
-            location.pathname,
-            routesPath.productdetail
-        );
-        return routesPath.productdetail.replace(":productId", productId);
-    },
-    [routesPath.categories]: () => routesPath.categories,
-    [routesPath.addcategory]: () => routesPath.addcategory,
-    [routesPath.categorydetail] () {
-        const {categoryId} = router.extractParams(
-            location.pathname,
-            routesPath.categorydetail
-        );
-        return routesPath.categorydetail.replace("categoryId", categoryId);
-    },
-    [routesPath.order]: () => routesPath.order,
-    [routesPath.orderdetail] () {
-        const {orderId} = router.extractParams(
-            location.pathname,
-            routesPath.orderdetail
-        );
-        return routesPath.categorydetail.replace("orderId", orderId);
-    },
-    [routesPath.customer]: () => routesPath.customer,
-    [routesPath.customerdetail] () {
-        const {customerId} = router.extractParams(
-            location.pathname,
-            routesPath.customerdetail
-        );
-        return routesPath.categorydetail.replace("customerId", customerId);
-    }, 
-    [routesPath.seller]: () => routesPath.seller
+
+/**
+ * Replace param in path with actual value from URL
+ * @param {String} path - Route path containing param
+ * @param {String} paramKey - The param key to be replaced (e.g., productId, categoryId)
+ * @returns {String} - Route path with param replaced
+ */
+const replaceParamInPath = (path, paramKey) => {
+    const params = router.extractParams(location.pathname, path);
+    return path.replace(`:${paramKey}`, params[paramKey]);
 };
 
+export const getPath = {
+    [routesPath.home]: () => routesPath.home,
+    [routesPath.product]: () => routesPath.product,
+    [routesPath.addproduct]: () => routesPath.addproduct,
+    [routesPath.productdetail]: () => replaceParamInPath(routesPath.productdetail, "productId"),
+    [routesPath.categories]: () => routesPath.categories,
+    [routesPath.addcategory]: () => routesPath.addcategory,
+    [routesPath.categorydetail]: () => replaceParamInPath(routesPath.categorydetail, "categoryId"),
+    [routesPath.order]: () => routesPath.order,
+    [routesPath.orderdetail]: () => replaceParamInPath(routesPath.orderdetail, "orderId"),
+    [routesPath.customer]: () => routesPath.customer,
+    [routesPath.customerdetail]: () => replaceParamInPath(routesPath.customerdetail, "customerId"),
+    [routesPath.seller]: () => routesPath.seller
+};
 // export const routeComponents = {
 //     [routesPath.home]: new home().render(),
 //     [routesPath.product]: new product().render(),

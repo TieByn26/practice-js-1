@@ -1,74 +1,40 @@
-// import { routeComponents } from "@/constants";
-
-// import { rootlayout } from "@/view";
-
-// export class router {
-//     constructor() {
-//         document.addEventListener('click', this.clickNavlink.bind(this));
-//         window.addEventListener('popstate', this.popState.bind(this));
-//         this.navigate();
-//     }
-//     navigate() {
-//         document.querySelector("#app").innerHTML = rootlayout();
-//         document.querySelector(".main-container").innerHTML = 
-//         routeComponents[window.location.pathname];
-//     }
-//     clickNavlink(event){
-//         const target = event.target.closest(".nav-link");
-//         if (target){
-//             event.preventDefault();
-//             const newPath = target.getAttribute("href");
-//             window.history.pushState({}, "", newPath);
-//             this.navigate();
-//         }
-//     }
-//     popState(){
-//         this.navigate();
-//     }
-// }
 import { routes } from "./routes";
-import { rootLayout } from "@/view";
 
 export class router {
     constructor() {
-        
-        window.addEventListener("popstate", () => {
-            window.dispatchEvent(new CustomEvent("urlChanged"));
-        });
-        window.addEventListener("urlChanged", () => {
-            router.routeToMatchingComponent();
-        });
-        const url = window.location.pathname;
-        router.pushState(url);
+        window.addEventListener("popstate", () => window.dispatchEvent(new CustomEvent("urlChanged")));
+        window.addEventListener("urlChanged", router.routeToMatchingComponent);
+        /**
+         * web start
+         */
+        router.pushState(window.location.pathname);
     }
+
     /**
-     * 
-     * @returns {object}
+     * get params from the current URL
+     * @returns {object|null}
      */
     static getParam() {
         const urlPath = window.location.pathname;
-        let [componentPath, params] = [null, null];
-
-        for (const route1 of routes) {
-            if (route1.children) {
-                for (const route2 of route1.children) {
-                    componentPath = `${route1.path}${route2.path}`;
-                    if (router.correctPath(urlPath, componentPath)) {
-                        params = router.extractParams(urlPath, componentPath);
-                        return params;
-                    }
-                }
-            } else {
-                componentPath = route1.path;
-                if (router.correctPath(urlPath, componentPath)) {
-                    params = router.extractParams(urlPath, componentPath);
-                    return params;
-                }
+        for (const route of router.getFlattenedRoutes()) {
+            const { path } = route;
+            if (router.correctPath(urlPath, path)) {
+                return router.extractParams(urlPath, path);
             }
         }
+        return null;
     }
+
     /**
-     * 
+     * retrieve all routes (including child routes)
+     * @returns {Array}
+     */
+    static getFlattenedRoutes() {
+        return routes.flatMap(route => route.children ? route.children.map(child => ({ ...child, parentComponent: route.component })) : [route]);
+    }
+
+    /**
+     * ẽtract params from URL and corresponding path
      * @param {String} url 
      * @param {String} path 
      * @returns {object}
@@ -76,98 +42,75 @@ export class router {
     static extractParams(url, path) {
         const urlSegments = url.split("/");
         const pathSegments = path.split("/");
-        const params = {};
-
-        for (let i = 0; i < pathSegments.length; i++) {
-            if (pathSegments[i].startsWith(":")) {
-                const key = pathSegments[i].slice(1);
-                params[key] = urlSegments[i];
+        return pathSegments.reduce((params, segment, i) => {
+            if (segment.startsWith(":")) {
+                params[segment.slice(1)] = urlSegments[i];
             }
-        }
-        return params;
+            return params;
+        }, {});
     }
+
     /**
-     * 
+     * get the component and render it based on the current URL
      * @returns {object}
      */
     static getRoutes() {
-        let [childNode, componentPath, params] = [null, null, null];
         const urlPath = window.location.pathname;
-
-        for (const route1 of routes) {
-            if (route1.children) {
-                for (const route2 of route1.children) {
-                    componentPath = `${route1.path}${route2.path}`;
-                    if (router.correctPath(urlPath, componentPath)) {
-                        params = router.extractParams(urlPath, componentPath);
-
-                        if (Object.keys(params).length !== 0) {
-                            childNode = new route2.component().render();
-                        } else {
-                            childNode = new route2.component().render();
-                        }
-                        const componentMain = new route1.component().render(childNode);
-                        childNode = componentMain;
-                        
-                        return { childNode, componentPath, params };
-                    }
+        for (const route of router.getFlattenedRoutes()) {
+            const { path, component, parentComponent } = route;
+            if (router.correctPath(urlPath, path)) {
+                const params = router.extractParams(urlPath, path);
+                const childNode = new component().render();
+                if (parentComponent) {
+                    return { childNode: new parentComponent().render(childNode), path, params };
                 }
-            } else {
-                componentPath = route1.path;
-                if (router.correctPath(urlPath, componentPath)) {
-                    childNode = route1.component.render();
-                    console.log(childNode);
-                    params = router.extractParams(urlPath, componentPath);
-                    return { childNode, componentPath, params };
-                }
+                return { childNode, path, params };
             }
         }
-        return { childNode, componentPath, params };
+        return { childNode: null, path: null, params: null };
     }
+
     /**
-     * 
+     * check if the URL matches the routes path
      * @param {string} url 
      * @param {string} path 
-     * @param {boolean} isEqualLenght 
+     * @param {boolean} isEqualLength 
      * @returns {boolean}
      */
-    static correctPath(url, path, isEqualLenght = true) {
+    static correctPath(url, path, isEqualLength = true) {
         const urlSegments = url.split("/");
         const pathSegments = path.split("/");
+        
+        if (isEqualLength && urlSegments.length !== pathSegments.length) return false;
 
-        if (urlSegments.length !== pathSegments.length && isEqualLenght) {
-            return false;
-        }
-        const len = Math.min(urlSegments.length, pathSegments.length);
-
-        for (let i = 0; i < len; i++) {
-            if (urlSegments[i] !== pathSegments[i] && !pathSegments[i].startsWith(":")) {
-                return false;
-            }
-        }
-        return true;
+        return pathSegments.every((segment, i) => segment.startsWith(":") || segment === urlSegments[i]);
     }
+
     /**
-     * 
-     * @returns {html}
+     * navigate to the component that matches the current URL
      */
     static routeToMatchingComponent() {
         const app = document.querySelector("#app");
         const { childNode } = router.getRoutes();
-        if (childNode) {
-            app.replaceChildren(childNode);
-            return;
-        }
-        const div = document.createElement("div");
-        div.textContent = "Not Found";
-        app.replaceChildren(div);
+        app.replaceChildren(childNode || router.createNotFoundComponent());
     }
+
     /**
-     * 
+     * create a "404" component when no matching route is found
+     * @returns {HTMLElement}
+     */
+    static createNotFoundComponent() {
+        const div = document.createElement("div");
+        div.textContent = "404 Not Found";
+        return div;
+    }
+
+    /**
+     * change the URL and dispatch the urlChanged event
      * @param {String} pathUrl 
      */
     static pushState(pathUrl) {
-        window.history.pushState(null, null, pathUrl);  
+        window.history.pushState(null, null, pathUrl);
         window.dispatchEvent(new CustomEvent("urlChanged"));
     }
 }
