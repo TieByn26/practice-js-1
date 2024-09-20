@@ -14,6 +14,6 @@ export class header {
     }
 
     render(){
-        return this.headerLayout().outerHTML;
+        return this.headerLayout();
     }
 }
