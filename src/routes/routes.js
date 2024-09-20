@@ -1,12 +1,12 @@
 import { home, product, addproduct, productdetail
     ,categories, addcategory, categorydetail
-    ,order,orderdetail,customer,customerdetail,seller, rootlayout
+    ,order,orderdetail,customer,customerdetail,seller
  } from "@/view";
-
+import { rootLayout } from "@/view";
 export const routes = [
     {
-        path : "",
-        component:  new rootlayout(),
+        path: "",
+        component: rootLayout,
         children: [
             { path: "/", component: home},
             { path: "/product", component: product},
