@@ -5,8 +5,7 @@ export class navigation{
         this.container = document.createElement("nav");
         this.container.className = "nav-container";
         const navlist = new NavList();
-        this.container.appendChild(navlist.render());
-        console.log("reload navigation");
+        this.container.appendChild(navlist.render())
     }   
     render(){
         return this.container;
