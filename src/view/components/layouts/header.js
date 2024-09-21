@@ -1,18 +1,18 @@
-import { NavHeader } from "../elements/navHeader";
+import { NavHeader } from "../elements";
 export class header {
     constructor(){
 
     }
     headerLayout(){
-        return `
-            <header>
-                <nav class = "nav-header">
-                    ${new NavHeader().render()}
-                </nav>
-            </header>
-        `;
+        const header = document.createElement("header");
+        const nav = document.createElement("nav");
+        nav.className = "nav-header";
+        nav.innerHTML = new NavHeader().render();
+        header.appendChild(nav);
+
+        return header;
     }
+
     render(){
-        return this.headerLayout();
-    }
+        return this.headerLayout().outerHTML;
 }
