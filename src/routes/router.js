@@ -101,7 +101,10 @@ export class router {
      */
     static createNotFoundComponent() {
         const div = document.createElement("div");
-        div.textContent = "404 Not Found";
+        div.className = "notfound-page";
+        const img = document.createElement("img");
+        img.src = "https://img.freepik.com/free-vector/404-error-with-cute-animal-concept-illustration_114360-1880.jpg?w=740&t=st=1726988079~exp=1726988679~hmac=1a8c363360a589080d27afddf4fe8f9e2f0f0d8b8d7bb51af5043f2b1772f176";
+        div.appendChild(img);
         return div;
     }
 

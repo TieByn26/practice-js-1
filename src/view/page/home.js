@@ -1,78 +1,76 @@
 import { elementHtml } from "@/utils";
 import { ic_plus, ic_calendar } from "@/constants";
-import { button, tabchevron, saleProgressChart, statistics, 
-    cardList, headSelling, footSelling, 
-    headSaleLocation, tableContainer} from "../components";
-import { saleLocationController } from "@/controllers";
+import { button, tabchevron, saleProgressChart, statistics, cardList, headSelling, headSaleLocation } from "../components";
+import { tableContainer , footSelling} from "../components";
+import { saleLocationController, productController } from "@/controllers";
 
 export class home {
     elHtml = new elementHtml();
 
     constructor() {}
 
-    createButton(className, to, label, icon) {
-        return new button().render(className, { to, label, icon });
-    }
-
-    createDiv(className, ...children) {
-        const div = this.elHtml.divELement(className);
-        if (children.length) div.append(...children);
-        return div;
-    }
-
-    /**
-     * @returns {HTMLElement} container1
-     */
     chevron() {
-        const chevronLeft = this.createDiv("home-container-chevron_left", new tabchevron().render());
-        const chevronRight = this.createDiv(
-            "home-container-chevron_right",
-            this.createButton("button-white", "#", "Select Dates", ic_calendar),
-            this.createButton("button-blue", "#", "Add Product", ic_plus)
-        );
-        return this.createDiv("home-container-chevron", chevronLeft, chevronRight);
+        const container1 = this.elHtml.divELement("home-container-chevron");
+        const container2 = this.elHtml.divELement("home-container-chevron_left");
+        container2.appendChild(new tabchevron().render());
+
+        const container3 = this.elHtml.divELement("home-container-chevron_right");
+        container3.appendChild(new button().render("button-white", { to: "#", label: "Select Dates", icon: ic_calendar }));
+        container3.appendChild( new button().render("button-blue", { to: "#", label: "Add Product", icon: ic_plus }));
+
+        container1.appendChild(container2);
+        container1.appendChild(container3);
+
+        return container1;
     }
 
-    /**
-     * @returns {HTMLElement} container
-     */
     chart() {
-        return this.createDiv("chart-container", saleProgressChart(), statistics());
+        const container = this.elHtml.divELement("chart-container");
+        container.appendChild(saleProgressChart());
+        container.appendChild(statistics());
+
+        return container;
     }
 
-    /**
-     * @returns {HTMLElement} container
-     */
     topSellingSale() {
-        const leftContainer = this.createDiv("top-container_left", headSelling(), tableContainer.tableSelling(), footSelling());
-        const rightContainer = this.createDiv("top-container_right", headSaleLocation());
+        const container = this.elHtml.divELement("top-container");
+        const leftContainer = this.elHtml.divELement("top-container_left");
+        leftContainer.appendChild(headSelling());
+        this.handleDisPlayData(productController.getTopSelling()).then(data => {
+            leftContainer.appendChild(tableContainer.tableSelling(data));
+            leftContainer.appendChild(footSelling.creatFootSelling());
+        })
 
-        this.appendPromiseData(tableContainer.handleDisPlayData(saleLocationController.getData()), rightContainer);
-        return this.createDiv("top-container", leftContainer, rightContainer);
+        const rightContainer = this.elHtml.divELement("top-container_right");
+        this.handleDisPlayData(saleLocationController.getData()).then(data =>{
+            rightContainer.appendChild(headSaleLocation());
+            rightContainer.appendChild(tableContainer.tableSaleLocation(data));
+        });
+
+        container.appendChild(leftContainer);
+        container.appendChild(rightContainer);
+
+        return container;
     }
 
-    /**
-     * Handle and append promise data to container
-     * @param {Promise} promise 
-     * @param {HTMLElement} container 
-     */
-    async appendPromiseData(promise, container) {
-        const table = await promise;
-        container.appendChild(table);
-    }
-
-    /**
-     * @returns {HTMLElement} container
-     */
     mainMethod() {
-        return this.createDiv("home-container",this.chevron(), cardList(), this.chart(), this.topSellingSale());
-    }
+        const container = this.elHtml.divELement("home-container");
+        
+        container.appendChild(this.chevron());
+        container.appendChild(cardList());
+        container.appendChild(this.chart());
+        container.appendChild(this.topSellingSale());
 
-    /**
-     * @returns {HTMLElement}
-     */
+        return container;
+    }
+    //XU LY LAY DATA 
+    async handleDisPlayData(data) {
+        const obj = await data;
+        return data;
+    };
+
     render() {
-        console.log("load home");
-        return this.mainMethod();
+        const output = this.mainMethod();
+        return output;
     }
 }

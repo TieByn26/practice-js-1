@@ -48,7 +48,9 @@
                 flex: 1 0 0;
                 td {
                     @include flex($display: flex, $gap: 8px);
-                    
+                    img{
+                        @include size($width: 40px, $height: 40px);
+                    }
                     div {
                         @include flex($display: flex, $direction: column);
                         span:nth-child(1) {

@@ -19,6 +19,6 @@ export class category extends dtoMethod{
         this.description = description;
         this.sales = sales;
         this.stock = stock;
-        this.added = added;
+        this.added = added; 
     }
 }
