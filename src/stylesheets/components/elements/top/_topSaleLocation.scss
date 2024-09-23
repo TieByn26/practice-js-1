@@ -1,0 +1,101 @@
+@use "../../../abstracts/" as *;
+@use "../../../base/" as *;
+
+.top-container {
+    @include flex($display: flex, $align: flex-start, $gap: 24px);
+    align-self: stretch;
+
+    &_right {
+        @include flex($display: flex, $direction: column, $align: center, $gap: 20px);
+        @include size($width: 360px);
+        @include boder($boder-radius: 8px, $boder: 1px solid $neutral-gray-gray);
+        @include color($background: $background-color);
+        box-shadow: 0px 1.5px 2px 0px rgba(16, 24, 40, 0.10);
+        padding: 24px;
+
+        &-header {
+            @include flex($display: flex, $align: flex-start, $gap: 14px);
+            align-self: stretch;
+
+            div {
+                @include flex($display: flex, $direction: column, $align: flex-start, $gap: 2px);
+                flex: 1 0 0;
+
+                span {
+                    @include font($font-size: 18px, $font-weight: 500, $line-height: 28px);
+                    letter-spacing: 0.09px;
+                    color: $color-name-font;
+                }
+
+                span:nth-child(2) {
+                    @include font($font-size: 14px, $font-weight: 500, $line-height: 24px);
+                    letter-spacing: 0.07px;
+                    color: $color-second-font;
+                }
+            }
+
+            img {}
+        }
+
+        &-main {
+            tbody {
+                @include flex($display: flex, $direction: column, $align: flex-start, $gap: 14px);
+                align-self: stretch;
+            }
+            tr {
+                width: 312px;
+                @include flex($display: flex, $justify: center, $align: center, $gap: 8px);
+                flex: 1 0 0;
+                td {
+                    @include flex($display: flex, $gap: 8px);
+                    img{
+                        @include size($width: 40px, $height: 40px);
+                    }
+                    div {
+                        @include flex($display: flex, $direction: column);
+                        span:nth-child(1) {
+                            @include font($font-size: 14px, $font-weight: 500, $line-height: 20px);
+                            color: $color-name-font;
+                            letter-spacing: 0.07px;
+                        }
+                        span {
+                            @include font($font-size: 12px, $font-weight: 400, $line-height: 18px);
+                            color: $neutral-Black-Black-500;
+                            letter-spacing: 0.06px;
+                        }
+                    }
+        
+                    .capital-profit, .capital-loss, .equal-capital {
+                        @include font($font-size: 12px, $font-weight: 600, $line-height: 18px);
+                        border-radius: 100px;
+                        padding: 2px 6px;
+                        letter-spacing: 0.06px;
+                        text-align: center;
+                    }
+        
+                    .capital-profit {
+                        @include color($color: $secondary-Green-Green-500, $background: $secondary-Green-Green-50);
+                    }
+        
+                    .capital-loss {
+                        @include color($color: $secondary-Red-Red-500, $background: $secondary-Red-Red-50);
+                    }
+        
+                    .equal-capital {
+                        @include color($color: $neutral-Black-Black-500, $background: $neutral-gray-gray-50);
+                    }
+        
+                    span {
+                        @include font($font-size: 14px, $font-weight: 500, $line-height: 20px);
+                        color: $color-name-font;
+                        letter-spacing: 0.07px;
+                    }
+                }
+        
+                td:nth-child(2) {
+                    margin-left: auto; 
+                }
+            }
+        }
+    }        
+}
