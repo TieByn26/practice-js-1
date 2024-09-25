@@ -5,6 +5,7 @@
     padding: 32px 24px;
     @include color($background: $background-color-second);
     &_left {
+        width: 744px;
         background-color: $background-color;
         @include flex($display: flex, $direction: column, $align: flex-start);
         @include boder($boder-radius: 8px, $boder: 1px solid $neutral-gray-gray);
@@ -69,7 +70,7 @@
                             }
                         }
                         th:nth-child(5){
-                            @include size($width: 139px);
+                            @include size($width: 136px);
                             
                         }
                     }

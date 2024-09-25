@@ -1,0 +1,59 @@
+@use "../../../abstracts/" as *;
+@use "../../../base/" as *;
+
+.recent-order-container {
+    @include flex($display: flex, $direction: column, $align: flex-start);
+    @include boder($boder-radius: 8px, $boder: 1px solid $neutral-gray-gray);
+    @include color($background: $background-color);
+    box-shadow: 0px 1.5px 2px 0px rgba(16, 24, 40, 0.10);
+    margin: auto;
+    width: 1128px;
+    flex: 1 0 0;
+
+    .head-recent-order {
+        @include flex($display: flex, $align: center, $gap: 12px);
+        padding: 18px 24px;
+        align-self: stretch;
+
+        &_left {
+            @include flex($display: flex, $align: center, $gap: 18px);
+            flex: 1 0 0;
+
+            .span-title {
+                @include font($font-size: 18px, $font-weight: 500, $line-height: 28px);
+                color: $primary-font;
+                letter-spacing: 0.09px;
+            }
+
+            .span-order {
+                @include font($font-size: 14px, $font-weight: 600, $line-height: 20px);
+                @include color($color: $secondary-Green-Green-500, $background: $secondary-Green-Green-50);
+                padding: 4px 12px;
+                border-radius: 100px;
+                letter-spacing: 0.07px;
+            }
+        }
+
+        &_middle {
+            @include flex($display: flex, $align: center, $justify: center, $gap: 8px);
+            @include boder($boder-radius: 8px, $boder: 1px solid $neutral-gray-gray);
+            background-color: $background-color;
+            padding: 10px 14px;
+
+        }
+
+        .button-blue {
+            @include boder($boder-radius: 8px);
+            @include color($color: white, $background: $nav-color);
+            padding: 10px 14px;
+            align-items: center;
+            img{
+                display: none;
+            }
+            span{
+                @include font($font-size: 14px, $font-weight: 600, $line-height: 20px);
+                letter-spacing: 0.07px;
+            }
+        }
+    }
+}
