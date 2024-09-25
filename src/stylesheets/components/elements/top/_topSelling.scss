@@ -1,0 +1,184 @@
+@use "../../../abstracts/" as *;
+@use "../../../base/" as *;
+
+.top-container {
+    padding: 32px 24px;
+    @include color($background: $background-color-second);
+    &_left {
+        width: 744px;
+        background-color: $background-color;
+        @include flex($display: flex, $direction: column, $align: flex-start);
+        @include boder($boder-radius: 8px, $boder: 1px solid $neutral-gray-gray);
+
+        box-shadow: 0px 1.5px 2px 0px rgba(16, 24, 40, 0.10);
+        flex: 1 0 0;
+
+        &-header {
+            height: 76px;
+
+            @include flex($display: flex, $align: center, $gap: 12px);
+            padding: 18px 24px;
+            align-self: stretch;
+
+            span {
+                @include size($width: 586px);
+                @include font($font-size: 18px, $font-weight: 500, $line-height: 28px);
+                letter-spacing: 0.09px;
+                color: $color-primary-font;
+            }
+
+            div {
+                @include size($width: 98px);
+                @include color($background: $background-color);
+                @include boder($boder-radius: 8px, $boder: 1px solid $neutral-gray-gray);
+                @include flex($display: flex, $align: center, $justify: center, $gap: 8px);
+                padding: 10px 14px;
+                
+                span {
+                    @include font($font-size: 14px, $font-weight: 500, $line-height: 20px);
+                    color: $color-second-font;
+                    letter-spacing: 0.07px;
+                }
+            }
+        }
+        &-main{
+            table{
+                thead{
+                    tr{
+                        @include flex($display: flex);
+                        th{
+                            @include flex($display: flex, $align: flex-start, $gap: 8px);
+                            @include font($font-size: 14px, $font-weight: 500, $line-height: 20px);
+                            @include color($color: $color-primary-font, $background: $neutral-gray-gray-25);
+                            @include size($width: 127.67px, $height: 56px);
+                            letter-spacing: 0.07px;
+                            border-bottom: 1px solid $neutral-gray-gray-50;
+                            align-self: stretch;
+                            padding: 18px 22px;
+                        }
+                        th:nth-child(1){
+                            @include size($width: 222px);
+                            span{
+                                @include size($width: 150px);
+                                text-align: left;
+                            }
+                        }
+                        th:nth-child(2){
+                            span{
+                                @include size($width: 55.66px);
+                                text-align: left;
+                            }
+                        }
+                        th:nth-child(5){
+                            @include size($width: 136px);
+                            
+                        }
+                    }
+                }
+                tbody{
+                    max-height: 400px;
+                    tr{
+                        span{
+                            @include font($font-size: 14px, $font-weight: 500, $line-height: 20px);
+                            letter-spacing: 0.07px;
+                            color: $color-second-font;
+                        }
+                        @include flex($display: flex, $align: center);
+                        td:nth-child(1){
+                            @include flex($display: flex,$align: center, $gap: 8px);
+                            align-self: stretch;
+            
+                            div{
+                                @include flex($display: flex, $direction: column,$align: flex-start, $gap: 4px);
+                                span:nth-child(1){
+                                    @include font($font-size: 14px, $font-weight: 500, $line-height: 20px);
+                                    letter-spacing: 0.07px;
+                                    color: $color-primary-font;
+                                }
+                                span{
+                                    @include font($font-size: 12px, $font-weight: 400, $line-height: 18px);
+                                    letter-spacing: 0.06px;
+                                    color:$color-second-font;
+                                }
+                            }
+                            @include size($width: 222px);
+                        }
+                        td:nth-child(2){
+                            span{
+                                @include size($width: 55.66px);
+                                text-align: left;
+                            }
+                        }
+                        td:nth-child(5){
+                            @include size($width: 139px);
+                            
+                        }
+                        td {
+                            @include font($font-size: 14px, $font-weight: 600, $line-height: 20px);
+                            @include size($width: 127.67px);
+                            padding: 18px 22px;
+                            letter-spacing: 0.07px;
+                            .out-stock-status{
+                                padding: 4px 12px;
+                                    align-items: center;
+                                    border-radius: 100px;
+                                @include color($color:$secondary-Red-Red-500,$background:$secondary-Red-Red-50);
+                            }
+                            .low-stock-status{
+
+                                padding: 4px 12px;
+                                    align-items: center;
+                                    border-radius: 100px;
+                                @include color($color:$secondary-Yellow-Yellow-500, $background:$secondary-Yellow-Yellow-50);
+                            }
+                            .draft-status{
+                                padding: 4px 12px;
+                                    align-items: center;
+                                    border-radius: 100px;
+                                @include color($color:$neutral-Black-Black-500, $background:$neutral-gray-gray-50);
+                            }
+                            .published-status{
+                                padding: 4px 12px;
+                                    align-items: center;
+                                    border-radius: 100px;
+                                @include color($color:$secondary-Green-Green-500, $background:$secondary-Green-Green-50);
+                            }
+                        }
+                        
+                    }
+                }
+            }
+        }
+        &-footer{
+            @include flex($display: flex, $align: center, $gap: 12px);
+            align-self: stretch;
+            padding: 14px 24px 16px 24px;
+            span{
+                @include size($width: 492px);
+                @include font($font-size: 14px, $font-weight: 500, $line-height: 20px);
+                letter-spacing: 0.07px;
+                color: $color-second-font ;
+            }
+            div{
+                @include flex($display: flex, $align: flex-start, $gap: 8px);
+                button{
+                    @include flex($display: flex, $justify: center, $align: center, $gap: 4px);
+                    @include font($font-size: 14px, $font-weight: 600, $line-height: 20px);
+                    @include size($width: 32px, $height: 32px);
+                    @include boder($boder-radius: 8px);
+                    @include color($color:$nav-color,$background:$button-tab-color);
+                    letter-spacing: 0.07px;
+                    padding: 6px;
+                }
+                .button-active{
+                    @include color($color:$background-color,$background:$nav-color);
+                }
+                button:nth-child(5){
+                    img{
+                        transform: rotate(180deg);
+                    }
+                }
+            }
+        }
+    }
+}
