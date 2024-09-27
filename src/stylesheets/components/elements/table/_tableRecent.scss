@@ -117,7 +117,7 @@
             .processing-status{
                 @include color($color: $secondary-Yellow-Yellow-500, $background: $secondary-Yellow-Yellow-50);
             }
-            .shiped-status{
+            .shipped-status{
                 @include color($color: #13B2E4, $background: #E8F8FD);
             }
             .delivered-status{

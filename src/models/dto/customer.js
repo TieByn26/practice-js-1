@@ -15,6 +15,7 @@ export const typeofCostomer = {
 }
 export class Customer extends dtoMethod{
     constructor({id, name, mail, phone, orders, balance, point, status, created, address, latest}){
+        super();
         this.id = id;
         this.name = name;
         this.mail = mail;

@@ -18,7 +18,7 @@ export class HeadRecentOrder {
         const spanFilter = element.spanElement("","Filters");
         containerMidle.append(imgFilter, spanFilter);
 
-        const buttonSeeMore = createButton.render("button-blue",{to: '/404', label : 'See More',icon: ""});
+        const buttonSeeMore = createButton.render("button-blue",{to: '/order', label : 'See More',icon: ""});
 
         container.append(containerLeft, containerMidle, buttonSeeMore);
         return container;

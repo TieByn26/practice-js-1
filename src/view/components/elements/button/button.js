@@ -1,10 +1,11 @@
 import { elementHtml } from "@/utils";
+import { Link } from "../link";
 export class button {
     constructor() {}
     elHtml = new elementHtml();
 
     buttonLink(to, label, icon) {
-        const container = this.elHtml.aElement("",to);
+        const container = new Link(to).render();
         const img = this.elHtml.imgElement(icon, "icon");
         const span = this.elHtml.spanElement("",label);
 

@@ -4,12 +4,19 @@ import { button, tabchevron, saleProgressChart,
     statistics, cardList, headSelling, headSaleLocation,
     tableContainer , footSelling, HeadRecentOrder, TableRecent, 
     FootRecent} from "../components";
-import { saleLocationController, productController } from "@/controllers";
+import { saleLocationController, productController, OrderController } from "@/controllers";
 
 export class home {
     elHtml = new elementHtml();
 
-    constructor() {}
+    constructor() {
+        this.container = this.elHtml.divELement("home-container");
+        this.chevron();
+        this.container.appendChild(cardList());
+        this.chart();
+        this.topSellingSale();
+        this.recentOrder();
+    }
 
     chevron() {
         const container1 = this.elHtml.divELement("home-container-chevron");
@@ -17,25 +24,25 @@ export class home {
         container2.appendChild(new tabchevron().render());
 
         const container3 = this.elHtml.divELement("home-container-chevron_right");
-        container3.appendChild(new button().render("button-white", { to: "#", label: "Select Dates", icon: ic_calendar }));
-        container3.appendChild( new button().render("button-blue", { to: "#", label: "Add Product", icon: ic_plus }));
+        container3.appendChild(new button().render("button-white", { to: "/404", label: "Select Dates", icon: ic_calendar }));
+        container3.appendChild( new button().render("button-blue", { to: "/add-product", label: "Add Product", icon: ic_plus }));
 
         container1.appendChild(container2);
         container1.appendChild(container3);
 
-        return container1;
+        this.container.appendChild(container1);
     }
 
     chart() {
-        const container = this.elHtml.divELement("chart-container");
-        container.appendChild(saleProgressChart());
-        container.appendChild(statistics());
+        const container1 = this.elHtml.divELement("chart-container");
+        container1.appendChild(saleProgressChart());
+        container1.appendChild(statistics());
 
-        return container;
+        this.container.appendChild(container1);
     }
 
     topSellingSale() {
-        const container = this.elHtml.divELement("top-container");
+        const container1 = this.elHtml.divELement("top-container");
         const leftContainer = this.elHtml.divELement("top-container_left");
         leftContainer.appendChild(headSelling());
         this.handleDisPlayData(productController.getTopSelling()).then(data => {
@@ -49,32 +56,27 @@ export class home {
             rightContainer.appendChild(tableContainer.tableSaleLocation(data));
         });
 
-        container.appendChild(leftContainer);
-        container.appendChild(rightContainer);
+        container1.appendChild(leftContainer);
+        container1.appendChild(rightContainer);
 
-        return container;
+        this.container.appendChild(container1);
     }
-    recentOrder(){
-        const container = this.elHtml.divELement("recent-order-container");
+    async recentOrder(){
+        const container1 = this.elHtml.divELement("recent-order-container");
         const headRecentOrder = HeadRecentOrder.render();
-        container.appendChild(headRecentOrder);
-        container.appendChild(TableRecent.tableRecentOrder());
-        container.appendChild(FootRecent.createFootRecent());
-        return container;
-    }
-
-    mainMethod() {
-        const container = this.elHtml.divELement("home-container");
+        container1.appendChild(headRecentOrder);
+        const data = await this.handleDisPlayData(OrderController.getListOrder(1));
         
-        container.appendChild(this.chevron());
-        container.appendChild(cardList());
-        container.appendChild(this.chart());
-        container.appendChild(this.topSellingSale());
-        container.appendChild(this.recentOrder());
+        if (data) {
+            const table = await TableRecent.tableRecentOrder(data);
+            container1.appendChild(table);
+            container1.appendChild(FootRecent.createFootRecent());
+        } else {
+            console.log("No data found");
+        }
 
-        return container;
+        this.container.appendChild(container1);
     }
-
     /**
      * Handle get data
      * @param {data} data 
@@ -86,7 +88,6 @@ export class home {
     };
 
     render() {
-        const output = this.mainMethod();
-        return output;
+       return this.container;
     }
 }

@@ -1,43 +1,23 @@
-import { elementHtml } from "@/utils";
-import { ic_chevron_down } from "@/constants";
-import { ic_avatar_gray, ic_pen, ic_eye } from "@/constants";
+import { axiosApiGetData, elementHtml, endpointUrl } from "@/utils";
+import { ic_chevron_down, ic_avatar_gray, ic_pen, ic_eye} from "@/constants";
 import { Link } from "../link";
-const elHtml = new elementHtml();
-export class TableRecent{
-    constructor(){
+import { CustomerController, OrderController } from "@/controllers";
 
-    }
-    static data = [
-        {
-            id: 302012,
-            name:"Handmade Pound",
-            added: "24 Dec 2022",
-            total: "$121.00",
-            payment: "Mastercard",
-            method: "Flat Shipping",
-            status: "Processing",
-            customerId: 1
-    },{
-        id: 302012,
-        name:"Handmade Pound",
-        added: "24 Dec 2022",
-        total: "$121.00",
-        payment: "Mastercard",
-        method: "Flat Shipping",
-        status: "Delivered",
-        customerId: 1
-}
-    ]
-    static tableRecentOrder(){
+const elHtml = new elementHtml();
+export class TableRecent {
+    constructor() {}
+
+    static async tableRecentOrder(obj) {
         const table = document.createElement("table");
         table.className = "table-for-recent-order";
-        //header of table
+        
+        // Header of table
         const headers = [
             { label: "Order ID", input: "checkbox" },
             { label: "Product", icon: ic_chevron_down },
             { label: "Date", icon: ic_chevron_down },
             { label: "Customer" },
-            { label: "Total", icon: ic_chevron_down},
+            { label: "Total", icon: ic_chevron_down },
             { label: "Payment" },
             { label: "Status", icon: ic_chevron_down },
             { label: "Action" }
@@ -55,94 +35,94 @@ export class TableRecent{
             }
             const span = elHtml.spanElement("", label);
             th.appendChild(span);
-    
+
             /** Append icon if it exists */
             if (icon) {
                 const img = elHtml.imgElement(icon, "icon", "");
                 th.appendChild(img);
             }
-            headRow.appendChild(th);    
+            headRow.appendChild(th);
         });
+
         thead.appendChild(headRow);
         table.appendChild(thead);
-        const tbody = this.createTableMain(this.data);
+
+        const tbody = await this.createTableMain(obj);
         table.appendChild(tbody);
-    
+
         // Append the table to the container
-        
         return table;
     }
-    static createTableMain(obj){
+
+    static async createTableMain(obj) {
         const tbody = document.createElement("tbody");
         const orders = obj;
-        console.log(orders);
 
-        orders.forEach(obj => {
+        for (const order of orders) {
             const mainRow = document.createElement("tr");
-            const keys = ["id","name","added","customerId","total","payment","status"];
+            const keys = ["id", "name", "added", "customerId", "total", "payment", "status"];
 
-            keys.forEach(key => {
+            for (const key of keys) {
                 const td = document.createElement("td");
-                
+
                 if (key === "id") {
-                    const div  = document.createElement("div");
+                    const div = document.createElement("div");
                     const input = document.createElement("input");
                     input.type = "checkbox";
-                    const span = elHtml.spanElement("","# "+obj[key]);
-                    div.append(input,span);
+                    const span = elHtml.spanElement("", "# " + order[key]);
+                    div.append(input, span);
                     td.appendChild(div);
                     mainRow.appendChild(td);
-
-                    return;
+                    continue;
                 }
-                if (key === "name"){
-                    const div  = document.createElement("div");
-                    const img = elHtml.imgElement(ic_avatar_gray,"icon","");
-                    const span = elHtml.spanElement("",obj[key]);
+
+                if (key === "name") {
+                    const div = document.createElement("div");
+                    const img = elHtml.imgElement(ic_avatar_gray, "icon", "");
+                    const span = elHtml.spanElement("", order[key]);
                     div.append(img, span);
                     td.appendChild(div);
                     mainRow.appendChild(td);
-
-                    return;
+                    continue;
                 }
-                //sua lai sau khi test
+
                 if (key === "customerId") {
-                    const div  = document.createElement("div");
-                    const spanName = elHtml.spanElement("","John Bushmill");
-                    const spanMail = elHtml.spanElement("","Johnb@mail.com");
+                    const customer = await CustomerController.getCustomerFollowId(order[key]);
+                    const div = document.createElement("div");
+                    const spanName = elHtml.spanElement("", customer.name);
+                    const spanMail = elHtml.spanElement("", customer.mail);
                     div.append(spanName, spanMail);
                     td.appendChild(div);
                     mainRow.appendChild(td);
-
-                    return;
+                    continue;
                 }
-                const span = elHtml.spanElement("",obj[key]);
-                if (key === "status"){
-                    const status = obj[key].startsWith("P") ? "processing-status" :
-                                   obj[key].startsWith("S") ? "shiped-status" : 
-                                   obj[key].startsWith("D") ? "delivered-status" : "cancelled-status";
+
+                const span = elHtml.spanElement("", order[key]);
+                if (key === "status") {
+                    const status = order[key].startsWith("P") ? "processing-status" :
+                                   order[key].startsWith("S") ? "shipped-status" :
+                                   order[key].startsWith("D") ? "delivered-status" : "cancelled-status";
                     span.className = status;
                 }
+
                 td.appendChild(span);
                 mainRow.appendChild(td);
+            }
 
-            });
             const td = document.createElement("td");
-            const detailLink = new Link("/order-detail/1").render();
-            const imgEye = elHtml.imgElement(ic_eye,"icon","");
+            const detailLink = new Link(`/order-detail/${order["id"]}`).render();
+            const imgEye = elHtml.imgElement(ic_eye, "icon", "");
             detailLink.appendChild(imgEye);
 
-            const updateLink = new Link("/order-update/1").render();
-            const imgPen = elHtml.imgElement(ic_pen,"icon","");
+            const updateLink = new Link(`/order-update/${order["id"]}`).render();
+            const imgPen = elHtml.imgElement(ic_pen, "icon", "");
             updateLink.appendChild(imgPen);
 
             td.append(detailLink, updateLink);
             mainRow.appendChild(td);
             tbody.appendChild(mainRow);
-        });
+        }
+
         return tbody;
-    }
-    static createRouteOrderDetail(){
-        
     }
 }
