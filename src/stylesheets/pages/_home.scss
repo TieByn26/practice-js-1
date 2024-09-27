@@ -1,0 +1,12 @@
+@use "../abstracts/" as *;
+@use "../base/" as *;
+
+.main-container{
+    background-color: $li-line-color;
+    .home{
+        background-color: $color-name-font;
+    }
+}
+.home-container{
+    background-color: $neutral-gray-gray-25;
+}

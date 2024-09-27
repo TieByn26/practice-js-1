@@ -1,0 +1,131 @@
+@use "../../../abstracts/" as *;
+@use "../../../base/" as *;
+
+.table-for-recent-order{
+    thead{
+        tr{
+            display: flex;
+            th{
+                @include flex($display: flex, $direction:row, $align: flex-start, $gap: 8px);
+                padding: 18px 22px;
+                align-self: stretch;
+                span{
+                    text-align: left;
+                    flex: 1 0 0;
+                    @include font($font-size: 14px, $font-weight: 500, $line-height: 20px);
+                    @include color($color: $color-primary-font);
+                    letter-spacing: 0.07px;
+                }
+                input{
+                    @include size($width: 20px, $height: 20px);
+                    appearance: none;
+                    -webkit-appearance: none; 
+                    -moz-appearance: none; 
+                    border: 3px solid $color-second-font; 
+                    border-radius: 4px; 
+                    outline: none; 
+                    cursor: pointer;
+                }
+            }
+            th:nth-child(1){
+                width: 136px;
+            }
+            th:nth-child(2){
+                width: 222px;
+            }
+            th:nth-child(3){
+                width: 131px;
+            }
+            th:nth-child(4){
+                width: 167px;
+            }
+            th:nth-child(5){
+                width: 114px;
+            }
+            th:nth-child(6){
+                width: 121px;
+            }
+            th:nth-child(7){
+                width: 145px;
+            }
+        }
+    }
+    tbody{
+        tr{
+            @include flex($display: flex);
+            td{
+                div{
+                    @include flex($display: flex,$direction: row, $align: center, $gap: 8px);
+                }
+                @include font($font-size:14px, $font-weight: 500, $line-height: 20px);
+                @include flex($display: flex, $align: center, $gap: 8px);
+                @include color($color: $color-second-font);
+                letter-spacing: 0.07px;
+                align-self: stretch;
+                padding: 18px 22px;
+                border-bottom: 1px solid $neutral-gray-gray-50;
+                white-space: nowrap;
+            }
+            td:nth-child(1){
+                input{
+                    @include size($width: 20px, $height: 20px);
+                    appearance: none;
+                    -webkit-appearance: none; 
+                    -moz-appearance: none; 
+                    border: 3px solid $color-second-font; 
+                    border-radius: 4px; 
+                    outline: none; 
+                    cursor: pointer;
+                }
+                color: $nav-color;
+                width: 136px;
+            }
+            td:nth-child(2){
+                color: $color-primary-font;
+                width: 222px;
+            }
+            td:nth-child(3){
+                width: 131px;
+            }
+            td:nth-child(4){
+                div{
+                    @include flex($display: flex,$direction: column, $align: flex-start,$justify: center, $gap: 8px);
+                }
+                span{
+                    color: $color-primary-font;
+                }
+                span:nth-child(2){
+                    @include font($font-size:12px, $font-weight: 400, $line-height: 18px);
+                    color: $color-second-font;
+                    letter-spacing: 0.06px;
+                }
+                width: 167px;
+            }
+            td:nth-child(5){
+                width: 114px;
+            }
+            td:nth-child(6){
+                width: 121px;
+            }
+            td:nth-child(7){
+                span{
+                    padding: 4px 12px;
+                    border-radius: 100px;
+                }
+                width: 145px;
+            }
+            .processing-status{
+                @include color($color: $secondary-Yellow-Yellow-500, $background: $secondary-Yellow-Yellow-50);
+            }
+            .shipped-status{
+                @include color($color: #13B2E4, $background: #E8F8FD);
+            }
+            .delivered-status{
+                @include color($color: $secondary-Green-Green-500, $background: $secondary-Green-Green-50);
+            }
+            .cancelled-status{
+                @include color($color: $secondary-Red-Red-500, $background: $secondary-Red-Red-50);
+            }
+        }
+    }
+}

@@ -1,0 +1,141 @@
+@use "../../../abstracts/" as *;
+@use "../../../base/" as *;
+
+.chart-container {
+    @include flex($display: flex, $align: flex-start, $gap: 24px);
+    padding: 0px 24px;
+    align-self: stretch;
+    background-color: $background-color-second;
+
+    &_left {
+        @include size($width: 360px);
+        @include flex($display: flex, $direction: column, $align: center, $gap: 18px);
+        @include boder($boder-radius: 8px, $boder: 1px solid $neutral-gray-gray);
+        @include color($background: $background-color);
+
+        box-shadow: 0px 1.5px 2px 0px rgba(16, 24, 40, 0.10);
+        padding: 24px;
+
+        &-header {
+            @include flex($display: flex, $align: flex-start, $gap: 12px);
+            align-self: stretch;
+
+            div {
+                @include flex($display: flex, $direction: column, $align: flex-start, $gap: 2px);
+                flex: 1 0 0;
+
+                .title-main {
+                    @include font($font-size: 18px, $font-weight: 500, $line-height: 28px);
+                    letter-spacing: 0.09px;
+                    color: $color-primary-font;
+                }
+
+                .title {
+                    @include font($font-size: 14px, $font-weight: 500, $line-height: 20px);
+                    letter-spacing: 0.07px;
+                    color: $color-second-font;
+                }
+            }
+        }
+
+        &-main {
+            @include flex($display: flex, $direction: column, $align: center, $gap: 10px);
+
+            figure {
+                @include flex($display: flex, $align: center, $justify: center);
+            }
+
+            .main-desc {
+                @include flex($display: flex, $direction: column, $align: center, $gap: 8px);
+
+                span {
+                    text-align: center;
+                    letter-spacing: 0.07px;
+                    color: $color-second-font;
+                    @include font($font-size: 14px, $font-weight: 400, $line-height: 20px);
+
+                    span {
+                        font-weight: 600;
+                        color: $color-primary-font;
+                    }
+                }
+
+                div {
+                    ul {
+                        @include flex($display: flex, $align: flex-start, $gap: 18px);
+
+                        li {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            gap: 4px;
+
+                            span {
+                                text-align: center;
+                                letter-spacing: 0.06px;
+                                color: $color-second-font;
+                                @include font($font-size: 12px, $font-weight: 500, $line-height: 18px);
+                            }
+
+                            div {
+                                span {
+                                    text-align: center;
+                                    letter-spacing: 0.12px;
+                                    color: $color-primary-font;
+                                    @include font($font-size: 24px, $font-weight: 500, $line-height: 32px);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &_right {
+        @include flex($display: flex, $direction: column, $align: flex-start, $gap: 24px);
+        @include boder($boder-radius: 8px, $boder: 1px solid $neutral-gray-gray);
+        background-color: $background-color;
+        box-shadow: 0px 1.5px 2px 0px rgba(16, 24, 40, 0.10);
+        padding: 24px;
+        flex: 1 0 0;
+        align-self: stretch;
+
+        &-header {
+            display: flex;
+            align-items: center;
+            justify-items: center;
+
+            .header-desc {
+                @include flex($display: inline-flex, $direction: column, $align: flex-start, $gap: 2px);
+
+                .title-main {
+                    @include font($font-size: 18px, $font-weight: 500, $line-height: 28px);
+                    letter-spacing: 0.09px;
+                    color: $color-primary-font;
+                }
+
+                .title {
+                    @include font($font-size: 14px, $font-weight: 500, $line-height: 20px);
+                    letter-spacing: 0.07px;
+                    color: $color-second-font;
+                }
+            }
+
+            .header-image {
+                display: inline-flex;
+                align-items: flex-start;
+                gap: 16px;
+                margin-left: 160px;
+            }
+
+            .figure-image{
+                margin-left: 252px;
+                margin-bottom: 12px;
+                flex-shrink: 0;
+            }
+        }
+
+        &-main {}
+    }
+}
