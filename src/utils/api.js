@@ -29,8 +29,38 @@ export const endpointUrl = {
      */
     getTopSale() {
         return `/topSaleLocation`;
-    }
+    },
     // CATEGORY ENDPOINT
+    getListCategory(page) {
+        const limit = 10;
+        return `/categories?_limit=${limit}&_page=${page}`;
+    },
+
+    getCategory(id) {
+        return `/categories/${id}`;
+    },
+
+    //ORDER ENDPOINT 
+    /**
+     * @param {number} page 
+     * @returns {string}
+     */
+    getListOrder(page) {
+        const limit = 10;
+        return `/orders?_limit=${limit}&_page=${page}`;
+    },
+
+    getOrder(id){
+        return `/orders/${id}`;
+    },
 
     // CUSTOMER ENDPOINT
+    getListCustomer(page){
+        const limit = 10;
+        return `/customers?_limit=${limit}&_page=${page}`;
+    },
+
+    getCustomer(id){
+        return `/customers/${id}`;
+    }
 };

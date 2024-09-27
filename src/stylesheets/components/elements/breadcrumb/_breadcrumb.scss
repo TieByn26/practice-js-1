@@ -1,0 +1,29 @@
+@use "../../../abstracts/" as *;
+@use "../../../base/" as *;
+
+.breadcrumb-container{
+    @include flex($display: flex, $direction: column, $align: flex-start, $gap: 8px);
+    flex: 1 0 0;
+    .breadcrumb-title{
+        @include font($font-size: 24px, $font-weight: 500, $line-height: 32px);
+        color: $color-primary-font;
+        letter-spacing: 0.12px;
+        align-self: stretch;
+    }
+    .breadcrumb-attributes{
+        @include flex($display: flex, $align: center, $gap:8px);
+        @include font($font-size: 14px, $font-weight: 500, $line-height: 20px);
+        letter-spacing: 0.07px;
+
+        .breadcrumb-link{
+            color: $nav-color;
+        }
+        .breadcrumb-separator{
+            @include size($width: 18px, $height: 18px);
+            transform: rotate(-90deg);
+        }
+        .static-breadcrumb{
+            color: $color-second-font;
+        }
+    }
+}
