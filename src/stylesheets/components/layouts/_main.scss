@@ -1,0 +1,8 @@
+@use "../../abstracts/" as *;
+@use "../../base/" as *;
+
+.main-container{
+    height: 90vh; 
+    overflow-y: auto;
+    overflow-x: hidden; 
+}

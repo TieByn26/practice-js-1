@@ -1,0 +1,18 @@
+@use "../abstracts/" as *;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+body {
+    font-family: $primary-font;
+    font-weight: 400;
+    font-size: pxToRem(14);
+    max-width: 1440px;
+    margin: 0 auto;
+    min-width: 375px;
+}
+::-webkit-scrollbar{
+    width: 2px;
+}
+::-webkit-scrollbar-thumb{
+    background-color: $background-color;
+}
