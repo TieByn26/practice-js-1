@@ -1,3 +1,4 @@
+
 import { router } from "@/routes";
 
 export const routesPath = {
