@@ -13,8 +13,8 @@ export class navLink {
      * @param {String[]} componentPaths 
      */
     constructor(icon, iconActive, label, to, componentPaths = []) {
-        // set the icon based on the current URL path
-        this.icon = window.location.pathname === to ? iconActive : icon;
+        this.icon = icon;
+        this.iconActive = iconActive;
         this.to = to;
         this.componentPaths = componentPaths;
 
@@ -42,6 +42,9 @@ export class navLink {
      */
     getActiveClass() {
         const isActive = this.componentPaths.some(path => this.matchPath(location.pathname, path));
+        if (isActive) {
+            this.icon = this.iconActive;
+        }
         return `nav-link ${isActive ? "nav-link-active" : ""}`;
     }
 
@@ -55,9 +58,9 @@ export class navLink {
             router.pushState(this.to);
         });
         // Update the class name when the URL changes
-        window.addEventListener("urlChanged", () => {
-            this.navlink.className = this.getActiveClass();
-        });
+        // window.addEventListener("urlChanged", () => {
+        //     this.navlink.className = this.getActiveClass();
+        // });
     }
     matchPath(url, path) {
         const urlSegments = url.split("/");

@@ -1,0 +1,48 @@
+@use "../../../abstracts/" as *;
+@use "../../../base/" as *;
+
+.order-detail-container{
+    @include flex($display: flex, $direction: column, $align: flex-start, $gap: 24px);
+    background-color: $background-color-second;
+    padding: 32px 24px;
+    align-self: stretch;
+    .head-order-detail-container{
+        @include flex($display: flex, $align: flex-end, $gap: 24px);
+        position: relative;
+        align-self: stretch;
+        select{
+            @include font($font-size: 14px, $font-weight: 500, $line-height: 20px);
+            @include boder($boder-radius: 8px, $boder: 1px solid $neutral-gray-gray);
+            width: 124px;
+            letter-spacing: 0.07px;
+            appearance: none;
+            padding: 10px 12px;
+            outline: none;
+        }
+        .chevron{
+            position: absolute;
+            left: 76%;
+            top: 46%;
+        }
+        .button-container{
+            @include flex($display: flex, $align: flex-start, $gap: 16px);
+
+            button {
+                border-radius: 8px;
+                padding: 10px 14px;
+
+                a {
+                    @include flex($display: flex, $justify: center, $align: center, $gap: 4px);
+                    @include font($font-size: 14px, $font-weight: 600, $line-height: 20px);
+                    letter-spacing: 0.07px;
+                }
+            }
+            .button-blue{
+                @include color($color: $background-color, $background: $nav-color);
+            }
+            .button-middle{
+                @include color($color: $nav-color, $background: #DEDEFA);
+            }
+        }
+    }
+}
