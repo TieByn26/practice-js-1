@@ -2,6 +2,8 @@ import { elementHtml } from "@/utils";
 import { button, tabchevron } from "../components";
 import { ic_plus, ic_calendar } from "@/constants";
 import { cardList } from "../components";
+import { saleProgressChart ,statistics } from "../components";
+
 export class home {
     elHtml = new elementHtml();
     constructor() {
@@ -21,10 +23,17 @@ export class home {
 
         return container1;
     }
+    chart(){
+        const container = this.elHtml.divELement("chart-container");
+        container.innerHTML = saleProgressChart();
+        container.innerHTML += statistics();
+        return container.outerHTML;
+    }
     mainMethod(){
         const container = this.elHtml.divELement("home-container");
         container.appendChild(this.chevron());
         container.innerHTML += cardList();
+        container.innerHTML += this.chart();
 
         return container;
     }
