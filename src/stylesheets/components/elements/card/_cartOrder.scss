@@ -85,6 +85,8 @@
 }
 
 .order-main-detail-container {
+    @include flex($display: flex, $align: flex-start, $gap: 24px);
+    align-self: stretch;
     .order-detail-container_right {
         @include flex($display: flex, $direction: column, $align: flex-start, $gap: 24px);
         .address-container {

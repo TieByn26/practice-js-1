@@ -24,7 +24,6 @@ export class CardOrder{
         //card main
         const mainCard = element.divELement("order-card_main");
         items.forEach(item => {
-            console.log(item);
             const rowData = element.divELement("order-card_main-row");
             const rowDataLeft = element.divELement("order-card_main-row-left");
             const img = element.imgElement(item.icon,"icon","");

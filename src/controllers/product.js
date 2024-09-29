@@ -1,6 +1,6 @@
 import { endpointUrl } from "@/utils";
 import { axiosApiGetData, axiosApiDeleteData, axiosApiUpdateData, axiosApiAddData } from "@/utils";
-import { product, category } from "@/models";
+import { product, category} from "@/models";
 
 export class productController {
     constructor(params) {}
@@ -18,6 +18,15 @@ export class productController {
                 return productRes;
             });
             return products;
+        } catch (err) {
+            console.log(">>> err get data: ", err);
+        }
+    }
+    static async getProductFollowId(id){
+        try {
+            const data = await axiosApiGetData(endpointUrl.getProduct(id));
+            const Product = new product(data);
+            return Product;
         } catch (err) {
             console.log(">>> err get data: ", err);
         }

@@ -1,5 +1,5 @@
 import { endpointUrl } from "@/utils";
-import { axiosApiGetData } from "@/utils";
+import { axiosApiGetData, axiosApiPatchData } from "@/utils";
 import { Orders } from "@/models";
 export class OrderController{
     constructor(){
@@ -34,6 +34,18 @@ export class OrderController{
             return orderFollowId;
         } catch (error) {
             console.error("Error fetching order data:", error);
+        }
+    }
+    /**
+     * patch data follow id
+     * @param {number} id 
+     * @param {object} data 
+     */
+    static async updateStatus(id,data){
+        try {
+            await axiosApiPatchData(endpointUrl.getOrder(id), data);
+        } catch (error) {
+            console.error("Error update order data:", error)
         }
     }
 }

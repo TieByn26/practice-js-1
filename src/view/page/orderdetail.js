@@ -1,9 +1,9 @@
-import { OrderController , CustomerController} from "@/controllers";
+import { OrderController , CustomerController, productController} from "@/controllers";
 import { elementHtml } from "@/utils";
-import { HeadOrderDetail } from "../components";
+import { HeadOrderDetail, TableDetail } from "../components";
 import { CardOrder, CardOrderDetail } from "../components";
 import { router } from "@/routes";
-import { Orders, Customer } from "@/models";
+import { Orders, Customer, product } from "@/models";
 import { ic_calendar_c, ic_payment, ic_shipping,
     ic_customer_c, ic_evenlope, ic_phone_c ,
     ic_receipt_c, ic_reward
@@ -13,11 +13,10 @@ const element = new elementHtml();
 export class orderdetail {
     constructor() {
         this.container = element.divELement("order-detail-container");
-        this.initHeadOrder();
         this.initCardOrder();
     }
-    initHeadOrder(){
-        const head = new HeadOrderDetail().render();
+    initHeadOrder(order){
+        const head = new HeadOrderDetail(order).render();
         this.container.appendChild(head);
     }
     async initCardOrder(){
@@ -26,6 +25,8 @@ export class orderdetail {
         const order = new Orders(orderData);
         const customerData = await CustomerController.getCustomerFollowId(order.customerId)
         const customer = new Customer(customerData);
+        const productData = await productController.getProductFollowId(order.productId);
+        const Product = new product(productData);
         const itemf = [
             {icon:ic_calendar_c,label:"Added",data:order.added},
             {icon:ic_payment,label:"Payment Method",data:order.payment},
@@ -48,11 +49,13 @@ export class orderdetail {
             new CardOrder(`Document`,"",itemt).render()
             
         );
+        this.initHeadOrder(order);
         this.container.appendChild(cardContainer);
-        this.initDetail(customer);
+        this.initDetail(customer, Product);
     }
-    initDetail(customer){
+    initDetail(customer, product){
         const detailContainer = element.divELement("order-main-detail-container");
+        detailContainer.appendChild(new TableDetail(product).render());
         detailContainer.appendChild(new CardOrderDetail(customer).render());
         this.container.appendChild(detailContainer);
     }
