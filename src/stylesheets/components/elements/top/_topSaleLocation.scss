@@ -1,0 +1,36 @@
+@use "../../../abstracts/" as *;
+@use "../../../base/" as *;
+
+.top-container{
+    @include flex($display: flex, $align: flex-start, $gap: 24px);
+    align-self: stretch;
+    &_right{
+        @include flex($display: flex, $direction: column, $align: center, $gap: 20px);
+        @include size($width: 360px);
+        @include boder($boder-radius: 8px, $boder: 1px solid $neutral-gray-gray);
+        box-shadow: 0px 1.5px 2px 0px rgba(16, 24, 40, 0.10);
+        padding: 24px;
+
+        &-header{
+            @include flex($display: flex, $align: flex-start, $gap: 14px);
+            align-self: stretch;
+            div{
+                @include flex($display: flex,$direction: column, $align: flex-start, $gap: 2px);
+                flex: 1 0 0;
+                span{
+                    @include font($font-size: 18px, $font-weight: 500, $line-height: 28px);
+                    letter-spacing: 0.09px;
+                    color: $color-name-font;
+                }
+                span:nth-child(2){
+                    @include font($font-size: 14px, $font-weight: 500, $line-height: 24px);
+                    letter-spacing: 0.07px;
+                    color: $color-second-font;
+                }
+            }
+            img{
+
+            }
+        }
+    }
+}
