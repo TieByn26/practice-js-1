@@ -1,0 +1,229 @@
+@use "../../../abstracts/" as *;
+@use "../../../base/" as *;
+
+.order-card-container {
+    @include flex($display: flex, $align: flex-start, $gap: 24px);
+    align-self: stretch;
+
+    .order-card {
+        @include flex($display: flex, $direction: column, $align: center, $gap: 20px);
+        @include boder($boder-radius: 8px, $boder: 1px solid $neutral-gray-gray);
+        background-color: $background-color;
+        box-shadow: 0px 1.5px 2px 0px rgba(16, 24, 40, 0.10);
+        padding: 24px;
+        flex: 1 0 0;
+
+        &_title {
+            @include flex($display: flex, $align: center, $gap: 12px);
+            align-self: stretch;
+
+            &-left {
+                @include font($font-size: 18px, $font-weight: 500, $line-height: 28px);
+                letter-spacing: 0.09px;
+                color: $color-name-font;
+            }
+
+            .processing-status,
+            .cancelled-status,
+            .shiped-status,
+            .delivered-status {
+                @include font($font-size: 14px, $font-weight: 600, $line-height: 20px);
+                letter-spacing: 0.07px;
+                padding: 4px 12px;
+                border-radius: 100px;
+            }
+
+            .processing-status {
+                @include color($color: $secondary-Yellow-Yellow-500, $background: $secondary-Yellow-Yellow-50);
+            }
+
+            .shiped-status {
+                @include color($color: $secondary-Blue-Blue-500, $background: $secondary-Blue-Blue-50);
+            }
+
+            .delivered-status {
+                @include color($color: $secondary-Green-Green-500, $background: $secondary-Green-Green-50);
+            }
+
+            .cancelled-status {
+                @include color($color: $secondary-Red-Red-500, $background: $secondary-Red-Red-50);
+            }
+        }
+
+        &_main {
+            @include flex($display: flex, $direction: column, $align: flex-start, $gap: 14px);
+            align-self: stretch;
+
+            &-row {
+                @include flex($display: flex, $align: center, $gap: 8px);
+                align-self: stretch;
+                @include font($font-size: 14px, $font-weight: 600, $line-height: 20px);
+                letter-spacing: 0.07px;
+                color: $color-name-font;
+
+
+                &-left {
+                    @include flex($display: flex, $align: center, $gap: 8px);
+                    flex: 1;
+
+                    img {
+                        flex-shrink: 0;
+                    }
+
+                    span {
+                        flex: 1;
+                    }
+                }
+
+                >span:last-child {
+                    text-align: right;
+                    flex-shrink: 0;
+                }
+            }
+        }
+    }
+}
+
+.order-main-detail-container {
+    .order-detail-container_right {
+        @include flex($display: flex, $direction: column, $align: flex-start, $gap: 24px);
+        .address-container {
+            @include flex($display: flex, $direction: column, $gap: 18px);
+            @include boder($boder-radius: 8px, $boder: 1px solid $neutral-gray-gray);
+            align-self: stretch;
+            box-shadow: 0px 1.5px 2px 0px rgba(16, 24, 40, 0.10);
+            background-color: $background-color;
+            width: 360px;
+            padding: 24px;
+
+            &_title {
+                @include font($font-size: 18px, $font-weight: 500, $line-height: 28px);
+
+                color: $color-name-font;
+                letter-spacing: 0.09px;
+                flex: 1 0 0;
+
+            }
+
+            &_main {
+                @include flex($display: flex, $direction: column, $align: flex-start, $gap: 14px);
+                &-content {
+                    @include flex($display: flex, $align: flex-start, $gap: 8px);
+                    width: 312px;
+                    &-span{
+                        @include flex($display: flex,$direction: column,$align: flex-start, $gap: 4px);
+                        span{
+                            @include font($font-size: 14px, $font-weight: 500, $line-height: 20px);
+                            letter-spacing: 0.07;
+                            color: $color-second-font;
+                        }
+                        span:nth-child(2){
+                            @include font($font-size: 14px, $font-weight: 500, $line-height: 20px);
+                            letter-spacing: 0.07;
+                            color: $boder-color;
+                        }
+                    }
+                }
+            }
+        }
+        .status-container{
+            @include flex($display: flex, $direction: column, $gap: 18px);
+            @include boder($boder-radius: 8px, $boder: 1px solid $neutral-gray-gray);
+            align-self: stretch;
+            box-shadow: 0px 1.5px 2px 0px rgba(16, 24, 40, 0.10);
+            background-color: $background-color;
+            padding: 24px;
+            width: 360px;
+
+            &_title{
+                @include font($font-size: 18px, $font-weight: 500, $line-height: 28px);
+
+                color: $color-name-font;
+                letter-spacing: 0.09px;
+                flex: 1 0 0;
+            }
+            &_main{
+                &-placed{
+                    @include flex($display: flex, $align: flex-start, $gap: 8px); 
+                    align-self: stretch;  
+                    &--img{
+                        @include flex($display: flex, $direction: column, $align: center);
+                        align-self: stretch;
+                        hr{
+                            height: 56px;
+                            border: 1.1px dashed $neutral-gray-gray;
+                        }
+                    }
+                    &--span{
+                        @include flex($display: flex, $direction: column, $align: flex-start, $gap: 8px); 
+                        flex: 1 0 0;
+                        span:nth-child(1){
+                            @include font($font-size: 16px , $font-weight: 500, $line-height: 24px);
+                            color: $color-primary-font;
+                            letter-spacing: 0.08px;
+                            align-self: stretch;
+                        }
+                        span:nth-child(2){
+                            @include font($font-size: 14px , $font-weight: 400, $line-height: 20px);
+                            color: $neutral-Black-Black-600;
+                            letter-spacing: 0.07px;
+                            align-self: stretch;
+                        }
+                        span:nth-child(3){
+                            @include font($font-size: 12px , $font-weight: 500, $line-height: 18px);
+                            color: $neutral-Gray-Gray-400;
+                            letter-spacing: 0.06px;
+                            align-self: stretch;
+                        }
+                    }
+                }
+                &-packed{
+                    @include flex($display: flex, $align: flex-start, $gap: 8px);
+                    align-self: stretch;
+                    &--img{
+                        @include flex($display: flex, $direction:column, $align: center);
+                        align-self: stretch;
+                        hr{
+                            height: 28px;
+                            border: 1.1px dashed $neutral-gray-gray;
+                        }
+                    }
+                    &--span{
+                        @include flex($display: flex, $direction: column, $align: flex-start, $gap: 8px); 
+                        flex: 1 0 0;
+                        span:nth-child(1){
+                            @include font($font-size: 16px , $font-weight: 500, $line-height: 24px);
+                            color: $color-primary-font;
+                            letter-spacing: 0.08px;
+                            align-self: stretch;
+                        }
+                        span:nth-child(2){
+                            @include font($font-size: 12px , $font-weight: 500, $line-height: 18px);
+                            color: $neutral-Gray-Gray-400;
+                            letter-spacing: 0.06px;
+                        }  
+                    }
+                }
+                &-delivered{
+                    @include flex($display: flex, $align: flex-start, $gap: 8px);
+                    align-self: stretch;
+                    &--span{
+                        @include flex($display: flex, $direction: column, $align: flex-start, $gap: 8px); 
+                        flex: 1 0 0;
+                        span:nth-child(1){
+                            @include font($font-size: 16px , $font-weight: 500, $line-height: 24px);
+                            color: $color-primary-font;
+                            letter-spacing: 0.08px;
+                            align-self: stretch;
+                        }
+                        span:nth-child(2){
+                            @include font($font-size: 12px , $font-weight: 500, $line-height: 18px);
+                            color: $neutral-Gray-Gray-400;
+                            letter-spacing: 0.06px;
+                        }  
+                    }
+                }
+            }
+        }
+    }
+}
