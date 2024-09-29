@@ -1,0 +1,56 @@
+@use "../../../abstracts/" as *;
+@use "../../../base/" as *;
+
+.home-container {
+    .home-container-chevron {
+        @include flex($display: flex, $align: center, $justify: space-between);
+        background-color: $background-color-second;
+        align-items: flex-start;
+        align-self: stretch;
+        padding: 32px 24px 0 24px;
+
+        &_left {
+            background-color: $background-color;
+            @include flex($display: flex, $align: flex-start);
+            @include boder($boder-radius: 8px, $boder: 1px solid $neutral-gray-gray);
+            padding: 4px;
+
+            ul {
+                @include flex($display: flex, $align: flex-start);
+
+                .tab-link {
+                    @include flex($display: flex, $align: center, $justify: center, $gap: 8px);
+                    border-radius: 6px;
+                    padding: 6px 12px;
+
+                    a {
+
+                        @include color($color: $color-second-font);
+
+                        span {
+                            @include font($font-family: $primary-font, $font-size: 14px, $font-weight: 500, $line-height: 20px);
+                            letter-spacing: 0.07px;
+                        }
+                    }
+                }
+
+                .tab-link-active {
+                    @include color($background: $button-tab-color);
+
+                    a {
+                        span {
+                            color: $color-font-blue;
+                            font-weight: 600;
+                        }
+                    }
+                }
+
+                &::after {}
+            }
+        }
+       
+
+        &_right {}
+
+    }
+}

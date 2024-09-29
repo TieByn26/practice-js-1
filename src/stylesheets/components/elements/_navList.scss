@@ -1,0 +1,28 @@
+@use "../../abstracts/" as *;
+@use "../../base/" as *;
+
+.nav-container {
+    ul {
+        @include flex($display: flex, $direction: column, $align: center, $gap: 8px);
+
+        .logo {
+            height: 64px;
+            border: none;
+            padding: 12px;
+            gap: 8px;
+
+            span {
+                @include font($font-family: $primary-font, $font-size: 24px, $font-weight: 600, $line-height: 32px);
+                @include color($color: $color-primary-font);
+            }
+        }
+
+        li {
+            @include size($width: 228px, $height: 40px);
+            @include boder($boder-radius: 8px, $boder: 0px solid $primary-font);
+        }
+        li:nth-child(8) {
+            margin-top: 290px;
+        }
+    }
+}
