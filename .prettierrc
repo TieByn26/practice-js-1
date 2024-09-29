@@ -1,0 +1,12 @@
+{
+  "indent": 2,
+  "useTabs": false,
+  "semi": true,
+  "quotes": "single",
+  "objectPropertyQuotes": "as-needed",
+  "jsxQuotes": "double",
+  "trailingComma": "es5",
+  "bracketSpacing": true,
+  "jsxBracketPosition": "end",
+  "endOfLine": "auto"
+}
