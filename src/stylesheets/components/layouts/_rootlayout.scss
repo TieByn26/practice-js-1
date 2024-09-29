@@ -1,0 +1,18 @@
+@use "../../abstracts/" as *;
+@use "../../base/" as *;
+
+.root-container {
+    @include flex($display: flex, $align: center, $justify: space-between);
+    @include size($height: 100vh);
+
+    .nav-container {
+        @include size($width: 264px, $height: 100vh);
+        // background-color: yellowgreen;
+    }
+
+    .node-container {
+        @include size($width: $node-size ,$height: 100vh);
+        border-left: 2px solid #E0E2E7;
+        // background-color: aqua;
+    }
+}
