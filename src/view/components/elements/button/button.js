@@ -1,16 +1,12 @@
+import { elementHtml } from "@/utils";
 export class button {
     constructor() {}
+    elHtml = new elementHtml();
 
     buttonLink(to, label, icon) {
-        const container = document.createElement("a");
-        container.href = to;
-
-        const img = document.createElement("img");
-        img.src = icon;
-        img.alt = "icon";
-
-        const span = document.createElement("span");
-        span.textContent = label;
+        const container = this.elHtml.aElement("",to);
+        const img = this.elHtml.imgElement(icon, "icon");
+        const span = this.elHtml.spanElement("",label);
 
         container.appendChild(img);
         container.appendChild(span);

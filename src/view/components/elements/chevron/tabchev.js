@@ -1,3 +1,4 @@
+import { elementHtml } from "@/utils";
 export class tabchevron {
     constructor() {
         this.list = [
@@ -8,19 +9,14 @@ export class tabchevron {
             this.tabActive(`#`, `24 Hour`),
         ];
     }
-
+    elHtml = new elementHtml();
     tabActive(to, text) {
         const activeClass = (to === "/") ? "tab-link-active" : "";
         const tabClass = `tab-link ${activeClass}`.trim();
 
-        const li = document.createElement("li");
-        li.className = tabClass;
-
-        const a = document.createElement("a");
-        a.href = to;
-
-        const span = document.createElement("span");
-        span.textContent = text;
+        const li = this.elHtml.liElement(tabClass);
+        const a = this.elHtml.aElement("",to);
+        const span = this.elHtml.spanElement("",text);
 
         a.appendChild(span);
         li.appendChild(a);
