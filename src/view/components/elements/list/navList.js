@@ -13,100 +13,46 @@ export class NavList {
     
     constructor() {
         this.ul = document.createElement("ul");
-        this.initNavigationLink();
-        console.log("reload nav list");
+        this.renderNavigationLinks();
     }
 
     /**
-     * create list navigation link
-     * @returns {ul} lis nav
+     * create lít of navigation link
      */
-    initNavigationLink() {
-        const navigationLinkItem = [
-            { 
-                icon: ic_dashboard_gray, 
-                iconActive: ic_dashboard, 
-                to: routesPath.home, 
-                label: `Dashboard` ,
-                componentPath: ["/"]
-            },
-            { 
-                icon: ic_shoping, 
-                iconActive: ic_product_blue, 
-                to: routesPath.product, 
-                label: `Product`,
-                componentPath: ["/product", "/product-detail/:productId", "/add-product"] 
-            },
-            {
-                icon: ic_cart_menu,
-                iconActive: ic_cart_white, 
-                to: routesPath.order, 
-                label: `Order`,
-                componentPath: ["/order","/order-detail/:orderId"]
-            },
-            { 
-                icon: ic_customer,
-                iconActive: ic_customer_white, 
-                to: routesPath.customer, 
-                label: `Customers`,
-                componentPath: ["/customer","/customer-detail/:customerId"]
-            },
-            { 
-                icon: ic_seller, 
-                iconActive: ic_seller, 
-                to: routesPath.seller, 
-                label: `Seller` ,
-                componentPath: ["/seller"]
-            },
-            { 
-                icon: ic_analysis, 
-                to: "//",
-                iconActive: ic_analysis, 
-                label: `Analytics` ,
-                componentPath: [""]
-            },
-            { 
-                icon: ic_setting, 
-                to: "//",
-                iconActive: ic_setting, 
-                label: `Setting` ,
-                componentPath: [""]
-            },
-            { 
-                icon: ic_support, 
-                to: "//",
-                iconActive: ic_support, 
-                label: `Support` ,
-                componentPath: [""]
-            }
+    renderNavigationLinks() {
+        const navigationLinkItems = [
+            { icon: ic_dashboard_gray, iconActive: ic_dashboard, to: routesPath.home, label: "Dashboard", componentPath: ["/"] },
+            { icon: ic_shoping, iconActive: ic_product_blue, to: routesPath.product, label: "Product", componentPath: ["/product", "/product-detail/:productId", "/add-product"] },
+            { icon: ic_cart_menu, iconActive: ic_cart_white, to: routesPath.order, label: "Order", componentPath: ["/order","/order-detail/:orderId"] },
+            { icon: ic_customer, iconActive: ic_customer_white, to: routesPath.customer, label: "Customers", componentPath: ["/customer","/customer-detail/:customerId"] },
+            { icon: ic_seller, iconActive: ic_seller, to: routesPath.seller, label: "Seller", componentPath: ["/seller"] },
+            { icon: ic_analysis, iconActive: ic_analysis, to: "/analysis", label: "Analytics", componentPath: [""] },
+            { icon: ic_setting, iconActive: ic_setting, to: "/setting", label: "Setting", componentPath: [""] },
+            { icon: ic_support, iconActive: ic_support, to: "/support", label: "Support", componentPath: [""] }
         ];
 
-        this.ul.appendChild(this.logoApp());
-        
-        navigationLinkItem.forEach(item => {
+        //minimizes reflows and improves performance when inserting multiple elements into the DOM.
+        const fragment = document.createDocumentFragment();
+        fragment.appendChild(this.createLogo());
+
+        navigationLinkItems.forEach(item => {
             const li = document.createElement("li");
-            const navlink = new navLink(
-                item.icon,
-                item.iconActive,
-                item.label,
-                item.to,
-                item.componentPath
-            );
-            li.appendChild(navlink.render()); 
-            this.ul.appendChild(li);
+            const navlink = new navLink(item.icon, item.iconActive, item.label, item.to, item.componentPath);
+            li.appendChild(navlink.render());
+            fragment.appendChild(li);
         });
+
+        this.ul.appendChild(fragment);
     }
 
     /**
-     * create logo of website
-     * @returns {li} logo
+     * create logo element
+     * @returns {HTMLElement}
      */
-    logoApp() {
+    createLogo() {
         const li = this.element.liElement("logo");
-        const img = this.element.imgElement(ic_logo, "logo", "");
-        const span = this.element.spanElement("", "Dashlab");
-        li.appendChild(img);
-        li.appendChild(span);
+        li.appendChild(this.element.imgElement(ic_logo, "logo", ""));
+        li.appendChild(this.element.spanElement("", "Dashlab"));
         return li;
     }
 

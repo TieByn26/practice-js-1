@@ -2,31 +2,50 @@ import { anchorAttributes } from "@/constants";
 import { router } from "@/routes";
 
 /** USAGE
- * const link = new Link(to);
+ * const link = new Link(to, text);
  * const componentLink = link.render();
  */
-export class link {
+export class Link {
     /**
      * 
-     * @param {String} to 
+     * @param {String} to - target URL 
+     * @param {String} text - optional text for the link element
      */
-    constructor(to){
-        this.link = document.createElement("a");
-        this.link.href = to;
-        this.link.setAttribute(anchorAttributes.link,"");
-
-        // handle click event to prevent page loading
-        this.link.addEventListener("click", this.handleLinkClick.bind(this));
+    constructor(to, text = '') {
+        this.link = this.createLinkElement(to, text);
     }
+
     /**
-     * prevent default action ( load page ), update new path
-     * @param {*} event 
+     * Create and configure the link element
+     * @param {String} to 
+     * @param {String} text 
+     * @returns {HTMLElement} - anchor element
      */
-    handleLinkClick(event){
+    createLinkElement(to, text) {
+        const link = document.createElement("a");
+        link.href = to;
+        link.textContent = text;  // Set text if provided
+        link.setAttribute(anchorAttributes.link, "");
+
+        // Bind event listener
+        link.addEventListener("click", this.handleLinkClick.bind(this));
+        return link;
+    }
+
+    /**
+     * Handle click event to prevent page reload and update new path
+     * @param {Event} event 
+     */
+    handleLinkClick(event) {
         event.preventDefault();
         router.pushState(this.link.getAttribute("href"));
     }
-    render(){
+
+    /**
+     * Render the anchor element
+     * @returns {HTMLElement} - the link element
+     */
+    render() {
         return this.link;
     }
 }

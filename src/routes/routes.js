@@ -1,25 +1,29 @@
+
 import { home, product, addproduct, productdetail
     ,categories, addcategory, categorydetail
     ,order,orderdetail,customer,customerdetail,seller
  } from "@/view";
 import { rootLayout } from "@/view";
+
+const createRoute = (path, component) => ({ path, component });
+
 export const routes = [
     {
         path: "",
         component: rootLayout,
         children: [
-            { path: "/", component: home},
-            { path: "/product", component: product},
-            { path: "/add-product", component: addproduct},
-            { path: "/product-detail/:productId", component: productdetail},
-            { path: "/categories", component: categories},
-            { path: "/add-category", component: addcategory},
-            { path: "/category-detail/:categoryId", component: categorydetail},
-            { path: "/order", component: order},
-            { path: "/order-detail/:orderId", component: orderdetail},
-            { path: "/customer", component: customer},
-            { path: "/customer-detail/customerId", component: customerdetail},
-            { path: "/seller", component: seller}
+            createRoute("/", home),
+            createRoute("/product", product),
+            createRoute("/add-product", addproduct),
+            createRoute("/product-detail/:productId", productdetail),
+            createRoute("/categories", categories),
+            createRoute("/add-category", addcategory),
+            createRoute("/category-detail/:categoryId", categorydetail),
+            createRoute("/order", order),
+            createRoute("/order-detail/:orderId", orderdetail),
+            createRoute("/customer", customer),
+            createRoute("/customer-detail/:customerId", customerdetail),
+            createRoute("/seller", seller)
         ]
     }
 ]
