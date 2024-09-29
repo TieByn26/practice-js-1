@@ -1,4 +1,3 @@
-
 import { router } from "@/routes";
 
 export const routesPath = {
@@ -12,7 +11,7 @@ export const routesPath = {
     order: "/order",
     orderdetail: "/order-detail/:orderId",
     customer : "/customer", 
-    customerdetail: "/customer-detail/customerId",
+    customerdetail: "/customer-detail/:customerId",
     seller: "/seller"
 };
 export const getPath = {
@@ -39,7 +38,7 @@ export const getPath = {
     [routesPath.orderdetail] () {
         const {orderId} = router.extractParams(
             location.pathname,
-            routesPath.orderId
+            routesPath.orderdetail
         );
         return routesPath.categorydetail.replace("orderId", orderId);
     },

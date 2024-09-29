@@ -1,14 +1,12 @@
 import { elementHtml } from "@/utils";
 import { ic_plus, ic_calendar } from "@/constants";
-import { button, tabchevron, saleProgressChart, statistics, cardList, headSelling,
-    tableSelling, footSelling ,headSaleLocation
- } from "../components";
+import { button, tabchevron, saleProgressChart, statistics, cardList, headSelling, tableSelling, footSelling, headSaleLocation } from "../components";
 
 export class home {
     elHtml = new elementHtml();
-    constructor() {
 
-    }
+    constructor() {}
+
     chevron() {
         const container1 = this.elHtml.divELement("home-container-chevron");
         const container2 = this.elHtml.divELement("home-container-chevron_left");
@@ -23,37 +21,46 @@ export class home {
 
         return container1;
     }
+
     chart() {
         const container = this.elHtml.divELement("chart-container");
-        container.innerHTML = saleProgressChart();
-        container.innerHTML += statistics();
-        return container.outerHTML;
+        const chartHtml = saleProgressChart();
+        const statsHtml = statistics();
+        
+        container.innerHTML = chartHtml + statsHtml;
+
+        return container;
     }
+
     topSellingSale() {
         const container = this.elHtml.divELement("top-container");
         const leftContainer = this.elHtml.divELement("top-container_left");
-        leftContainer.innerHTML += headSelling();
-        leftContainer.innerHTML += tableSelling();
-        leftContainer.innerHTML += footSelling();
+
+        leftContainer.innerHTML = headSelling() + tableSelling() + footSelling();
 
         const rightContainer = this.elHtml.divELement("top-container_right");
-        rightContainer.innerHTML += headSaleLocation();
+        rightContainer.innerHTML = headSaleLocation();
 
         container.appendChild(leftContainer);
         container.appendChild(rightContainer);
-        return container.outerHTML;
+
+        return container;
     }
 
     mainMethod() {
         const container = this.elHtml.divELement("home-container");
+        
         container.appendChild(this.chevron());
         container.innerHTML += cardList();
-        container.innerHTML += this.chart();
-        container.innerHTML += this.topSellingSale();
+        container.appendChild(this.chart());
+        container.appendChild(this.topSellingSale());
 
         return container;
     }
+
     render() {
-        return this.mainMethod().outerHTML;
+        const output = this.mainMethod();
+        console.log("load home");
+        return output;
     }
 }

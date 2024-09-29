@@ -27,9 +27,11 @@
 //     }
 // }
 import { routes } from "./routes";
+import { rootLayout } from "@/view";
 
 export class router {
     constructor() {
+        
         window.addEventListener("popstate", () => {
             window.dispatchEvent(new CustomEvent("urlChanged"));
         });
@@ -77,7 +79,7 @@ export class router {
         const params = {};
 
         for (let i = 0; i < pathSegments.length; i++) {
-            if (pathSegments[i].startWith(":")) {
+            if (pathSegments[i].startsWith(":")) {
                 const key = pathSegments[i].slice(1);
                 params[key] = urlSegments[i];
             }
@@ -96,22 +98,25 @@ export class router {
             if (route1.children) {
                 for (const route2 of route1.children) {
                     componentPath = `${route1.path}${route2.path}`;
-                    if (router.matchPath(urlPath, componentPath)) {
+                    if (router.correctPath(urlPath, componentPath)) {
                         params = router.extractParams(urlPath, componentPath);
 
                         if (Object.keys(params).length !== 0) {
-                            childNode = new route2.component();
+                            childNode = new route2.component().render();
                         } else {
-                            childNode = new route2.component();
+                            childNode = new route2.component().render();
                         }
-                        childNode = route1.component.render(childNode.render());
+                        const componentMain = new route1.component().render(childNode);
+                        childNode = componentMain;
+                        
                         return { childNode, componentPath, params };
                     }
                 }
             } else {
                 componentPath = route1.path;
-                if (router.matchPath(urlPath, componentPath)) {
+                if (router.correctPath(urlPath, componentPath)) {
                     childNode = route1.component.render();
+                    console.log(childNode);
                     params = router.extractParams(urlPath, componentPath);
                     return { childNode, componentPath, params };
                 }
@@ -130,13 +135,13 @@ export class router {
         const urlSegments = url.split("/");
         const pathSegments = path.split("/");
 
-        if (urlSegments.length !== pathSegments.length && isEqualLength) {
+        if (urlSegments.length !== pathSegments.length && isEqualLenght) {
             return false;
         }
         const len = Math.min(urlSegments.length, pathSegments.length);
 
         for (let i = 0; i < len; i++) {
-            if (urlSegments[i] !== pathSegments[i] && !pathSegments[i].startWith(":")) {
+            if (urlSegments[i] !== pathSegments[i] && !pathSegments[i].startsWith(":")) {
                 return false;
             }
         }
@@ -149,19 +154,20 @@ export class router {
     static routeToMatchingComponent() {
         const app = document.querySelector("#app");
         const { childNode } = router.getRoutes();
-
         if (childNode) {
-            return app.replaceChildren(childNode);
+            app.replaceChildren(childNode);
+            return;
         }
-
-        return app.replaceChildren("Not Found");
+        const div = document.createElement("div");
+        div.textContent = "Not Found";
+        app.replaceChildren(div);
     }
     /**
      * 
      * @param {String} pathUrl 
      */
     static pushState(pathUrl) {
-        window.history.pushState(null, null, pathUrl);
+        window.history.pushState(null, null, pathUrl);  
         window.dispatchEvent(new CustomEvent("urlChanged"));
     }
 }

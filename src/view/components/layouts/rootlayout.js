@@ -1,29 +1,35 @@
+import {navigation ,header ,main } from '.';
 import { elementHtml } from '@/utils';
-import {nav ,header ,main } from '.';
 
 export class rootLayout {
     elHtml = new elementHtml();
     constructor() {
         this.rootContainer = this.elHtml.divELement("root-container");
-        this.nodeContainer = this.elHtml.divELement("node-container");
+        this.nav = new navigation();
+        this.initContent();
+        console.log("reload nav root");
     }
+    /**
+     * create layout default
+     */
     initContent(){
-
+        // const nav = new navigation();
+        this.rootContainer.appendChild(this.nav.render());
+        /** content container */
+        this.nodeContainer = this.elHtml.divELement("node-container");
+        this.rootContainer.appendChild(this.nodeContainer);
+        /** content component */
+        this.headerContent = new header();
+        this.mainContent = new main();
+        // this.nodeContainer.appendChild(this.headerContent.render());
+        // this.nodeContainer.appendChild(this.mainContent.render());
+        this.nodeContainer.append(this.headerContent.render(), this.mainContent.render());
+        // this.mainContent.container.replaceChildren("dm");
     }
 
-    render(){
-
+    render(childNode){
+        this.mainContent.container.replaceChildren(childNode);
+        // this.nodeContainer.innerHTML += this.mainContent.render();
+        return this.rootContainer;
     }
 }
-
-// export const rootlayout = () => {
-//     return /*html*/`
-//         <div class = "root-container">
-//             ${nav()}
-//             <div class = "node-container">
-//                 ${new header().render()} 
-//                 ${main()}
-//             </div>
-//         </div>
-//     `;
-// };
