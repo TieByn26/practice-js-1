@@ -1,6 +1,7 @@
 import { elementHtml } from "@/utils";
 import { button, tabchevron } from "../components";
 import { ic_plus, ic_calendar } from "@/constants";
+import { cardList } from "../components";
 export class home {
     elHtml = new elementHtml();
     constructor() {
@@ -23,6 +24,7 @@ export class home {
     mainMethod(){
         const container = this.elHtml.divELement("home-container");
         container.appendChild(this.chevron());
+        container.innerHTML += cardList();
 
         return container;
     }
