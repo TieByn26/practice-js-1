@@ -1,112 +1,94 @@
+
 import { elementHtml } from "@/utils";
-import { pic_chart2 , ic_arrow_down, ic_arrow_up, ic_dots_vertical, pic_chart1, pic_dot} from "@/constants";
+import { pic_chart2, ic_arrow_down, ic_arrow_up, ic_dots_vertical, pic_chart1, pic_dot } from "@/constants";
 
 const elHtml = new elementHtml();
 
+// helper function to create a figure element with an image
+const createFigureWithImage = (imgSrc, imgClass = "icon") => {
+    const figure = document.createElement("figure");
+    const img = elHtml.imgElement(imgSrc, imgClass, "");
+    figure.appendChild(img);
+    return figure;
+};
+
 export const listDesc = () => {
     const list = [
-        {label1:"Target", label2: "$20k", src: ic_arrow_down},
-        {label1:"Revenue", label2: "$16k",src: ic_arrow_up},
-        {label1:"Today", label2: "$1.5k",src: ic_arrow_up}
-    ]
+        { label1: "Target", label2: "$20k", src: ic_arrow_down },
+        { label1: "Revenue", label2: "$16k", src: ic_arrow_up },
+        { label1: "Today", label2: "$1.5k", src: ic_arrow_up }
+    ];
+    
     const ul = elHtml.ulElement("");
+    
     list.forEach(item => {
         const li = document.createElement("li");
         const div = document.createElement("div");
-        div.appendChild(elHtml.spanElement("",item.label2));
-        div.appendChild(elHtml.imgElement(item.src,"icon",""));
-        li.appendChild(elHtml.spanElement("",item.label1));
-        li.appendChild(div);
+        div.append(elHtml.spanElement("", item.label2), elHtml.imgElement(item.src, "icon", ""));
+        li.append(elHtml.spanElement("", item.label1), div);
         ul.appendChild(li);
     });
 
     return ul.outerHTML;
-}
+};
+
 export const saleProgressChart = () => {
     const container1 = elHtml.divELement("chart-container_left");
 
-    // header
+    // Header section
     const container2 = elHtml.divELement("chart-container_left-header");
-
-    // desc
     const container3 = elHtml.divELement("");
     const span1 = elHtml.spanElement("title-main", "Sales Progress");
     const span2 = elHtml.spanElement("title", "This Quarter");
+    const figure1 = createFigureWithImage(ic_dots_vertical);
 
-    // image
-    const figure1 = document.createElement("figure");
-    const img1 = elHtml.imgElement(ic_dots_vertical, "icon", "");
+    container3.append(span1, span2);
+    container2.append(container3, figure1);
 
-    // main
+    // Main section
     const container4 = elHtml.divELement("chart-container_left-main");
-
-    // image
-    const figure2 = document.createElement("figure");
-    const img2 = elHtml.imgElement(pic_chart1, "icon", "");
-
-    // desc
+    const figure2 = createFigureWithImage(pic_chart1, "icon");
     const container5 = elHtml.divELement("main-desc");
     const span3 = document.createElement("span");
     span3.innerHTML = 'You succeed earn <span>$240</span> today, its higher than yesterday';
 
-    // list desc
+    // List description
     const container6 = elHtml.divELement("");
     container6.innerHTML = listDesc();
 
-    // appendChild elements
-    container5.appendChild(span3);
-    container5.appendChild(container6);
-    figure2.appendChild(img2);
-    container4.appendChild(figure2);
-    container4.appendChild(container5);
+    container5.append(span3, container6);
+    container4.append(figure2, container5);
 
-    container3.appendChild(span1);
-    container3.appendChild(span2);
-    figure1.appendChild(img1);
-    container2.appendChild(container3);
-    container2.appendChild(figure1);
+    container1.append(container2, container4);
 
-    container1.appendChild(container2);
-    container1.appendChild(container4);
-
-    return container1.outerHTML;
-}
+    return container1;
+};
 
 export const statistics = () => {
     const container1 = elHtml.divELement("chart-container_right");
 
+    // Header section
     const container2 = elHtml.divELement("chart-container_right-header");
+    const div1 = elHtml.divELement("header-desc");
+    const span1 = elHtml.spanElement("title-main", "Statistics");
+    const span2 = elHtml.spanElement("title", "Revenue and Sales");
 
-        const div1 = elHtml.divELement("header-desc");
-            const span1 = elHtml.spanElement("title-main","Statistics");
-            const span2 = elHtml.spanElement("title","Revenue and Sales");
+    const div2 = elHtml.divELement("header-image");
+    const figure1 = createFigureWithImage(pic_dot, "img");
+    const figure2 = createFigureWithImage(ic_dots_vertical, "icon");
+    figure2.className = "figure-image";
 
-        const div2 = elHtml.divELement("header-image");
-            const figure1 = document.createElement("figure");
-                const img1 = elHtml.imgElement(pic_dot,"img","");
-        const figure2 = document.createElement("figure");
-        figure2.className ="figure-image";
-            const img2 = elHtml.imgElement(ic_dots_vertical,"icon","");
-
-    const container3 = elHtml.divELement("chart-container_right-main");
-        const figure3 = document.createElement("figure");
-            const img3 = elHtml.imgElement(pic_chart2,"img","");
-
-    figure3.appendChild(img3);
-    container3.appendChild(figure3);
-
-    figure2.appendChild(img2);
-    figure1.appendChild(img1);
-    div1.appendChild(span1);
-    div1.appendChild(span2);
+    div1.append(span1, span2);
     div2.appendChild(figure1);
 
-    container2.appendChild(div1);
-    container2.appendChild(div2);
-    container2.appendChild(figure2);
+    container2.append(div1, div2, figure2);
 
-    container1.appendChild(container2);
-    container1.appendChild(container3);
-    
-    return container1.outerHTML;
-}
+    // Main section
+    const container3 = elHtml.divELement("chart-container_right-main");
+    const figure3 = createFigureWithImage(pic_chart2, "img");
+
+    container3.appendChild(figure3);
+    container1.append(container2, container3);
+
+    return container1;
+};

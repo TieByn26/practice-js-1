@@ -36,6 +36,6 @@ export class tabchevron {
     }
 
     render() {
-        return this.tabList().outerHTML;
+        return this.tabList();
     }
 }

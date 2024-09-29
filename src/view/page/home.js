@@ -1,66 +1,78 @@
 import { elementHtml } from "@/utils";
 import { ic_plus, ic_calendar } from "@/constants";
-import { button, tabchevron, saleProgressChart, statistics, cardList, headSelling, tableSelling, footSelling, headSaleLocation } from "../components";
+import { button, tabchevron, saleProgressChart, statistics, 
+    cardList, headSelling, footSelling, 
+    headSaleLocation, tableContainer} from "../components";
+import { saleLocationController } from "@/controllers";
 
 export class home {
     elHtml = new elementHtml();
 
     constructor() {}
 
+    createButton(className, to, label, icon) {
+        return new button().render(className, { to, label, icon });
+    }
+
+    createDiv(className, ...children) {
+        const div = this.elHtml.divELement(className);
+        if (children.length) div.append(...children);
+        return div;
+    }
+
+    /**
+     * @returns {HTMLElement} container1
+     */
     chevron() {
-        const container1 = this.elHtml.divELement("home-container-chevron");
-        const container2 = this.elHtml.divELement("home-container-chevron_left");
-        container2.innerHTML = new tabchevron().render();
-
-        const container3 = this.elHtml.divELement("home-container-chevron_right");
-        container3.innerHTML = new button().render("button-white", { to: "#", label: "Select Dates", icon: ic_calendar });
-        container3.innerHTML += new button().render("button-blue", { to: "#", label: "Add Product", icon: ic_plus });
-
-        container1.appendChild(container2);
-        container1.appendChild(container3);
-
-        return container1;
+        const chevronLeft = this.createDiv("home-container-chevron_left", new tabchevron().render());
+        const chevronRight = this.createDiv(
+            "home-container-chevron_right",
+            this.createButton("button-white", "#", "Select Dates", ic_calendar),
+            this.createButton("button-blue", "#", "Add Product", ic_plus)
+        );
+        return this.createDiv("home-container-chevron", chevronLeft, chevronRight);
     }
 
+    /**
+     * @returns {HTMLElement} container
+     */
     chart() {
-        const container = this.elHtml.divELement("chart-container");
-        const chartHtml = saleProgressChart();
-        const statsHtml = statistics();
-        
-        container.innerHTML = chartHtml + statsHtml;
-
-        return container;
+        return this.createDiv("chart-container", saleProgressChart(), statistics());
     }
 
+    /**
+     * @returns {HTMLElement} container
+     */
     topSellingSale() {
-        const container = this.elHtml.divELement("top-container");
-        const leftContainer = this.elHtml.divELement("top-container_left");
+        const leftContainer = this.createDiv("top-container_left", headSelling(), tableContainer.tableSelling(), footSelling());
+        const rightContainer = this.createDiv("top-container_right", headSaleLocation());
 
-        leftContainer.innerHTML = headSelling() + tableSelling() + footSelling();
-
-        const rightContainer = this.elHtml.divELement("top-container_right");
-        rightContainer.innerHTML = headSaleLocation();
-
-        container.appendChild(leftContainer);
-        container.appendChild(rightContainer);
-
-        return container;
+        this.appendPromiseData(tableContainer.handleDisPlayData(saleLocationController.getData()), rightContainer);
+        return this.createDiv("top-container", leftContainer, rightContainer);
     }
 
+    /**
+     * Handle and append promise data to container
+     * @param {Promise} promise 
+     * @param {HTMLElement} container 
+     */
+    async appendPromiseData(promise, container) {
+        const table = await promise;
+        container.appendChild(table);
+    }
+
+    /**
+     * @returns {HTMLElement} container
+     */
     mainMethod() {
-        const container = this.elHtml.divELement("home-container");
-        
-        container.appendChild(this.chevron());
-        container.innerHTML += cardList();
-        container.appendChild(this.chart());
-        container.appendChild(this.topSellingSale());
-
-        return container;
+        return this.createDiv("home-container",this.chevron(), cardList(), this.chart(), this.topSellingSale());
     }
 
+    /**
+     * @returns {HTMLElement}
+     */
     render() {
-        const output = this.mainMethod();
         console.log("load home");
-        return output;
+        return this.mainMethod();
     }
 }

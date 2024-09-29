@@ -5,25 +5,22 @@ export class saleLocationController {
     constructor() {
 
     }
-    getData(getdata = (topSales) => { 
-        return topSales; 
-    }) {
-        axiosApiGetData(endpointUrl.getTopSale())
-            .then((data) => {
-                if (Array.isArray(data)) {
-                    /** @type {topsale[]} */
-                    const topSales = data.map((res) => {
-                        const topSaleResponse = new topSale(res);
-                        return topSaleResponse;
-                    });
-                    getdata(topSales);
-                } else {
-                    console.error("Data is not an array:", data);
-                }
-            })
-            .catch((error) => {
-                console.error("Error fetching top sales:", error);
-            });
-    }
+    /**
+     * 
+     * @param {callback} callback 
+     */
+    static async getData() {
+        try {
+            const data = await axiosApiGetData(endpointUrl.getTopSale());
+            if (Array.isArray(data)) {
+                const topSales = data.map((item) => new topSale(item));
+                return topSales;
+            } else {
+                console.error("Unexpected response: Data is not an array", data);
+            }
+        } catch (error) {
+            console.error("Error fetching top sales data:", error);
+        }
+    } 
     
 }

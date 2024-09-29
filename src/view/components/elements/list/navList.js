@@ -26,9 +26,9 @@ export class NavList {
             { icon: ic_cart_menu, iconActive: ic_cart_white, to: routesPath.order, label: "Order", componentPath: ["/order","/order-detail/:orderId"] },
             { icon: ic_customer, iconActive: ic_customer_white, to: routesPath.customer, label: "Customers", componentPath: ["/customer","/customer-detail/:customerId"] },
             { icon: ic_seller, iconActive: ic_seller, to: routesPath.seller, label: "Seller", componentPath: ["/seller"] },
-            { icon: ic_analysis, iconActive: ic_analysis, to: "/analysis", label: "Analytics", componentPath: [""] },
-            { icon: ic_setting, iconActive: ic_setting, to: "/setting", label: "Setting", componentPath: [""] },
-            { icon: ic_support, iconActive: ic_support, to: "/support", label: "Support", componentPath: [""] }
+            { icon: ic_analysis, iconActive: ic_analysis, to: "/analysis", label: "Analytics", componentPath: ["/analysis"] },
+            { icon: ic_setting, iconActive: ic_setting, to: "/setting", label: "Setting", componentPath: ["/setting"] },
+            { icon: ic_support, iconActive: ic_support, to: "/support", label: "Support", componentPath: ["/support"] }
         ];
 
         //minimizes reflows and improves performance when inserting multiple elements into the DOM.

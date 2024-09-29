@@ -40,6 +40,6 @@ export class button {
         //     middle: "button-middle"
         // };
         // const buttonClass = classMap[params];
-        return this.createButton({...options, className: params}).outerHTML;
+        return this.createButton({...options, className: params});
     }
 }

@@ -20,5 +20,5 @@ export const cardList = () => {
     })
     container.appendChild(ul);
 
-    return container.outerHTML;
+    return container;
 }
