@@ -114,4 +114,3 @@ export class router {
         window.dispatchEvent(new CustomEvent("urlChanged"));
     }
 }
-
