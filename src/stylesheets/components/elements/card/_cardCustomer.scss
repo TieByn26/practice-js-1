@@ -1,0 +1,76 @@
+@use "../../../abstracts/" as *;
+@use "../../../base/" as *;
+
+.card-customer-container{
+    @include flex($display: flex, $direction: column, $align: center, $gap: 18px);
+    @include boder($boder-radius: 8px, $boder: 1px solid $neutral-gray-gray);
+    box-shadow: 0px 1.5px 2px 0px rgba(16, 24, 40, 0.10);   
+    background-color: $background-color;
+    padding: 64px 24px 24px 24px;
+    width: 360px;
+    &_name{
+        @include flex($display: flex, $direction: column, $align: center, $gap: 8px);
+        position: relative;
+        padding-bottom: 18px;
+        width: 312px;
+        border-bottom: 1px solid $neutral-gray-gray;
+        &-span{
+            @include flex($display: flex, $justify: center, $align: center, $gap: 8px);
+            span:first-child{
+                @include font($font-size: 16px, $font-weight: 500, $line-height: 24px);
+                color: $color-primary-font;
+                letter-spacing: 0.08px;
+                text-align: center;
+            }
+            span:last-child{
+                @include font($font-size: 12px, $font-weight: 600, $line-height: 18px);
+                @include color($color: $nav-color,$background: $li-child3-color);
+                letter-spacing: 0.06px;
+                padding: 2px 6px;
+                border-radius: 100px;
+            }
+        }
+        &-back{
+            @include size($width: 344px, $height: 148px);
+            background-color: $nav-color;
+            border-radius: 4px;
+            position: absolute;
+            top: -55px;
+        }
+        img{
+            z-index: 10;
+        }
+        span{
+            @include font($font-size: 12px, $font-weight: 500, $line-height: 18px);
+            letter-spacing: 0.06px;
+            color: $color-second-font;
+        }
+    }
+    &_infor{
+        @include flex($display: flex, $align: flex-start, $gap: 8px);
+        &-span{
+            @include flex($display: flex, $direction: column, $justify: center, $align: flex-start, $gap: 4px);
+            width: 264px;
+            span{
+                @include font($font-size: 14px, $font-weight: 500, $line-height: 20px);
+                color: $neutral-Black-Black-600;
+                letter-spacing: 0.07px;
+                align-self: stretch;
+            }
+            span:last-child{
+                color: $color-name-font;
+            }
+        }
+    }
+}
+.customer-detail-container_body-right{
+    @include flex($display: flex, $direction: column, $align: flex-start, $gap: 24px);
+    flex: 1 0 0;
+    .card-list_customer-container{
+        @include flex($display: flex, $align: flex-start, $gap: 24px);
+        align-self: stretch;
+        .card-container_list-item{
+            @include size($width: 232px, $height: 160px);
+        }
+    }
+}

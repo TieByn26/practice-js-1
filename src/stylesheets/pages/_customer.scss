@@ -1,0 +1,8 @@
+@use "../abstracts/" as *;
+@use "../base/" as *;
+
+.customer-detail-container_body{
+    @include flex($display: flex, $align: flex-start, $gap: 24px);
+    align-self: stretch;
+    border-radius: 8px;
+}

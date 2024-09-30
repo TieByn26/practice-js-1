@@ -4,6 +4,8 @@ import ic_evenlope from "@/assets/icons/customer/ic-evenlope.svg";
 import ic_lock from "@/assets/icons/customer/ic-lock.svg";
 import ic_phone from "@/assets/icons/customer/ic-phone.svg";
 import ic_avatar_cus from "@/assets/icons/customer/ic-avatar-cus.svg";
+import ic_wallet from "@/assets/icons/customer/ic-wallet.svg";
+import ic_cart_red from "@/assets/icons/customer/ic-cart-red.svg";
 
 //icon of dashboard
 import ic_action_cell from "@/assets/icons/dashboard/ic-action_cell.svg";
@@ -87,6 +89,8 @@ const loadIcon = async (pathIcon) => {
 const [] = await Promise.all([
     loadIcon(ic_cart),
     loadIcon(ic_avatar_cus),
+    loadIcon(ic_cart_red),
+    loadIcon(ic_wallet),
     loadIcon(ic_cart_order),
     loadIcon(ic_receipt_c),
     loadIcon(ic_evenlope),
@@ -162,5 +166,5 @@ export {ic_cart, ic_evenlope, ic_lock, ic_phone,
     ic_phone_c, ic_processing, ic_reward, ic_shipping, ic_success_gray,
     ic_cross,ic_dollar, ic_export, ic_eye, ic_image, ic_pen, ic_plus, ic_save, ic_success_green, ic_trash, ic_video,
     ic_shoping, ic_cart_menu, ic_cart_white,ic_customer_white,ic_dashboard_gray,ic_product_blue,ic_envelope_menu,
-    ic_chevron_down, ic_receipt, ic_receipt_c, ic_cart_order, ic_avatar_cus
+    ic_chevron_down, ic_receipt, ic_receipt_c, ic_cart_order, ic_avatar_cus, ic_cart_red, ic_wallet
 };
