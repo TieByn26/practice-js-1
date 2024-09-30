@@ -1,0 +1,140 @@
+@use "../../../abstracts/" as *;
+@use "../../../base/" as *;
+
+.customer-container-table{
+    @include flex($display: flex, $direction: column, $align: flex-start);
+    align-self: stretch;
+    border-radius: 8px;
+    border: 1px solid $neutral-gray-gray;
+    box-shadow: 0px 1.5px 2px 0px rgba(16, 24, 40, 0.10);
+    
+    .table-customer {
+        thead{
+            tr{
+                @include flex($display: flex, $align: flex-start);
+                th{
+                    @include flex($display: flex, $align: flex-start, $gap: 8px);
+                    align-self: stretch;
+                    border-bottom: 1px solid $neutral-gray-gray;
+                    background-color: $neutral-gray-gray-25;
+                    padding: 18px 22px;
+                    width: 155px;
+                    div{
+                        @include flex($display: flex, $align: center, $gap: 8px);
+                        width: 260px;
+                        align-self: stretch;
+                    }
+                    span{
+                        @include font($font-size: 14px, $font-weight: 500, $line-height: 20px);
+                        color: $color-primary-font;
+                        letter-spacing: 0.07px;
+                        text-align: left;
+                        flex: 1 0 0;
+                    }
+                    input{
+                        @include size($width: 20px, $height: 20px);
+                        appearance: none;
+                        -webkit-appearance: none; 
+                        -moz-appearance: none; 
+                        border: 2px solid $color-second-font; 
+                        border-radius: 4px; 
+                        outline: none; 
+                        cursor: pointer; 
+                    }
+                }
+                th:first-child{
+                    width: 260px;
+                }
+                th:nth-child(2){
+                    width: 148px;
+                }
+                th:nth-child(6){
+                    width: 130px;
+                }
+                th:last-child{
+                    width: 120px;
+                }
+            }
+        }
+        tbody{
+            background-color: $background-color;
+            tr{
+                @include flex($display: flex, $align: flex-start);
+                align-self: stretch;
+                td{
+                    border-bottom: 1px solid $neutral-gray-gray-50;
+                    width: 155px;
+                    @include flex($display: flex, $align: center, $gap: 8px);
+                    align-self: stretch;
+                    padding: 18px 22px;
+                    span{
+                        @include font($font-size: 14px, $font-weight: 500, $line-height: 20px);
+                        letter-spacing: 0.07px;
+                        color: $color-second-font;
+                        text-wrap: nowrap;
+                    }
+                    .blocked-status{
+                        @include color($color: $secondary-Red-Red-500, $background: $secondary-Red-Red-50);
+                        border-radius: 100px;
+                        padding: 4px 12px;
+                    }
+                    .active-status{
+                        @include color($color: $secondary-Green-Green-500, $background: $secondary-Green-Green-50);
+                        border-radius: 100px;
+                        padding: 4px 12px;
+                    }
+                    
+                }
+                td:first-child{
+                    .div-name{
+                        @include flex($display: flex, $align: center, $gap: 8px);
+                        align-self: stretch;
+                        input{
+                            @include size($width: 20px, $height: 20px);
+                            appearance: none;
+                            -webkit-appearance: none; 
+                            -moz-appearance: none; 
+                            border: 2px solid $color-second-font; 
+                            border-radius: 4px; 
+                            outline: none; 
+                            cursor: pointer; 
+                        }
+                        div{
+                            @include flex($display: flex,$direction:column, $align: flex-start, $justify: center, $gap: 8px);
+                            span{
+                                color: $color-name-font;
+                            }
+                            span:last-child{
+                                @include font($font-size: 12px, $font-weight: 400, $line-height: 18px);
+                                color: $color-second-font;
+                                letter-spacing: 0.06px;
+                                width: 150px;
+                                white-space: nowrap;       
+                                overflow: hidden;           
+                                text-overflow: ellipsis; 
+                            }
+                        }
+                    }
+                    width: 260px;
+                }
+                td:nth-child(2){
+                    width: 148px;
+                }
+                td:nth-child(6){
+                    width: 130px;
+                    span{
+                        width: 100%;
+                    }
+                }
+                td:last-child{
+                    @include flex($display: flex, $align: center, $gap: 8px);
+                    width: 120px;
+                    img{
+                        margin-top: -9px;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+}

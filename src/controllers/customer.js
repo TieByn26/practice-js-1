@@ -1,5 +1,5 @@
 import { endpointUrl } from "@/utils";
-import { axiosApiGetData } from "@/utils";
+import { axiosApiGetData , axiosApiDeleteData} from "@/utils";
 import { Customer } from "@/models";
 export class CustomerController{
     constructor(){
@@ -24,7 +24,7 @@ export class CustomerController{
                 console.error("Unexpected response: Data is not an array", data);
             }
         } catch (error) {
-            console.error("Error fetching list order data:", error);
+            console.error("Error fetching list customer data:", error);
         }
     }
     /**
@@ -38,7 +38,14 @@ export class CustomerController{
             const customer = new Customer(data);
             return customer;
         } catch (error) {
-            console.error("Error fetching order data:", error);
+            console.error("Error fetching customer data:", error);
+        }
+    }
+    static async deleteCustomer(id) {
+        try {
+            const deletee  = await axiosApiDeleteData(endpointUrl.getCustomer(id));
+        } catch (error) {
+            console.error("Error delete customer data:", error);
         }
     }
 }
