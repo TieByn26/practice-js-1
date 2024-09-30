@@ -1,5 +1,5 @@
 import { elementHtml } from "@/utils";
-import { HeadCustomer, TableCustomer} from "../components";
+import { FootCustomer, HeadCustomer, TableCustomer} from "../components";
 
 const element = new elementHtml();
 export class customer {
@@ -15,7 +15,9 @@ export class customer {
     initTable(){
         const main = element.divELement("customer-container-table");
         const table = new TableCustomer();
+        const foot = new FootCustomer();
         main.appendChild(table.render());
+        main.appendChild(foot.render());
         this.container.appendChild(main);
     }
 

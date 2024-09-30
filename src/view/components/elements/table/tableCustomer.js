@@ -54,6 +54,7 @@ export class TableCustomer{
         customers.forEach(customer => {
             const bodyrow = document.createElement("tr");
             const keys = ["name","phone","orders","balance","status","created"];
+            let checkToDelete = null;
             keys.forEach(key => {
                 const td = document.createElement("td");
                 if (key === "name"){
@@ -69,6 +70,7 @@ export class TableCustomer{
                     div.append(input, img, divContent);
                     td.appendChild(div);
                     bodyrow.appendChild(td);
+                    checkToDelete = td;
                     return;
                 }
                 if (key === "status") {
@@ -89,6 +91,12 @@ export class TableCustomer{
             update.appendChild(element.imgElement(ic_pen,"icon",""));
             const deletee = element.imgElement(ic_trash,"icon","");
             deletee.addEventListener('click', async () => {
+                if (checkToDelete) {
+                    const tr = checkToDelete.closest('tr');
+                    if (tr) {
+                        tr.remove();
+                    }
+                }
                 await CustomerController.deleteCustomer(customer.id);
             });
             td.append(detail, update, deletee);
