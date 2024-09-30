@@ -1,0 +1,103 @@
+import { elementHtml } from "@/utils";
+import { ic_chevron_down, ic_avatar_cus, ic_eye, ic_pen, ic_trash } from "@/constants";
+import { CustomerController } from "@/controllers";
+import { Link } from "../link";
+
+const element = new elementHtml();
+export class TableCustomer{
+    constructor(){
+        this.table = document.createElement("table");
+        this.table.className = "table-customer";
+        this.createThead();
+        this.createTbody();
+    }
+    createThead(){
+        const thead = document.createElement("thead");
+        const headrow = document.createElement("tr");
+        const title = [
+            {title: "Customer Name", icon: ic_chevron_down},
+            {title: "Phone"},
+            {title: "Orders", icon: ic_chevron_down},
+            {title: "Balance", icon: ic_chevron_down},
+            {title: "Status", icon: ic_chevron_down},
+            {title: "Created", icon: ic_chevron_down},
+            {title: "Action"},
+        ];
+        title.forEach((obj , index)=> {
+            const th = document.createElement("th");
+            if (index === 0){
+                const div = element.divELement("");
+                const input = document.createElement("input");
+                input.type = "checkbox";
+                const span = element.spanElement("",obj.title);
+                const img = element.imgElement(ic_chevron_down,"icon","");
+                div.append(input, span, img);
+                th.appendChild(div);
+                headrow.appendChild(th);
+                return;
+            }
+            th.appendChild(element.spanElement("",obj.title));
+            if (obj.icon){
+                const img = element.imgElement(ic_chevron_down, "icon", "");
+                th.appendChild(img);
+                headrow.appendChild(th);
+                return;
+            }
+            headrow.appendChild(th);
+        });
+        thead.appendChild(headrow);
+        this.table.appendChild(thead);
+    }
+    async createTbody(){
+        const tbody = document.createElement("tbody");
+        const customers = await CustomerController.getListCustomer(1);
+        customers.forEach(customer => {
+            const bodyrow = document.createElement("tr");
+            const keys = ["name","phone","orders","balance","status","created"];
+            keys.forEach(key => {
+                const td = document.createElement("td");
+                if (key === "name"){
+                    const div = element.divELement("div-name");
+                    const input = document.createElement("input");
+                    input.type = "checkbox";
+                    const img = element.imgElement(ic_avatar_cus,"icon","");
+                    const divContent = element.divELement("");
+                    const spanName = element.spanElement("",customer[key]);
+                    const spanMail = element.spanElement("",customer["mail"]);
+
+                    divContent.append(spanName, spanMail);
+                    div.append(input, img, divContent);
+                    td.appendChild(div);
+                    bodyrow.appendChild(td);
+                    return;
+                }
+                if (key === "status") {
+                    const status = customer[key].startsWith("A") ? `active-status`: `blocked-status`;
+                    const span = element.spanElement(status,customer[key]);
+                    td.appendChild(span)
+                    bodyrow.appendChild(td);
+                    return;
+                }
+                const span = element.spanElement("",customer[key])
+                td.appendChild(span);
+                bodyrow.appendChild(td);
+            });
+            const td = document.createElement("td");
+            const detail = new Link(`/customer-detail/${customer.id}`).render();
+            detail.appendChild(element.imgElement(ic_eye,"icon",""));
+            const update = new Link (`/404`).render();
+            update.appendChild(element.imgElement(ic_pen,"icon",""));
+            const deletee = element.imgElement(ic_trash,"icon","");
+            deletee.addEventListener('click', async () => {
+                await CustomerController.deleteCustomer(customer.id);
+            });
+            td.append(detail, update, deletee);
+            bodyrow.appendChild(td);
+            tbody.appendChild(bodyrow);
+        });
+        this.table.appendChild(tbody);
+    }
+    render(){
+        return this.table;
+    }
+}

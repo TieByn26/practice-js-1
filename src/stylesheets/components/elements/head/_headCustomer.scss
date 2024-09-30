@@ -1,0 +1,72 @@
+@use "../../../abstracts/" as *;
+@use "../../../base/" as *;
+
+.customer-container {
+    @include flex($display: flex, $direction: column, $align: flex-start, $gap: 24px);
+    background-color: $background-color-second;
+    align-self: stretch;
+    padding: 32px 24px;
+
+    .customer-head-container {
+        @include flex($display: flex, $direction: column, $align: flex-start, $gap: 24px);
+        background-color: $background-color-second;
+        align-self: stretch;
+
+        &_top {
+            @include flex($display: flex, $align: flex-end, $gap: 24px);
+            align-self: stretch;
+            &-button {
+                 @include flex($display: flex, $align: flex-end, $gap: 16px);
+                
+
+                 button {
+                    border-radius: 8px;
+                    padding: 10px 14px;
+    
+                    a {
+                        @include flex($display: flex, $justify: center, $align: center, $gap: 4px);
+                        @include font($font-size: 14px, $font-weight: 600, $line-height: 20px);
+                        letter-spacing: 0.07px;
+                    }
+                }
+    
+                .button-middle {
+                    @include color($color: $nav-color, $background: #DEDEFA);
+                }
+    
+                .button-blue {
+                    @include color($color: $background-color, $background: $nav-color);
+    
+                }
+            }
+        }
+        &_bottom {
+            @include flex($display: flex, $justify: space-between, $align: flex-start);
+            align-self: stretch;
+            &-search{
+                @include boder($boder-radius: 8px, $boder: 1px solid $neutral-gray-gray);
+                @include flex($display: flex, $align: center, $gap: 4px);
+                background-color: $background-color;
+                width: 320px;
+                input{
+                    @include font($font-size: 14px, $font-weight: 400, $line-height: 20px);
+                    border: none;
+                    outline: none;
+                    letter-spacing: 0.07px;
+                    flex: 1 0 0;
+                }
+            }
+            .button-white{
+                @include color($color: $color-second-font, $background: $background-color);
+                @include boder($boder-radius: 8px, $boder: 1px solid $neutral-gray-gray);
+                padding: 10px 14px;
+
+                a {
+                    @include flex($display: flex, $justify: center, $align: center, $gap: 4px);
+                    @include font($font-size: 14px, $font-weight: 600, $line-height: 20px);
+                    letter-spacing: 0.07px;
+                }
+            }
+        }
+    }
+}
