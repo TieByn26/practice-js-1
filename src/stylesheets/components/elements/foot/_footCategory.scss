@@ -1,0 +1,35 @@
+@use "../../../abstracts/" as *;
+@use "../../../base/" as *;
+
+.category-container-foot{
+    @include flex($display: flex, $align: center, $gap: 12px);
+    padding: 14px 24px 16px 24px;
+    align-self: stretch;
+    
+    span{
+        @include font($font-size:14px, $font-weight: 500, $line-height: 20px);
+        color: $color-second-font;
+        letter-spacing: 0.07px;
+        flex: 1 0 0;
+    }
+    &_button{
+        @include flex($display: flex, $align: flex-start, $gap: 8px);
+        button{
+            @include flex($display: flex, $align: center, $justify: center, $gap: 4px);
+            @include size($width: 32px, $height: 32px);
+            @include color($color: $nav-color, $background: $button-tab-color);
+            font-weight: 600;
+            border-radius: 8px;
+            padding: 6px;
+
+        }
+        .button-active{
+            @include color($color: $background-color, $background: $nav-color);
+        }
+        button:last-child{
+            img{
+                transform: rotate(180deg);
+            }
+        }
+    }
+}
