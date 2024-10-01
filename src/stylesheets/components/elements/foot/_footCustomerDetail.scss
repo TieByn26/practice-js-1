@@ -1,0 +1,15 @@
+@use "../../../abstracts/" as *;
+@use "../../../base/" as *;
+
+.customer-detail-container_foot{
+    @include flex($display: flex, $align: center, $gap: 12px);
+    padding: 14px 24px 16px 24px;
+    align-self: stretch;
+    
+    span{
+        @include font($font-size:14px, $font-weight: 500, $line-height: 20px);
+        color: $color-second-font;
+        letter-spacing: 0.07px;
+        flex: 1 0 0;
+    }
+}

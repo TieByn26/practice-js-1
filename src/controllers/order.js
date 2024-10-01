@@ -48,4 +48,16 @@ export class OrderController{
             console.error("Error update order data:", error)
         }
     }
+    static async getOrderFollowIdCus(id, page){
+        try {
+            const data = await axiosApiGetData(endpointUrl.getListOrderIdCus(id, page));
+            const orders = data.map(res => {
+                const orderres = new Orders(res);
+                return orderres;
+            });
+            return orders;
+        } catch (err) {
+            console.log(">>> err get data", err);
+        }
+    }
 }

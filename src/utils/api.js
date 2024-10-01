@@ -54,6 +54,11 @@ export const endpointUrl = {
         return `/orders/${id}`;
     },
 
+    getListOrderIdCus(id, page) {
+        const limit = 5;
+        return `/orders?customerId=${id}&_limit=${limit}&_page=${page}`;
+    },
+
     // CUSTOMER ENDPOINT
     getListCustomer(page){
         const limit = 10;
