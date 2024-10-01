@@ -11,11 +11,10 @@ export class category extends dtoMethod{
      * @param {number} param0.stock
      * @param {string} param0.added
      */
-    constructor({id, name, image, description, sales, stock, added}){
+    constructor({id, name, description, sales, stock, added}){
         super();
         this.id = id;
         this.name = name;
-        this.image = image;
         this.description = description;
         this.sales = sales;
         this.stock = stock;
