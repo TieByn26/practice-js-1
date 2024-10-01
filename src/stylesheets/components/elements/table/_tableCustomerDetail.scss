@@ -1,0 +1,137 @@
+@use "../../../abstracts/" as *;
+@use "../../../base/" as *;
+
+.main-customer-detail{
+    @include flex($display: flex, $direction: column, $align: flex-start);
+    @include boder($boder-radius: 8px, $boder: 1px solid $neutral-gray-gray);
+    box-shadow: 0px 1.5px 2px 0px rgba(16, 24, 40, 0.10);
+    align-self: stretch;
+    background-color: $background-color;
+    &_head{
+        @include flex($display: flex, $align: center, $gap: 12px);
+        padding: 18px 24px;
+        align-self: stretch;
+        span{
+            @include font($font-size: 18px,$font-weight: 500, $line-height: 28px);
+            letter-spacing: 0.09px;
+            color: $color-primary-font;
+            flex: 1 0 0;
+        }
+        .button-container{
+            @include flex($display: flex, $align: flex-start, $gap: 16px);
+            .button-white{
+                @include boder($boder-radius:8px, $boder: 1px solid $neutral-gray-gray);
+                span{
+                    @include color($color: $color-second-font, $background: $background-color);
+                    @include font($font-size: 14px, $font-weight: 500, $line-height: 19.6px);
+                }
+                letter-spacing: 0.07px;
+                
+            }
+            button:nth-child(1){
+                a{
+                    @include flex($display: flex, $align: center, $justify: center);
+                    padding-right: 14px;
+                }
+            }
+            button:nth-child(2){
+                a{
+                    @include flex($display: flex, $align: center, $justify: center, $gap: 8px);
+                    padding: 10px 14px;
+                }
+            }
+        }
+    }
+    &_table{
+        thead{
+            tr{
+                display: flex;
+                align-self: stretch;
+                th{
+                    @include flex($display: flex, $align: flex-start, $gap: 8px);
+                    @include font($font-size: 14px, $font-weight:500 ,$line-height: 20px);
+                    align-self: stretch;
+                    letter-spacing: 0.07px;
+                    border-bottom: 1px solid $neutral-gray-gray;
+                    color: $color-primary-font;
+                    span{
+                        flex: 1 0 0;
+                        text-align: left;
+                    }
+                    background-color: $neutral-gray-gray-25;
+                    padding: 18px 22px;
+                }
+                th:first-child{
+                    width: 109px;
+                }
+                th:nth-child(2){
+                    width: 222px;
+                }
+                th:nth-child(3){
+                    width: 138px;
+                }
+                th:nth-child(4){
+                    width: 145px;
+                }
+                th:last-child{
+                    width: 130px;
+                }
+            }
+        }
+        tbody{
+            tr{
+                display: flex;
+                td{
+                    @include font($font-size: 14px, $font-weight: 500, $line-height: 20px);
+                    @include flex($display: flex, $align:  center, $gap: 8px);
+                    align-self: stretch;
+                    color: $color-second-font;
+                    letter-spacing: 0.07px;
+                    padding: 18px 22px;
+                    border-bottom: 1px solid $neutral-gray-gray-50;
+                    background-color: $background-color;
+                }
+                td:first-child{
+                    width: 109px;
+                    font-weight: 600;
+                    color: $nav-color;
+                }
+                td:nth-child(2){
+                    width: 222px;
+                    div{
+                        display: flex;
+                        align-items: center;
+                        gap: 8px;
+                        color: $color-primary-font;
+                    }
+                }
+                td:nth-child(3){
+                    width: 138px;
+                }
+                td:nth-child(4){
+                    span{
+                        padding: 4px 12px;
+                        border-radius: 100px;
+                    }
+                    width: 145px;
+                }
+                td:last-child{
+                    text-wrap: nowrap;
+                    width: 130px;
+                }
+                .processing-status{
+                    @include color($color: $secondary-Yellow-Yellow-500, $background: $secondary-Yellow-Yellow-50);
+                }
+                .shipped-status{
+                    @include color($color: #13B2E4, $background: #E8F8FD);
+                }
+                .delivered-status{
+                    @include color($color: $secondary-Green-Green-500, $background: $secondary-Green-Green-50);
+                }
+                .cancelled-status{
+                    @include color($color: $secondary-Red-Red-500, $background: $secondary-Red-Red-50);
+                }
+            }
+        }
+    }
+}
