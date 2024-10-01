@@ -15,7 +15,7 @@ export const cardList = () => {
 
     cardItem.forEach(item => {
         const li = elHtml.liElement("");
-        li.innerHTML = card(item);
+        li.appendChild(card(item));
         ul.appendChild(li);
     })
     container.appendChild(ul);

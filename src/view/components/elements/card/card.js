@@ -16,5 +16,5 @@ export const card = ({src = "", alt = "", name = "", sale = "", grow = {}} ={} )
     container2.append(span1, container3);
     container1.append(figure, container2);
 
-    return container1.outerHTML;
+    return container1;
 }

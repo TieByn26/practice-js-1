@@ -20,8 +20,11 @@
         li {
             @include size($width: 228px, $height: 40px);
             @include boder($boder-radius: 8px, $boder: 0px solid $primary-font);
+            .chev{
+                margin-left: 85px;
+            }
         }
-        li:nth-child(8) {
+        li:nth-last-child(2) {
             margin-top: 290px;
         }
     }
