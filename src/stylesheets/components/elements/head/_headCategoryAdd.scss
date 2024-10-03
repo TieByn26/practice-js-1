@@ -1,13 +1,13 @@
 @use "../../../abstracts/" as *;
 @use "../../../base/" as *;
 
-.category-detail-container {
+.categoryad-container {
     @include flex($display: flex, $direction: column, $align: flex-start, $gap: 24px);
     background-color: $background-color-second;
     align-self: stretch;
     padding: 32px 24px;
 
-    .categoryde-head-container {
+    .categoryad-container-head {
         @include flex($display: flex, $align: flex-end, $gap: 24px);
         align-self: stretch;
 
@@ -15,7 +15,7 @@
             @include flex($display: flex, $align: flex-end, $gap: 16px);
 
 
-            button {
+            button{
                 border-radius: 8px;
                 padding: 10px 14px;
 
@@ -30,7 +30,7 @@
                 @include color($color: $neutral-Gray-Gray-400);
                 border: 1px solid $neutral-Gray-Gray-400;
             }
-            .save-button{
+            .add-button{
                 @include color($color: $background-color, $background: $nav-color);
                 @include flex($display: flex, $align: center, $gap: 4px);
                 @include font($font-size: 14px, $font-weight: 600, $line-height: 20px);
@@ -39,6 +39,7 @@
             button[unactive]{
                 opacity: 0.65;
             }
+ 
         }
     }
 }

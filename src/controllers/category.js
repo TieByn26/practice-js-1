@@ -1,4 +1,4 @@
-import { axiosApiDeleteData, axiosApiGetData, axiosApiPatchData, endpointUrl } from "@/utils";
+import { axiosApiAddData, axiosApiDeleteData, axiosApiGetData, axiosApiPatchData, endpointUrl } from "@/utils";
 import { category } from "@/models";
 
 export class CategoryController{
@@ -43,6 +43,13 @@ export class CategoryController{
             await axiosApiPatchData(endpointUrl.getCategory(id), data);
         } catch (error) {
             console.error("Error update category data:", error)
+        }
+    }
+    static async addNewCategory(data){
+        try {
+            await axiosApiAddData(endpointUrl.getCategories(), data);
+        } catch (error) {
+            console.error("Error add category data:", error)
         }
     }
 }

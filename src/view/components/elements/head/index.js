@@ -5,3 +5,4 @@ export * from "./headOrderDetail";
 export * from "./headCustomer";
 export * from "./headCustomerDetail";
 export * from "./headCategoryDetail";
+export * from "./headCategoryAdd";

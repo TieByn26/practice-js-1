@@ -39,6 +39,9 @@ export const endpointUrl = {
     getCategory(id) {
         return `/categories/${id}`;
     },
+    getCategories(){
+        return `/categories`;
+    },
 
     //ORDER ENDPOINT 
     /**

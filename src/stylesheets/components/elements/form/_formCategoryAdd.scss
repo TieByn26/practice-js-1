@@ -1,0 +1,62 @@
+@use "../../../abstracts/" as *;
+@use "../../../base/" as *;
+
+.categoryad-container-form{
+    @include flex($display: flex, $align: flex-start, $gap: 24px);
+    align-self: stretch;
+    &_main{
+        @include flex($display: flex,$direction: column, $align: center, $gap: 14px);
+        @include boder($boder-radius: 8px, $boder: 1px solid $neutral-gray-gray);
+        box-shadow: 0px 1.5px 2px 0px rgba(16, 24, 40, 0.10);
+        background-color: $background-color;
+        flex: 1 0 0;
+        padding: 24px;
+        .title{
+            @include font($font-size: 18px, $font-weight: 500, $line-height: 28px);
+            color: $color-name-font;
+            align-self: stretch;
+            letter-spacing: 0.09px;
+        }
+        &-name{
+            @include flex($display: flex,$direction: column, $align: flex-start, $gap: 4px);
+            align-self: stretch;
+            span{
+                @include font($font-size: 14px, $font-weight: 500, $line-height: 20px);
+                color: $neutral-Black-Black-600;
+                letter-spacing: 0.07px;
+                flex: 1 0 0;
+            }
+            input{
+                @include font($font-size: 14px, $font-weight: 400, $line-height: 20px);
+                color: $color-primary-font;
+                letter-spacing: 0.07px;
+
+                @include boder($boder-radius: 8px, $boder: 1px solid $neutral-gray-gray);
+                background-color: $neutral-gray-gray-25;
+                width: 792px;
+                padding: 8px 12px;
+            }
+        }
+        &-des{
+            @include flex($display: flex,$direction: column, $align: flex-start, $gap: 4px);
+            align-self: stretch;
+            span{
+                @include font($font-size: 14px, $font-weight: 500, $line-height: 20px);
+                color: $neutral-Black-Black-600;
+                letter-spacing: 0.07px;
+                flex: 1 0 0;
+            }
+            textarea{
+                @include font($font-family: $primary-font,$font-size: 14px, $font-weight: 400, $line-height: 20px);
+                color: $color-primary-font;
+                letter-spacing: 0.07px;
+
+                @include boder($boder-radius: 8px, $boder: 1px solid $neutral-gray-gray);
+                @include size($width: 792px, $height: 140px);
+                background-color: $neutral-gray-gray-25;
+                padding: 8px 12px;
+                resize: none;
+            }
+        }
+    }
+}
