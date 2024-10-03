@@ -1,4 +1,4 @@
-import { axiosApiDeleteData, axiosApiGetData, endpointUrl } from "@/utils";
+import { axiosApiDeleteData, axiosApiGetData, axiosApiPatchData, endpointUrl } from "@/utils";
 import { category } from "@/models";
 
 export class CategoryController{
@@ -22,11 +22,27 @@ export class CategoryController{
             console.log("err fetch list category",err);
         }
     }
+    static async getCategoryFollowId(id){
+        try {
+            const data  = await axiosApiGetData(endpointUrl.getCategory(id));
+            const Category = new category(data);
+            return Category;
+        } catch (error) {
+            console.error("Error fetching Category data:", error);
+        }
+    }
     static async deteteCategory(id){
         try {
             const deletee  = await axiosApiDeleteData(endpointUrl.getCategory(id));
         } catch (error) {
             console.error("Error delete category data:", error);
+        }
+    }
+    static async updateCategory(id, data){
+        try {
+            await axiosApiPatchData(endpointUrl.getCategory(id), data);
+        } catch (error) {
+            console.error("Error update category data:", error)
         }
     }
 }
