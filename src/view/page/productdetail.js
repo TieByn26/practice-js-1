@@ -1,12 +1,15 @@
 import { elementHtml } from "@/utils";
-import { FormProductDetail, HeadProductDetail } from "../components";
+import { FootProductDetail, FormProductDetail, HeadProductDetail } from "../components";
 
 const element = new elementHtml();
 export class productdetail {
     constructor() {
+        this.superContainer = element.divELement("super-container");
         this.container = element.divELement("productde-container");
         this.initHead();
         this.iniForm();
+        const foot = new FootProductDetail().render();
+        this.superContainer.append(this.container, foot);
     }
     initHead(){
         const head = new HeadProductDetail().render();
@@ -17,9 +20,9 @@ export class productdetail {
         const forml = new FormProductDetail().render();
         const formr = await FormProductDetail.rightColumn();
         container.append(forml, formr);
-        this.container.appendChild(container);
+        this.container.append(container);
     }
     render(){
-        return this.container;
+        return this.superContainer;
     }
 }

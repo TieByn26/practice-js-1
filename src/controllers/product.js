@@ -1,4 +1,4 @@
-import { endpointUrl } from "@/utils";
+import { axiosApiPatchData, endpointUrl } from "@/utils";
 import { axiosApiGetData, axiosApiDeleteData, axiosApiUpdateData, axiosApiAddData } from "@/utils";
 import { product, category} from "@/models";
 
@@ -55,6 +55,13 @@ export class productController {
             await axiosApiAddData(endpointUrl.getProducts(), data);
         } catch (error) {
             console.error("Error add product data:", error)
+        }
+    }
+    static async updateProduct(id, data){
+        try {
+            await axiosApiPatchData(endpointUrl.getProduct(id), data);
+        } catch (error) {
+            console.error("Error update product data:", error)
         }
     }
 }

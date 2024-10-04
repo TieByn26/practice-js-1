@@ -1,0 +1,57 @@
+@use "../../../abstracts/" as *;
+@use "../../../base/" as *;
+
+.productde-container-foot{
+    @include flex($display: flex, $align: center, $justify: flex-end, $gap: 16px);
+    border-top: 1px solid $neutral-gray-gray;
+    background-color: $background-color;
+    padding: 16px;
+    align-self: stretch;
+
+    &_span{
+        @include flex($display: flex, $align: center, $gap: 16px);
+        flex: 1 0 0;
+        span:first-child{
+            @include font($font-size:16px, $font-weight: 500, $line-height: 24px);
+            color: $color-primary-font;
+            letter-spacing: 0.08px;
+        }
+        span:last-child{
+            @include color($color:$secondary-Green-Green-500, $background:$secondary-Green-Green-50);
+            @include font($font-size:14px, $font-weight: 500, $line-height: 20px);
+            letter-spacing: 0.07px;
+            padding: 4px 12px;
+            border-radius: 100px;
+            
+        }
+    }
+    &_button {
+        @include flex($display: flex, $align: flex-end, $gap: 16px);
+
+
+        button {
+            border-radius: 8px;
+            padding: 10px 14px;
+
+            a {
+                @include flex($display: flex, $justify: center, $align: center, $gap: 4px);
+                @include font($font-size: 14px, $font-weight: 600, $line-height: 20px);
+                letter-spacing: 0.07px;
+            }
+        }
+
+        .button-white {
+            @include color($color: $neutral-Gray-Gray-400);
+            border: 1px solid $neutral-Gray-Gray-400;
+        }
+        .save-button{
+            @include color($color: $background-color, $background: $nav-color);
+            @include flex($display: flex, $align: center, $gap: 4px);
+            @include font($font-size: 14px, $font-weight: 600, $line-height: 20px);
+            letter-spacing: 0.07px;
+        }
+        button[unactive]{
+            opacity: 0.65;
+        }
+    }
+}
