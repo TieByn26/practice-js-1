@@ -1,0 +1,165 @@
+@use "../../../abstracts/" as *;
+@use "../../../base/" as *;
+
+.product-table-container {
+    @include flex($display: flex, $direction: column, $align: flex-start);
+    @include boder($boder-radius: 8px, $boder: 1px solid $neutral-gray-gray);
+    box-shadow: 0px 1.5px 2px 0px rgba(16, 24, 40, 0.10);
+    align-self: stretch;
+    background-color: $background-color;
+
+    .table-product {
+        thead {
+            tr {
+                display: flex;
+                align-self: stretch;
+
+                th {
+                    @include flex($display: flex, $align: flex-start, $gap: 8px);
+                    align-self: stretch;
+                    border-bottom: 1px solid $neutral-gray-gray;
+                    background-color: $neutral-gray-gray-25;
+                    padding: 18px 22px;
+                    width: 122px;
+
+                    div {
+                        @include flex($display: flex, $align: center, $gap: 8px);
+                        align-self: stretch;
+                    }
+
+                    span {
+                        @include font($font-size: 14px, $font-weight: 500, $line-height: 20px);
+                        color: $color-primary-font;
+                        width: 150px;
+                        letter-spacing: 0.07px;
+                        text-align: left;
+                        flex: 1 0 0;
+                    }
+
+                    input {
+                        @include size($width: 20px, $height: 20px);
+                        appearance: none;
+                        -webkit-appearance: none;
+                        -moz-appearance: none;
+                        border: 2px solid $color-second-font;
+                        border-radius: 4px;
+                        outline: none;
+                        cursor: pointer;
+                    }
+                }
+
+                th:first-child {
+                    width: 248px;
+                }
+
+                th:nth-child(2) {
+                    width: 99px;
+                }
+
+                th:nth-child(3) {
+                    width: 128px;
+                }
+
+                th:nth-child(6) {
+                    width: 154px;
+                }
+
+                th:nth-child(7) {
+                    width: 130px;
+                }
+
+                th:last-child {
+                    width: 120px;
+                }
+            }
+        }
+
+        tbody {
+            background-color: $background-color;
+            tr{
+                @include flex($display: flex);
+                td{
+                    @include flex($display: flex, $align: center, $gap: 8px);  
+                    border-bottom: 1px solid $neutral-gray-gray-50;
+                    align-self: stretch;
+                    padding: 18px 22px;
+
+                    @include font($font-size: 14px, $font-weight: 500, $line-height: 20px);
+                    letter-spacing: 0.07px;
+                    color: $color-second-font;
+                    text-wrap: nowrap;
+
+                    width: 122px;
+                    input{
+                        @include size($width: 20px, $height: 20px);
+                        appearance: none;
+                        -webkit-appearance: none; 
+                        -moz-appearance: none; 
+                        border: 2px solid $color-second-font; 
+                        border-radius: 4px; 
+                        outline: none; 
+                        cursor: pointer;
+                    }
+                
+                }
+                td:first-child{
+                    width: 248px;
+                    .div-name{
+                        @include flex($display: flex, $align: center, $gap: 8px);
+                        div{
+                            @include flex($display: flex,$direction: column, $align: flex-start, $gap: 4px);
+                            span:first-child{
+                                color: $color-primary-font;
+                            }
+                            span:last-child{
+                                @include font($font-size: 12px, $font-weight: 400, $line-height: 18px);
+                                letter-spacing: 0.06px;
+                                color: $color-second-font;
+                            }
+                        }
+                    }
+                }
+                td:nth-child(2) {
+                    font-weight: 600;
+                    color: $nav-color;
+                    width: 99px;
+                }
+
+                td:nth-child(3) {
+                    width: 128px;
+                }
+
+                td:nth-child(6) {
+                    width: 154px;
+                }
+
+                td:nth-child(7) {
+                    width: 130px;
+                }
+                td:last-child{
+                    .delete-icon{
+                        margin-bottom: 6px;
+                    }
+                    width: 120px;
+                }
+                .low-stock-status, .draft-status, .published-status, .out-stock-status{
+                    padding: 4px 12px;
+                    align-items: center;
+                    border-radius: 100px;
+                }
+                .out-stock-status{
+                    @include color($color:$secondary-Red-Red-500,$background:$secondary-Red-Red-50);
+                }
+                .low-stock-status{
+                    @include color($color:$secondary-Yellow-Yellow-500, $background:$secondary-Yellow-Yellow-50);
+                }
+                .draft-status{
+                    @include color($color:$neutral-Black-Black-500, $background:$neutral-gray-gray-50);
+                }
+                .published-status{
+                    @include color($color:$secondary-Green-Green-500, $background:$secondary-Green-Green-50);
+                }
+            }
+        }
+    }
+}

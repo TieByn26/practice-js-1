@@ -1,5 +1,8 @@
 export const endpointUrl = {
     // PRODUCT ENDPOINT
+    getProducts(){
+        return `/products`;
+    },
     /**
      * @param {number} page - The page number to retrieve products from.
      * @returns {string} URL to get paginated list of products.

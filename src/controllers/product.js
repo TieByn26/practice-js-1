@@ -31,4 +31,30 @@ export class productController {
             console.log(">>> err get data: ", err);
         }
     }
+    static async getListProduct(page){
+        try {
+            const data = await axiosApiGetData(endpointUrl.getListProduct(page));
+            const products = data.map(res => {
+                const Product = new product(res);
+                return Product;
+            });
+            return products;
+        } catch (error) {
+            console.error("Error fetching list product data:", error);
+        }
+    }
+    static async deleteProduct(id){
+        try {
+            const deletee  = await axiosApiDeleteData(endpointUrl.getProduct(id));
+        } catch (error) {
+            console.error("Error delete product data:", error);
+        }
+    }
+    static async addNewProduct(data){
+        try {
+            await axiosApiAddData(endpointUrl.getProducts(), data);
+        } catch (error) {
+            console.error("Error add product data:", error)
+        }
+    }
 }

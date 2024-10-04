@@ -6,3 +6,4 @@ export * from "./headCustomer";
 export * from "./headCustomerDetail";
 export * from "./headCategoryDetail";
 export * from "./headCategoryAdd";
+export * from "./headProduct";

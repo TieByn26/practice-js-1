@@ -1,0 +1,84 @@
+@use "../../../abstracts/" as *;
+@use "../../../base/" as *;
+
+.product-container {
+    @include flex($display: flex, $direction: column, $align: flex-start, $gap: 24px);
+    background-color: $background-color-second;
+    align-self: stretch;
+    padding: 32px 24px;
+
+    .product-head-container {
+        @include flex($display: flex, $direction: column, $align: flex-start, $gap: 24px);
+        background-color: $background-color-second;
+        align-self: stretch;
+
+        &_top {
+            @include flex($display: flex, $align: flex-end, $gap: 24px);
+            align-self: stretch;
+            &-button {
+                 @include flex($display: flex, $align: flex-end, $gap: 16px);
+                
+
+                 button {
+                    border-radius: 8px;
+                    padding: 10px 14px;
+    
+                    a {
+                        @include flex($display: flex, $justify: center, $align: center, $gap: 4px);
+                        @include font($font-size: 14px, $font-weight: 600, $line-height: 20px);
+                        letter-spacing: 0.07px;
+                    }
+                }
+    
+                .button-middle {
+                    @include color($color: $nav-color, $background: #DEDEFA);
+                }
+    
+                .button-blue {
+                    @include color($color: $background-color, $background: $nav-color);
+    
+                }
+            }
+        }
+        &_bottom {
+            @include flex($display: flex, $justify: space-between, $align: flex-start);
+            align-self: stretch;
+            &-search{
+                @include boder($boder-radius: 8px, $boder: 1px solid $neutral-gray-gray);
+                @include flex($display: flex, $align: center, $gap: 4px);
+                background-color: $background-color;
+                width: 320px;
+                input{
+                    @include font($font-size: 14px, $font-weight: 400, $line-height: 20px);
+                    border: none;
+                    outline: none;
+                    letter-spacing: 0.07px;
+                    flex: 1 0 0;
+                }
+            }
+            .button-container{
+                @include flex($display: flex, $align: flex-start, $gap: 16px);
+                .button-white{
+                    @include boder($boder-radius:8px, $boder: 1px solid $neutral-gray-gray);
+                    @include font($font-size: 14px, $font-weight: 600, $line-height: 20px);
+                    @include color($color: $color-second-font, $background: $background-color);
+                    letter-spacing: 0.07px;
+                    
+                }
+                button:nth-child(1){
+                    a{
+                        @include flex($display: flex, $align: center, $justify: center);
+                        padding-right: 14px;
+                    }
+                }
+                button:nth-child(2){
+                    a{
+                        @include flex($display: flex, $align: center, $justify: center, $gap: 8px);
+                        padding: 10px 14px;
+                    }
+                }
+            }
+        
+        }
+    }
+}
