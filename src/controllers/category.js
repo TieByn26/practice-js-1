@@ -52,4 +52,16 @@ export class CategoryController{
             console.error("Error add category data:", error)
         }
     }
+    static async getAllCategory(){
+        try {
+            const data = await axiosApiGetData(endpointUrl.getCategories());
+            const categories = data.map(res => {
+                const Category = new category(res);
+                return Category; 
+            }); 
+            return categories;
+        } catch (err) {
+            console.log("err fetch list category",err);
+        }
+    }
 }

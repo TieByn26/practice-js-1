@@ -7,6 +7,9 @@ import ic_chevron_up from "@/assets/images/chevron-up.svg";
 import ic_reward_blue from "@/assets/images/reward.svg";
 import pic_thumbnail_add from "@/assets/images/form.jpg";
 import pic_thumbnail_detail from "@/assets/images/thumbnail.jpg";
+import pic_media_de from "@/assets/images/mediade.png";
+import pic_media_ad from "@/assets/images/mediaad.png";
+
 
 const loadImage = async (pathImage) => {
     try {
@@ -27,6 +30,11 @@ const [] = await Promise.all([
     loadImage(ic_reward_blue),
     loadImage(pic_thumbnail_add),
     loadImage(pic_thumbnail_detail),
+    loadImage(pic_media_de),
+    loadImage(pic_media_ad)
 ]);
 
-export {pic_chart1, pic_chart2, pic_avatar, pic_dot, pic_white, ic_chevron_up, ic_reward_blue, pic_thumbnail_add, pic_thumbnail_detail};
+export {pic_chart1, pic_chart2, pic_avatar, pic_dot, pic_white, ic_chevron_up, 
+    ic_reward_blue, pic_thumbnail_add, pic_thumbnail_detail,
+    pic_media_ad, pic_media_de
+};

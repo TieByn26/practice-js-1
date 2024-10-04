@@ -12,7 +12,7 @@ export class HeadProduct{
     }
     initHeadTop(){
         const headTop = element.divELement("product-head-container_top");
-        const breadcrumb = new Breadcrumb([routesPath.home, routesPath.categories],"Categories").render();
+        const breadcrumb = new Breadcrumb([routesPath.home, routesPath.product],"Product").render();
 
         const buttonContainer = element.divELement("product-head-container_top-button");
         buttonContainer.append(

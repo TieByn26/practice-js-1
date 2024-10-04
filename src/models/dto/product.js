@@ -14,7 +14,8 @@ export const productType = {
     added: "",
     description: "",
     categoryId: 0,
-    imageId: 0
+    imageId: 0,
+    barcode: ""
 }
 export const productRequestType = {
     sku: "",
@@ -28,7 +29,8 @@ export const productRequestType = {
     added: "",
     description: "",
     categoryId: 0,
-    imageId: 0
+    imageId: 0,
+    barcode: ""
 }
 /**
  * @param {object} param0
@@ -36,10 +38,10 @@ export const productRequestType = {
  * @returns {typeof productRequestType}
  */
 export const getProductRequest = ({
-    sku, name, variant, quantity, price, sales, amount, status, added, description, categoryId, imageId
+    sku, name, variant, quantity, price, sales, amount, status, added, description, categoryId, imageId, barcode
 }) => {
     return {
-        sku, name, variant, quantity, price, sales, amount, status, added, description, categoryId, imageId
+        sku, name, variant, quantity, price, sales, amount, status, added, description, categoryId, imageId, barcode
     };
 }
 
@@ -49,7 +51,7 @@ export class product extends dtoMethod {
      * @param {object} param0 
      * @param {typeof productType} param0
      */
-    constructor({ id, sku, name, variant, quantity, price, sales, amount, status, added, description, categoryId, imageId }) {
+    constructor({ id, sku, name, variant, quantity, price, sales, amount, status, added, description, categoryId, imageId, barcode }) {
         super();
         this.id = id;
         this.sku = sku;
@@ -64,6 +66,7 @@ export class product extends dtoMethod {
         this.description = description;
         this.categoryId = categoryId;
         this.imageId = imageId;
+        this.barcode = barcode;
     }
     /**
         * Sets category and image information for the product.
@@ -93,7 +96,8 @@ export class product extends dtoMethod {
             added: this.added,
             description: this.description,
             categoryId: this.categoryId,
-            imageId: this.imageId
+            imageId: this.imageId,
+            barcode: this.barcode
         }
     }
 }
