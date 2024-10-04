@@ -8,3 +8,4 @@ export * from "./headCategoryDetail";
 export * from "./headCategoryAdd";
 export * from "./headProduct";
 export * from "./headProductDetail";
+export * from "./headAddProduct";
