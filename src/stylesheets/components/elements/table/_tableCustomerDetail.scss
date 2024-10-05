@@ -20,12 +20,12 @@
         .button-container{
             @include flex($display: flex, $align: flex-start, $gap: 16px);
             .button-white{
+                letter-spacing: 0.07px;
                 @include boder($boder-radius:8px, $boder: 1px solid $neutral-gray-gray);
                 span{
                     @include color($color: $color-second-font, $background: $background-color);
                     @include font($font-size: 14px, $font-weight: 500, $line-height: 19.6px);
                 }
-                letter-spacing: 0.07px;
                 
             }
             button:nth-child(1){
@@ -54,12 +54,12 @@
                     letter-spacing: 0.07px;
                     border-bottom: 1px solid $neutral-gray-gray;
                     color: $color-primary-font;
+                    background-color: $neutral-gray-gray-25;
+                    padding: 18px 22px;
                     span{
                         flex: 1 0 0;
                         text-align: left;
                     }
-                    background-color: $neutral-gray-gray-25;
-                    padding: 18px 22px;
                 }
                 th:first-child{
                     width: 109px;

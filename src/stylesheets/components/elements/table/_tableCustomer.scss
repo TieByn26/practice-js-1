@@ -86,6 +86,7 @@
                     
                 }
                 td:first-child{
+                    width: 260px;
                     .div-name{
                         @include flex($display: flex, $align: center, $gap: 8px);
                         align-self: stretch;
@@ -115,7 +116,6 @@
                             }
                         }
                     }
-                    width: 260px;
                 }
                 td:nth-child(2){
                     width: 148px;
