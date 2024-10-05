@@ -67,6 +67,8 @@
                 }
             }
             td:nth-child(1){
+                color: $nav-color;
+                width: 136px;
                 input{
                     @include size($width: 20px, $height: 20px);
                     appearance: none;
@@ -77,8 +79,6 @@
                     outline: none; 
                     cursor: pointer;
                 }
-                color: $nav-color;
-                width: 136px;
             }
             td:nth-child(2){
                 color: $color-primary-font;
@@ -88,6 +88,7 @@
                 width: 131px;
             }
             td:nth-child(4){
+                width: 167px;
                 div{
                     @include flex($display: flex,$direction: column, $align: flex-start,$justify: center, $gap: 8px);
                 }
@@ -99,7 +100,6 @@
                     color: $color-second-font;
                     letter-spacing: 0.06px;
                 }
-                width: 167px;
             }
             td:nth-child(5){
                 width: 114px;
@@ -108,11 +108,11 @@
                 width: 121px;
             }
             td:nth-child(7){
+                width: 145px;
                 span{
                     padding: 4px 12px;
                     border-radius: 100px;
                 }
-                width: 145px;
             }
             .processing-status{
                 @include color($color: $secondary-Yellow-Yellow-500, $background: $secondary-Yellow-Yellow-50);
