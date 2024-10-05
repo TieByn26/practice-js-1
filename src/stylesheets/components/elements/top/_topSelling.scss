@@ -78,15 +78,16 @@
                 tbody{
                     max-height: 400px;
                     tr{
+                        @include flex($display: flex, $align: center);
                         span{
                             @include font($font-size: 14px, $font-weight: 500, $line-height: 20px);
                             letter-spacing: 0.07px;
                             color: $color-second-font;
                         }
-                        @include flex($display: flex, $align: center);
                         td:nth-child(1){
                             @include flex($display: flex,$align: center, $gap: 8px);
                             align-self: stretch;
+                            @include size($width: 222px);
             
                             div{
                                 @include flex($display: flex, $direction: column,$align: flex-start, $gap: 4px);
@@ -101,7 +102,6 @@
                                     color:$color-second-font;
                                 }
                             }
-                            @include size($width: 222px);
                         }
                         td:nth-child(2){
                             span{
