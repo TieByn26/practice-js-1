@@ -79,7 +79,7 @@
     }
 
     @if wrap {
-        text-wrap: $wrap;
+        // text-wrap: $wrap;
     }
 
     @if gap {
