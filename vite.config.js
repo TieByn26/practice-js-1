@@ -13,7 +13,7 @@ export default defineConfig({
     proxy: {
       '/api': {
         // target: 'http://localhost:3000',
-        target: 'https://order-app-ddpz.onrender.com/',
+        target: 'https://json-server-s6u4.onrender.com/',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '')
       },
