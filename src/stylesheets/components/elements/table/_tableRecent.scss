@@ -54,9 +54,6 @@
         tr{
             @include flex($display: flex);
             td{
-                div{
-                    @include flex($display: flex,$direction: row, $align: center, $gap: 8px);
-                }
                 @include font($font-size:14px, $font-weight: 500, $line-height: 20px);
                 @include flex($display: flex, $align: center, $gap: 8px);
                 @include color($color: $color-second-font);
@@ -65,6 +62,9 @@
                 padding: 18px 22px;
                 border-bottom: 1px solid $neutral-gray-gray-50;
                 white-space: nowrap;
+                div{
+                    @include flex($display: flex,$direction: row, $align: center, $gap: 8px);
+                }
             }
             td:nth-child(1){
                 input{
