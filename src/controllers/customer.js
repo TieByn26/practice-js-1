@@ -48,4 +48,16 @@ export class CustomerController{
             console.error("Error delete customer data:", error);
         }
     }
+    static async getAllCustomer(){
+        try {
+            const data = await axiosApiGetData(endpointUrl.getCustomers());
+            const customers = data.map(res => {
+                const customer = new Customer(res);
+                return customer;
+            });
+            return customers;
+        } catch (error) {
+            console.error("Error fetching list customer data:", error);
+        }
+    }
 }

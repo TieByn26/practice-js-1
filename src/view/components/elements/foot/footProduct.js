@@ -1,7 +1,8 @@
 import { elementHtml } from "@/utils";
-import { ic_chevron ,ic_avatar_gray, ic_eye, ic_pen, ic_trash} from "@/constants";
+import { ic_chevron ,ic_avatar_gray, ic_eye, ic_pen, ic_trash, icon_error} from "@/constants";
 import { productController, CategoryController } from "@/controllers";
 import { Link } from "../link";
+import { Toast } from "../toast/toast";
 
 const element = new elementHtml();
 export class FootProduct{
@@ -149,6 +150,7 @@ export class FootProduct{
                     const tr = checkToDelete.closest('tr');
                     if (tr) {
                         tr.remove();
+                        Toast.toastShow("toast-error",icon_error,"DELETE SUCCESS","Success delete product");
                     }
                 }
                 await productController.deleteProduct(Product.id);

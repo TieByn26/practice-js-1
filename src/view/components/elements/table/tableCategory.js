@@ -1,7 +1,8 @@
 import { elementHtml } from "@/utils";
-import { ic_avatar_gray, ic_chevron_down, ic_eye, ic_trash, ic_pen } from "@/constants";
+import { ic_avatar_gray, ic_chevron_down, ic_eye, ic_trash, ic_pen, icon_success, icon_error } from "@/constants";
 import { CategoryController } from "@/controllers";
 import { Link } from "../link";
+import { Toast } from "../toast/toast";
 
 const element = new elementHtml();
 export class TableCategory {
@@ -83,6 +84,7 @@ export class TableCategory {
                     const tr = checkToDelete.closest('tr');
                     if (tr) {
                         tr.remove();
+                        Toast.toastShow("toast-success",icon_success,"DELETE SUCCESS","Success delete category");
                     }
                 }
                 await CategoryController.deteteCategory(Category.id);

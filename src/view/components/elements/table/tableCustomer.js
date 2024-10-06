@@ -95,6 +95,7 @@ export class TableCustomer{
                     const tr = checkToDelete.closest('tr');
                     if (tr) {
                         tr.remove();
+                        Toast.toastShow("toast-success",icon_success,"DELETE SUCCESS","Success delete customer");
                     }
                 }
                 await CustomerController.deleteCustomer(customer.id);

@@ -16,15 +16,31 @@
                     @include color($color: $color-primary-font);
                     letter-spacing: 0.07px;
                 }
-                input{
-                    @include size($width: 20px, $height: 20px);
+                input[type="checkbox"] {
+                    width: 20px;
+                    height: 20px;
                     appearance: none;
-                    -webkit-appearance: none; 
-                    -moz-appearance: none; 
-                    border: 3px solid $color-second-font; 
-                    border-radius: 4px; 
-                    outline: none; 
+                    -webkit-appearance: none;
+                    -moz-appearance: none;
+                    border: 2px solid $color-second-font;
+                    border-radius: 4px;
+                    outline: none;
                     cursor: pointer;
+                    background-color: #fff;
+                }
+        
+                input[type="checkbox"]:checked {
+                    background-color: $nav-color;
+                    border-color: $nav-color;
+                }
+        
+                input[type="checkbox"]:checked::after {
+                    content: '\2713'; 
+                    color: white;
+                    font-size: 16px;
+                    display: block;
+                    text-align: center;
+                    line-height: 20px;
                 }
             }
             th:nth-child(1){
@@ -69,15 +85,31 @@
             td:nth-child(1){
                 color: $nav-color;
                 width: 136px;
-                input{
-                    @include size($width: 20px, $height: 20px);
+                input[type="checkbox"] {
+                    width: 20px;
+                    height: 20px;
                     appearance: none;
-                    -webkit-appearance: none; 
-                    -moz-appearance: none; 
-                    border: 3px solid $color-second-font; 
-                    border-radius: 4px; 
-                    outline: none; 
+                    -webkit-appearance: none;
+                    -moz-appearance: none;
+                    border: 2px solid $color-second-font;
+                    border-radius: 4px;
+                    outline: none;
                     cursor: pointer;
+                    background-color: #fff;
+                }
+        
+                input[type="checkbox"]:checked {
+                    background-color: $nav-color;
+                    border-color: $nav-color;
+                }
+        
+                input[type="checkbox"]:checked::after {
+                    content: '\2713'; 
+                    color: white;
+                    font-size: 16px;
+                    display: block;
+                    text-align: center;
+                    line-height: 20px;
                 }
             }
             td:nth-child(2){

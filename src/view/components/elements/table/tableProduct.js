@@ -1,7 +1,8 @@
-import { ic_chevron_down, ic_avatar_gray, ic_eye, ic_pen, ic_trash } from "@/constants";
+import { ic_chevron_down, ic_avatar_gray, ic_eye, ic_pen, ic_trash, icon_success } from "@/constants";
 import { elementHtml } from "@/utils";
 import { CategoryController, productController } from "@/controllers";
 import { Link } from "../link";
+import { Toast } from "../toast/toast";
 
 const element = new elementHtml();
 export class TableProduct{
@@ -110,6 +111,7 @@ export class TableProduct{
                     const tr = checkToDelete.closest('tr');
                     if (tr) {
                         tr.remove();
+                        Toast.toastShow("toast-success",icon_success,"DELETE SUCCESS","Success delete product");
                     }
                 }
                 await productController.deleteProduct(Product.id);

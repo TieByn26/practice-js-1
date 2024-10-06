@@ -73,5 +73,8 @@ export const endpointUrl = {
 
     getCustomer(id){
         return `/customers/${id}`;
+    },
+    getCustomers(){
+        return `/customers`;
     }
 };

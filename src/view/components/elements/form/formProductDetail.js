@@ -1,7 +1,8 @@
-import { ic_chevron_down, ic_dollar, pic_media_de } from "@/constants";
+import { ic_chevron_down, ic_dollar, icon_error, icon_success, pic_media_de } from "@/constants";
 import { CategoryController, productController } from "@/controllers";
 import { router } from "@/routes";
 import { elementHtml } from "@/utils";
+import { Toast } from "../toast/toast";
 
 const element = new elementHtml();
 
@@ -342,12 +343,12 @@ export class FormProductDetail {
                     this.updateInitialValues(newProductData);
                     button.setAttribute("unactive", "true");
                     
-                    console.log(newProductData);
-                    this.showToast("duoc", "success");
+                    Toast.toastShow("toast-success",icon_success,"SAVE SUCCESS","Success save product");
                 } catch (err) {
-                    this.showToast("loi", "error");
-                    console.error("loi", err);
+                    Toast.toastShow("toast-error",icon_error,"SAVE ERROR","Error save product");
                 }
+            } else {
+                Toast.toastShow("toast-error",icon_error,"ERROR","Pls enter input");
             }
         });
     }

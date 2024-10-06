@@ -10,3 +10,30 @@
 .home-container{
     background-color: $neutral-gray-gray-25;
 }
+button:hover{
+    transition: transform 0.2s ease-in-out, opacity 0.3s ease-in-out;
+    transform: scale(1.1);
+}
+.add-button[unactive]:hover{
+    transform: scale(1);
+}
+.save-button[unactive]:hover{
+    transform: scale(1);
+}
+
+tbody{
+    tr:hover{
+        transition: transform 0.2s ease-in-out, opacity 0.3s ease-in-out;
+        transform: scale(1.005);
+        td:last-child{
+            a:hover{
+                transition: transform 0.2s ease-in-out, opacity 0.3s ease-in-out;
+                transform: scale(1.5);
+            }
+            .delete-icon:hover{
+                transition: transform 0.2s ease-in-out, opacity 0.3s ease-in-out;
+                transform: scale(1.5);
+            }
+        }
+    }
+}

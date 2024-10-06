@@ -64,4 +64,16 @@ export class productController {
             console.error("Error update product data:", error)
         }
     }
+    static async getAllProduct(){
+        try {
+            const data = await axiosApiGetData(endpointUrl.getProducts());
+            const products = data.map(res => {
+                const Product = new product(res);
+                return Product;
+            });
+            return products;
+        } catch (error) {
+            console.error("Error fetching list product data:", error);
+        }
+    }
 }

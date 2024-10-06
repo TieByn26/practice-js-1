@@ -1,7 +1,8 @@
 import { elementHtml } from "@/utils";
-import { ic_chevron, ic_avatar_cus, ic_eye, ic_pen, ic_trash } from "@/constants";
+import { ic_chevron, ic_avatar_cus, ic_eye, ic_pen, ic_trash, icon_error, icon_success } from "@/constants";
 import { CustomerController } from "@/controllers";
 import { Link } from "../link";
+import { Toast } from "../toast/toast";
 
 const element = new elementHtml();
 export class FootCustomer{
@@ -135,6 +136,7 @@ export class FootCustomer{
                     const tr = checkToDelete.closest('tr');
                     if (tr) {
                         tr.remove();
+                        Toast.toastShow("toast-success",icon_success,"DELETE SUCCESS","Success delete customer");
                     }
                 }
                 await CustomerController.deleteCustomer(customer.id);

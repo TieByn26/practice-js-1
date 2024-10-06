@@ -1,7 +1,8 @@
 import { elementHtml } from "@/utils"
-import { pic_thumbnail_detail } from "@/constants"
+import { icon_error, icon_success, pic_thumbnail_detail } from "@/constants"
 import { CategoryController } from "@/controllers";
 import { router } from "@/routes";
+import { Toast } from "../toast/toast";
 
 const element = new elementHtml();
 export class FormCategory{
@@ -81,12 +82,14 @@ export class FormCategory{
                     await CategoryController.updateCategory(router.getParam().categoryId, newCategoryData);
                     initialValues[0] = input.value;
                     initialValues[1] = area.value;
-                    //show toast
-                    button.setAttribute("unactive","true");
+                    Toast.toastShow("toast-success",icon_success,"SAVE SUCCESS","Success save category");
+                    button.setAttribute("unactive", "true");
                 } catch (err) {
                     //show toast
                     console.error("err update data", err);
                 }
+            } else {
+                Toast.toastShow("toast-error",icon_error,"ERROR","Pls enter input");
             }
         });
     }

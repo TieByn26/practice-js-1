@@ -1,7 +1,8 @@
-import { pic_thumbnail_add } from "@/constants";
+import { icon_error, icon_success, pic_thumbnail_add } from "@/constants";
 import { CategoryController } from "@/controllers";
 import { elementHtml } from "@/utils";
 import { router } from "@/routes";
+import { Toast } from "../toast/toast";
 
 const element = new elementHtml();
 export class FormCategoryAdd {
@@ -87,12 +88,14 @@ export class FormCategoryAdd {
                     area.value = "";
                     initialValues[0] = input.value;
                     initialValues[1] = area.value;
-                    // Hiện thông báo thành công (toast)
+                    Toast.toastShow("toast-success",icon_success,"ADD SUCCESS","Success add category");
                     button.setAttribute("unactive", "true");
                 } catch (err) {
-                    // Hiện thông báo lỗi (toast)
+                    Toast.toastShow("toast-error",icon_error,"ADD ERROR","Error add category");
                     console.error("Error updating data", err);
                 }
+            } else {
+                Toast.toastShow("toast-error",icon_error,"ERROR","Pls enter input");
             }
         });
     }

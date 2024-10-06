@@ -1,7 +1,8 @@
 import { elementHtml } from "@/utils";
-import { ic_chevron, ic_avatar_gray, ic_eye, ic_pen, ic_trash } from "@/constants";
+import { ic_chevron, ic_avatar_gray, ic_eye, ic_pen, ic_trash, icon_error, icon_success } from "@/constants";
 import { CategoryController } from "@/controllers";
 import { Link } from "../link";
+import { Toast } from "../toast/toast";
 
 const element = new elementHtml();
 export class FootCategory{
@@ -124,6 +125,7 @@ export class FootCategory{
                     const tr = checkToDelete.closest('tr');
                     if (tr) {
                         tr.remove();
+                        Toast.toastShow("toast-success",icon_success,"DELETE SUCCESS","Success delete category");
                     }
                 }
                 await CategoryController.deteteCategory(Category.id);

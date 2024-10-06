@@ -36,8 +36,9 @@
                         flex: 1 0 0;
                     }
 
-                    input {
-                        @include size($width: 20px, $height: 20px);
+                    input[type="checkbox"] {
+                        width: 20px;
+                        height: 20px;
                         appearance: none;
                         -webkit-appearance: none;
                         -moz-appearance: none;
@@ -45,6 +46,21 @@
                         border-radius: 4px;
                         outline: none;
                         cursor: pointer;
+                        background-color: #fff;
+                    }
+            
+                    input[type="checkbox"]:checked {
+                        background-color: $nav-color;
+                        border-color: $nav-color;
+                    }
+            
+                    input[type="checkbox"]:checked::after {
+                        content: '\2713'; 
+                        color: white;
+                        font-size: 16px;
+                        display: block;
+                        text-align: center;
+                        line-height: 20px;
                     }
                 }
 
@@ -90,15 +106,31 @@
                     text-wrap: nowrap;
 
                     width: 122px;
-                    input{
-                        @include size($width: 20px, $height: 20px);
+                    input[type="checkbox"] {
+                        width: 20px;
+                        height: 20px;
                         appearance: none;
-                        -webkit-appearance: none; 
-                        -moz-appearance: none; 
-                        border: 2px solid $color-second-font; 
-                        border-radius: 4px; 
-                        outline: none; 
+                        -webkit-appearance: none;
+                        -moz-appearance: none;
+                        border: 2px solid $color-second-font;
+                        border-radius: 4px;
+                        outline: none;
                         cursor: pointer;
+                        background-color: #fff;
+                    }
+            
+                    input[type="checkbox"]:checked {
+                        background-color: $nav-color;
+                        border-color: $nav-color;
+                    }
+            
+                    input[type="checkbox"]:checked::after {
+                        content: '\2713'; 
+                        color: white;
+                        font-size: 16px;
+                        display: block;
+                        text-align: center;
+                        line-height: 20px;
                     }
                 
                 }
