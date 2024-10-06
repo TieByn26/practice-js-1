@@ -1,0 +1,39 @@
+@use "../../../abstracts/" as *;
+@use "../../../base/" as *;
+
+.home-container-chevron_right{
+    @include flex($display: flex, $gap: 16px);
+    button{
+        @include flex($display: flex,$align: center,$justify: space-between);
+        @include boder($boder-radius: 8px, $boder: 1px solid $neutral-gray-gray);
+        @include size($width: 142px,$height: 40px);
+        a{
+            @include flex($display: flex,$align: center,$gap: 4px,$justify: space-between);
+            img{
+
+            }
+            span{
+                @include font($font-family: $primary-font,$font-size: 14px, $font-weight: 600, $line-height: 20px);
+                letter-spacing: 0.07px;
+            }
+        }
+    }
+    .button-white{
+        @include color($color: $color-second-font,$background:$background-color);
+        a{
+            gap: 0px;
+        }
+    }
+    .button-blue{
+        @include color($color: $background-color, $background: $nav-color);
+        a{
+            img{
+                padding: 10px 0px 10px 14px;
+            }
+        }
+       
+    }
+    .button-midle{
+
+    }
+}
