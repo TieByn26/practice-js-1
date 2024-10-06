@@ -1,4 +1,3 @@
-
 import { router } from "@/routes";
 
 export const routesPath = {
@@ -41,6 +40,21 @@ export const getPath = {
     [routesPath.customerdetail]: () => replaceParamInPath(routesPath.customerdetail, "customerId"),
     [routesPath.seller]: () => routesPath.seller
 };
+
+export const breadcrumbs = {
+    [routesPath.home]: "Dashboard",
+    [routesPath.product]: "Product List",
+    [routesPath.addproduct]: "Add Product",
+    [routesPath.productdetail]: "Product Details",
+    [routesPath.categories]: "Categories",
+    [routesPath.addcategory]: "Add Category",
+    [routesPath.categorydetail]: "Category Details",
+    [routesPath.order]: "Order List",
+    [routesPath.orderdetail]: "Order Details",
+    [routesPath.customer]: "Customer List",
+    [routesPath.customerdetail]: "Customer Details"
+}
+
 // export const routeComponents = {
 //     [routesPath.home]: new home().render(),
 //     [routesPath.product]: new product().render(),
