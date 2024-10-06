@@ -1,7 +1,9 @@
 import { elementHtml } from "@/utils";
 import { ic_plus, ic_calendar } from "@/constants";
-import { button, tabchevron, saleProgressChart, statistics, cardList, headSelling, headSaleLocation } from "../components";
-import { tableContainer , footSelling} from "../components";
+import { button, tabchevron, saleProgressChart, 
+    statistics, cardList, headSelling, headSaleLocation,
+    tableContainer , footSelling, HeadRecentOrder, TableRecent, 
+    FootRecent} from "../components";
 import { saleLocationController, productController } from "@/controllers";
 
 export class home {
@@ -52,6 +54,14 @@ export class home {
 
         return container;
     }
+    recentOrder(){
+        const container = this.elHtml.divELement("recent-order-container");
+        const headRecentOrder = HeadRecentOrder.render();
+        container.appendChild(headRecentOrder);
+        container.appendChild(TableRecent.tableRecentOrder());
+        container.appendChild(FootRecent.createFootRecent());
+        return container;
+    }
 
     mainMethod() {
         const container = this.elHtml.divELement("home-container");
@@ -60,13 +70,19 @@ export class home {
         container.appendChild(cardList());
         container.appendChild(this.chart());
         container.appendChild(this.topSellingSale());
+        container.appendChild(this.recentOrder());
 
         return container;
     }
-    //XU LY LAY DATA 
+
+    /**
+     * Handle get data
+     * @param {data} data 
+     * @returns {data}
+     */
     async handleDisPlayData(data) {
         const obj = await data;
-        return data;
+        return obj;
     };
 
     render() {
