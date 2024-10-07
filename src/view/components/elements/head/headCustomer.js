@@ -10,10 +10,10 @@ import { ic_eye, ic_pen, ic_trash, ic_avatar_cus } from "@/constants";
 
 const element = new elementHtml();
 export class HeadCustomer{
-    constructor(){
+    constructor(customers){
         this.container = element.divELement("customer-head-container");
         this.initHeadTop();
-        this.initHeadBottom();
+        this.initHeadBottom(customers);
     }
     initHeadTop(){
         const headTop = element.divELement("customer-head-container_top");
@@ -28,7 +28,7 @@ export class HeadCustomer{
         this.container.appendChild(headTop);
 
     }
-    async initHeadBottom(){
+    initHeadBottom(customers){
         const headBottom = element.divELement("customer-head-container_bottom");
         const search = element.divELement("customer-head-container_bottom-search");
         const img = element.imgElement(ic_search,"icon","");
@@ -40,34 +40,32 @@ export class HeadCustomer{
             new button().render("button-white",{to:"/404",label:"Filter",icon:ic_filter})
         );
         this.container.appendChild(headBottom);
-
-        const customers = await CustomerController.getAllCustomer();
         const debounce = (func, delay ) =>{
             let timeout;
             return function(...args){
                 clearTimeout(timeout);
-                timeout = setTimeout( async () => func.apply(this, args), delay);
+                timeout = setTimeout(() => func.apply(this, args), delay);
             };
         }
-        const searchByName = async () => {  
+        const searchByName = () => {  
             const searchValue = input.value.trim();
             const filteredData = customers.filter(customer => customer.name.startsWith(searchValue));
 
             const productContainer = document.querySelector(".customer-container");
             const tbodyOld = productContainer.querySelector("tbody");
             if (filteredData.length > 0) {
-                    const fragment = await this.createTableMain(filteredData);
+                    const fragment = this.createTableMain(filteredData);
                     tbodyOld.replaceChildren(...fragment.childNodes);
             } 
             if (input.value === ""){
-                const fragment = await this.createTableMain(customers);
+                const fragment = this.createTableMain(customers.slice(0,10));
                 tbodyOld.replaceChildren(...fragment.childNodes);
             }
         }
 
         input.addEventListener("input",debounce(searchByName, 300));
     } 
-    async createTableMain(customer) {
+    createTableMain(customer) {
         const tbody = document.createElement("tbody");
         const customers = customer;
         customers.forEach(customer => {

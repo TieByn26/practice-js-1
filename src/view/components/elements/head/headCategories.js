@@ -10,10 +10,10 @@ import { ic_eye, ic_pen, ic_trash, icon_success,ic_avatar_gray } from "@/constan
 
 const element = new elementHtml();
 export class HeadCategories{
-    constructor(){
+    constructor(categories){
         this.container = element.divELement("category-head-container");
         this.initHeadTop();
-        this.initHeadBottom();
+        this.initHeadBottom(categories);
     }
     initHeadTop(){
         const headTop = element.divELement("category-head-container_top");
@@ -28,7 +28,7 @@ export class HeadCategories{
         this.container.appendChild(headTop);
 
     }
-    async initHeadBottom(){
+    initHeadBottom(categories){
         const headBottom = element.divELement("category-head-container_bottom");
         const search = element.divELement("category-head-container_bottom-search");
         const img = element.imgElement(ic_search,"icon","");
@@ -40,33 +40,32 @@ export class HeadCategories{
             new button().render("button-white",{to:"/404",label:"Filter",icon:ic_filter})
         );
         this.container.appendChild(headBottom);
-        const categorys = await CategoryController.getAllCategory();
         const debounce = (func, delay ) =>{
             let timeout;
             return function(...args){
                 clearTimeout(timeout);
-                timeout = setTimeout( async () => func.apply(this, args), delay);
+                timeout = setTimeout(() => func.apply(this, args), delay);
             };
         }
-        const searchByName = async () => {  
+        const searchByName =  () => {  
             const searchValue = input.value.trim();
-            const filteredData = categorys.filter(category => category.name.startsWith(searchValue));
+            const filteredData = categories.filter(category => category.name.startsWith(searchValue));
 
             const productContainer = document.querySelector(".category-container");
             const tbodyOld = productContainer.querySelector("tbody");
             if (filteredData.length > 0) {
-                    const fragment = await this.createTableMain(filteredData);
+                    const fragment = this.createTableMain(filteredData);
                     tbodyOld.replaceChildren(...fragment.childNodes);
             } 
             if (input.value === ""){
-                const fragment = await this.createTableMain(categorys);
+                const fragment = this.createTableMain(categories.slice(0,10));
                 tbodyOld.replaceChildren(...fragment.childNodes);
             }
         }
 
         input.addEventListener("input",debounce(searchByName, 300));
     } 
-    async createTableMain(category) {
+    createTableMain(category) {
         const tbody = document.createElement("tbody");
         const categories = category
         categories.forEach(Category => {

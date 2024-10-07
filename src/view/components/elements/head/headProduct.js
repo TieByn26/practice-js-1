@@ -10,10 +10,10 @@ import { Toast } from "../toast/toast";
 
 const element = new elementHtml();
 export class HeadProduct{
-    constructor(){
+    constructor(products, categories){
         this.container = element.divELement("product-head-container");
         this.initHeadTop();
-        this.initHeadBottom();
+        this.initHeadBottom(products, categories);
     }
     initHeadTop(){
         const headTop = element.divELement("product-head-container_top");
@@ -28,7 +28,7 @@ export class HeadProduct{
         this.container.appendChild(headTop);
 
     }
-    async initHeadBottom(){
+    initHeadBottom(products, categories){
         const headBottom = element.divELement("product-head-container_bottom");
         const search = element.divELement("product-head-container_bottom-search");
         const img = element.imgElement(ic_search,"icon","");
@@ -43,34 +43,32 @@ export class HeadProduct{
         headBottom.append(search, buttonContainer);
         this.container.appendChild(headBottom);
 
-        //set event for search
-        const products = await productController.getAllProduct();
         const debounce = (func, delay ) =>{
             let timeout;
             return function(...args){
                 clearTimeout(timeout);
-                timeout = setTimeout( async () => func.apply(this, args), delay);
+                timeout = setTimeout(() => func.apply(this, args), delay);
             };
         }
-        const searchByName = async () => {
+        const searchByName = () => {
             const searchValue = input.value.trim();
             const filteredData = products.filter(product => product.name.startsWith(searchValue));
 
             const productContainer = document.querySelector(".product-container");
             const tbodyOld = productContainer.querySelector("tbody");
             if (filteredData.length > 0) {
-                    const fragment = await this.createTableMain(filteredData);
+                    const fragment = this.createTableMain(filteredData, categories);
                     tbodyOld.replaceChildren(...fragment.childNodes);
             } 
             if (input.value === ""){
-                const fragment = await this.createTableMain(products);
+                const fragment = this.createTableMain(products.slice(0,10), categories);
                 tbodyOld.replaceChildren(...fragment.childNodes);
             }
         }
 
         input.addEventListener("input",debounce(searchByName, 300));
     } 
-    async createTableMain(product){
+    createTableMain(product, categories){
         const tbody = document.createElement("tbody");
         const products = product;
         
@@ -98,7 +96,7 @@ export class HeadProduct{
                     continue;
                 }
                 if (key === "categoryId") {
-                    const category = await CategoryController.getCategoryFollowId(Product.categoryId);
+                    const category = categories.find(c => c.id === Product.categoryId);
                     const span = element.spanElement("", category.name);
                     td.appendChild(span);
                     bodyrow.appendChild(td);

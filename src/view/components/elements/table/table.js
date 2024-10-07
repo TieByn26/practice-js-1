@@ -60,23 +60,23 @@ export class tableContainer {
         
         return container;
     }
-    static createTableMain(obj){
+    static createTableMain(obj) {
         const tbody = document.createElement("tbody");
-        const listTopSelling = obj;
-        
+        const listTopSelling = obj.slice(0, 5); // Giới hạn 5 item
+    
         listTopSelling.forEach(obj => {
             const mainRow = document.createElement("tr");
-            const keys = ["sku","name","sales","amount","price","status"];
+            const keys = ["sku", "name", "sales", "amount", "price", "status"];
     
             keys.forEach((key, index) => {
                 if (key === "name") return;
-                
+    
                 if (key === "sku") {
                     const td = document.createElement("td");
-                    const div  = document.createElement("div");
-                    const img = elHtml.imgElement(ic_avatar_gray,"icon","");
+                    const div = document.createElement("div");
+                    const img = elHtml.imgElement(ic_avatar_gray, "icon", "");
                     const spanName = elHtml.spanElement("", obj[keys[1]]);
-                    const spanSku = elHtml.spanElement("","SKU: "+obj[key]);
+                    const spanSku = elHtml.spanElement("", "SKU: " + obj[key]);
                     div.appendChild(spanName);
                     div.appendChild(spanSku);
                     td.append(img, div);
@@ -92,7 +92,6 @@ export class tableContainer {
                     const td = document.createElement("td");
                     td.appendChild(span);
                     mainRow.appendChild(td);
-                    
                     return;
                 }
     
@@ -102,16 +101,11 @@ export class tableContainer {
             });
             tbody.appendChild(mainRow);
         });
+    
         return tbody;
     }
     
     
-    /**
-     * 
-     * @param {promise} data 
-     * @returns 
-     */
-
     /**
      * 
      * @param {obj} obj 

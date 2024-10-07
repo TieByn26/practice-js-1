@@ -1,142 +1,130 @@
 import { elementHtml } from "@/utils";
-import { ic_chevron, ic_avatar_gray, ic_eye, ic_pen, ic_trash, icon_error, icon_success } from "@/constants";
-import { CategoryController } from "@/controllers";
+import { ic_chevron, ic_avatar_gray, ic_eye, ic_pen, ic_trash, icon_success, icon_error } from "@/constants";
 import { Link } from "../link";
 import { Toast } from "../toast/toast";
+import { Pagination } from "@/utils";
+import { CategoryController } from "@/controllers";
 
 const element = new elementHtml();
-export class FootCategory{
-    constructor(){
+
+export class FootCategory {
+    constructor(categories) {
+        this.categories = categories;
+        this.pagination = new Pagination(10, categories.length);
         this.container = element.divELement("category-container-foot");
         this.initFoot();
     }
+
     createButton(text = "", icon = "") {
         const button = document.createElement("button");
-        if (icon) {
-            button.appendChild(element.imgElement(icon, "icon", ""));
-        } else {
-            button.textContent = text;  
-        }
+        if (icon) button.appendChild(element.imgElement(icon, "icon", ""));
+        else button.textContent = text;
         return button;
-    };
-    initFoot(){
-        const buttonContainer = element.divELement("category-container-foot_button");
-        const spanTitle = element.spanElement("", "Showing 1-10 from 15");
-        const buttonPre = this.createButton("", ic_chevron);
-        const fragment = document.createDocumentFragment();
-    
-        const buttons = [];
-        for (let i = 1; i <= 2; i++) {
-            const button = this.createButton(`${i}`);
-            if (i === 1) {
-                button.className = "button-active";
-            }
-            buttons.push(button);
-            fragment.append(button);
-        }
-        const buttonNext = this.createButton("", ic_chevron);
-    
-        buttonContainer.append(buttonPre, fragment, buttonNext);
-        /**
-         * add event for button
-         */
-        buttons.forEach(button => {
-            button.addEventListener('click', async () => {
-                buttons.forEach(btn => {
-                    btn.classList.remove("button-active");
-                });
-                button.className = "button-active";
-                const numberPage = parseInt(button.textContent);
-                const table = document.querySelector(".table-category");
-
-                const data = await CategoryController.getListCategory(numberPage);
-                const fragment = await this.createTableMain(data);
-                const tbodyOld = table.querySelector("tbody");
-                tbodyOld.replaceChildren(fragment);
-            });
-        });
-        buttonPre.addEventListener('click', async () => {
-            const presentButton = buttons.find(btn => btn.classList.contains("button-active")); 
-            const check = parseInt(presentButton.textContent);
-            if (check > 1) {
-                buttons.forEach(btn => btn.classList.remove("button-active"));
-                const numberPage = check - 1;
-                buttons[numberPage - 1].className = "button-active";
-                const table = document.querySelector(".table-category");
-        
-                const data = await CategoryController.getListCategory(numberPage);
-                const fragment = await this.createTableMain(data);
-                const tbodyOld = table.querySelector("tbody");
-                tbodyOld.replaceChildren(fragment);
-            }
-        });
-        
-        buttonNext.addEventListener('click', async () => {
-            const presentButton = buttons.find(btn => btn.classList.contains("button-active")); 
-            const check = parseInt(presentButton.textContent);
-            if (check < 2) {
-                buttons.forEach(btn => btn.classList.remove("button-active"));
-                const numberPage = check + 1;
-                buttons[numberPage - 1].className = "button-active";
-                const table = document.querySelector(".table-category");
-        
-                const data = await CategoryController.getListCategory(numberPage);
-                const fragment = await this.createTableMain(data);
-                const tbodyOld = table.querySelector("tbody");
-                tbodyOld.replaceChildren(fragment);
-            }
-        });
-        this.container.append(spanTitle, buttonContainer);
     }
-    async createTableMain(category) {
+
+    initFoot() {
+        const buttonContainer = element.divELement("category-container-foot_button");
+        const spanTitle = element.spanElement("", this.getDisplayText());
+
+        const buttonPre = this.createButton("", ic_chevron);
+        const buttonNext = this.createButton("", ic_chevron);
+        const buttons = this.createPageButtons();
+
+        buttonContainer.append(buttonPre, ...buttons, buttonNext);
+        this.container.append(spanTitle, buttonContainer);
+
+        // event fỏ button
+        buttonPre.addEventListener('click', () => this.updateActivePage(buttons, this.pagination.prevPage()));
+        buttonNext.addEventListener('click', () => this.updateActivePage(buttons, this.pagination.nextPage()));
+        buttons.forEach((btn, i) => {
+            btn.addEventListener('click', () => this.updateActivePage(buttons, i + 1));
+        });
+    }
+
+    createPageButtons() {
+        const buttons = [];
+        for (let i = 0; i < this.pagination.totalPage; i++) {
+            const btn = this.createButton(`${i + 1}`);
+            if (i + 1 === this.pagination.currentPage) {
+                btn.className = "button-active";
+            }
+            buttons.push(btn);
+        }
+        return buttons;  
+    }
+
+    getDisplayText() {
+        const start = (this.pagination.currentPage - 1) * this.pagination.itemOfPage + 1;
+        const end = Math.min(this.pagination.currentPage * this.pagination.itemOfPage, this.categories.length);
+        return `Showing ${start}-${end} from ${this.categories.length}`;
+    }
+
+    updateActivePage(buttons, page) {
+        this.pagination.currentPage = page;
+        buttons.forEach(btn => btn.classList.remove("button-active"));
+        buttons[page - 1].classList.add("button-active");
+
+        const spanTitle = this.container.querySelector("span");
+        spanTitle.textContent = this.getDisplayText();
+
+        const table = document.querySelector(".table-category");
+        table.querySelector("tbody").replaceChildren(this.createTableMain(this.pagination.getCurrentPageItems(this.categories)));
+    }
+
+    createTableMain(categoryPageData) {
         const tbody = document.createElement("tbody");
-        const categories = category
-        categories.forEach(Category => {
-            const keys = ["name", "sales", "stock", "added"];
+
+        categoryPageData.forEach(Category => {
             const tr = document.createElement("tr");
-            let checkToDelete = null;
-            keys.forEach((key, index) => {
+            ["name", "sales", "stock", "added"].forEach(key => {
                 const td = document.createElement("td");
                 if (key === "name") {
-                    const input = document.createElement("input");
-                    input.type = "checkbox";
+                    const checkbox = document.createElement("input");
+                    checkbox.type = "checkbox";
                     const img = element.imgElement(ic_avatar_gray, "icon", "");
                     const div = element.divELement("div-span");
-                    const spanName = element.spanElement("", Category[key]);
-                    const spanDes = element.spanElement("", Category["description"]);
-                    div.append(spanName, spanDes);
-                    td.append(input, img, div);
-                    tr.appendChild(td);
-                    checkToDelete = td;
-                    return;
+                    div.append(element.spanElement("", Category.name), element.spanElement("", Category.description));
+                    td.append(checkbox, img, div);
+                } else {
+                    td.appendChild(element.spanElement("", Category[key]));
                 }
-                const span = element.spanElement("", Category[key]);
-                td.appendChild(span);
                 tr.appendChild(td);
             });
+
             const td = document.createElement("td");
-            const detail = new Link(`/category-detail/${Category.id}`).render();
-            detail.appendChild(element.imgElement(ic_eye, "icon", ""));
-            const update = new Link(`/category-detail/${Category.id}`).render();
-            update.appendChild(element.imgElement(ic_pen, "icon", ""));
-            const deletee = element.imgElement(ic_trash, "icon", "delete-icon");
-            deletee.addEventListener('click', async () => {
-                if (checkToDelete) {
-                    const tr = checkToDelete.closest('tr');
-                    if (tr) {
-                        tr.remove();
-                        Toast.toastShow("toast-success",icon_success,"DELETE SUCCESS","Success delete category");
-                    }
-                }
-                await CategoryController.deteteCategory(Category.id);
-            });
-            td.append(detail, update, deletee);
-            tr.appendChild(td);  
+            td.append(
+                this.createLinkIcon(`/category-detail/${Category.id}`, ic_eye),
+                this.createLinkIcon(`/category-detail/${Category.id}`, ic_pen),
+                this.createDeleteIcon(tr, Category.id)
+            );
+            tr.appendChild(td);
             tbody.appendChild(tr);
         });
+
         return tbody;
     }
-    render(){
+
+    createLinkIcon(url, icon) {
+        const link = new Link(url).render();
+        link.appendChild(element.imgElement(icon, "icon", ""));
+        return link;
+    }
+
+    createDeleteIcon(row, categoryId) {
+        const deleteIcon = element.imgElement(ic_trash, "icon", "delete-icon");
+        deleteIcon.addEventListener('click', async () => {
+            try {
+                await CategoryController.deteteCategory(categoryId);
+                row.remove();
+                Toast.toastShow("toast-success", icon_success, "DELETE SUCCESS", "Category deleted successfully");
+            } catch (error) {
+                Toast.toastShow("toast-error", icon_error, "DELETE FAILED", "Failed to delete category");
+            }
+        });
+        return deleteIcon;
+    }
+
+    render() {
         return this.container;
     }
 }

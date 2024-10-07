@@ -1,17 +1,22 @@
-import { axiosApiGetData, elementHtml, endpointUrl } from "@/utils";
-import { ic_chevron_down, ic_avatar_gray, ic_pen, ic_eye} from "@/constants";
+import { elementHtml } from "@/utils";
+import { ic_chevron_down, ic_avatar_gray, ic_pen, ic_eye } from "@/constants";
 import { Link } from "../link";
-import { CustomerController, OrderController } from "@/controllers";
+import { Pagination } from "@/utils";
 
 const elHtml = new elementHtml();
-export class TableRecent {
-    constructor() {}
 
-    static async tableRecentOrder(obj) {
-        const table = document.createElement("table");
-        table.className = "table-for-recent-order";
-        
-        // Header of table
+export class TableRecent {
+    constructor(orders, customers) {
+        this.orders = orders;
+        this.customers = customers;
+        this.pagination = new Pagination(10, orders.length);
+        this.table = document.createElement("table");
+        this.table.className = "table-for-recent-order";
+        this.createThead();
+        this.createTbody(this.pagination.getCurrentPageItems(this.orders));
+    }
+
+    createThead() {
         const headers = [
             { label: "Order ID", input: "checkbox" },
             { label: "Product", icon: ic_chevron_down },
@@ -45,24 +50,17 @@ export class TableRecent {
         });
 
         thead.appendChild(headRow);
-        table.appendChild(thead);
-
-        const tbody = await this.createTableMain(obj);
-        table.appendChild(tbody);
-
-        // Append the table to the container
-        return table;
+        this.table.appendChild(thead);
     }
 
-    static async createTableMain(obj) {
+    createTbody(orders) {
         const tbody = document.createElement("tbody");
-        const orders = obj;
 
-        for (const order of orders) {
+        orders.forEach(order => {
             const mainRow = document.createElement("tr");
             const keys = ["id", "name", "added", "customerId", "total", "payment", "status"];
 
-            for (const key of keys) {
+            keys.forEach(key => {
                 const td = document.createElement("td");
 
                 if (key === "id") {
@@ -73,7 +71,7 @@ export class TableRecent {
                     div.append(input, span);
                     td.appendChild(div);
                     mainRow.appendChild(td);
-                    continue;
+                    return;
                 }
 
                 if (key === "name") {
@@ -83,31 +81,31 @@ export class TableRecent {
                     div.append(img, span);
                     td.appendChild(div);
                     mainRow.appendChild(td);
-                    continue;
+                    return;
                 }
 
                 if (key === "customerId") {
-                    const customer = await CustomerController.getCustomerFollowId(order[key]);
+                    const customer = this.customers.find(c => c.id === order[key]);
                     const div = document.createElement("div");
                     const spanName = elHtml.spanElement("", customer.name);
                     const spanMail = elHtml.spanElement("", customer.mail);
                     div.append(spanName, spanMail);
                     td.appendChild(div);
                     mainRow.appendChild(td);
-                    continue;
+                    return;
                 }
 
                 const span = elHtml.spanElement("", order[key]);
                 if (key === "status") {
                     const status = order[key].startsWith("P") ? "processing-status" :
-                                   order[key].startsWith("S") ? "shipped-status" :
-                                   order[key].startsWith("D") ? "delivered-status" : "cancelled-status";
+                        order[key].startsWith("S") ? "shipped-status" :
+                        order[key].startsWith("D") ? "delivered-status" : "cancelled-status";
                     span.className = status;
                 }
 
                 td.appendChild(span);
                 mainRow.appendChild(td);
-            }
+            });
 
             const td = document.createElement("td");
             const detailLink = new Link(`/order-detail/${order["id"]}`).render();
@@ -121,8 +119,12 @@ export class TableRecent {
             td.append(detailLink, updateLink);
             mainRow.appendChild(td);
             tbody.appendChild(mainRow);
-        }
+        });
 
-        return tbody;
+        this.table.appendChild(tbody);
+    }
+
+    render() {
+        return this.table;
     }
 }

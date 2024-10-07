@@ -23,9 +23,8 @@ export const endpointUrl = {
      * @param {number} page - The page number to retrieve products from
      * @returns {string} URL to fetch the top-selling products
      */
-    getTopSelling(page) {
-        const limit = 5; // Only 5 products per page
-        return `/products?_sort=sales&_order=desc&_limit=${limit}&_page=${page}`;
+    getTopSelling() {
+        return `/products?_sort=sales&_order=desc`;
     },
     /**
      * @returns {string} URL to get top sale for location
@@ -63,6 +62,10 @@ export const endpointUrl = {
     getListOrderIdCus(id, page) {
         const limit = 5;
         return `/orders?customerId=${id}&_limit=${limit}&_page=${page}`;
+    },
+
+    getAllOrder(){
+        return `/orders`
     },
 
     // CUSTOMER ENDPOINT
