@@ -1,111 +1,98 @@
 import { elementHtml } from "@/utils";
-import { ic_chevron, ic_avatar_cus, ic_eye, ic_pen, ic_trash, icon_error, icon_success } from "@/constants";
+import { ic_chevron, ic_avatar_cus, ic_eye, ic_pen, ic_trash, icon_success } from "@/constants";
 import { CustomerController } from "@/controllers";
 import { Link } from "../link";
 import { Toast } from "../toast/toast";
+import { Pagination } from "@/utils";
 
 const element = new elementHtml();
-export class FootCustomer{
-    constructor(){
+
+export class FootCustomer {
+    constructor(customers) {
+        this.customers = customers;
+        this.pagination = new Pagination(10, customers.length);  // Pagination 10 items per page
         this.container = element.divELement("customer-container-foot");
         this.initFoot();
     }
+
     createButton(text = "", icon = "") {
         const button = document.createElement("button");
         if (icon) {
             button.appendChild(element.imgElement(icon, "icon", ""));
         } else {
-            button.textContent = text;  
+            button.textContent = text;
         }
         return button;
-    };
-    initFoot(){
-        const buttonContainer = element.divELement("customer-container-foot_button");
-        const spanTitle = element.spanElement("", "Showing 1-10 from 100");
-        const buttonPre = this.createButton("", ic_chevron);
-        const fragment = document.createDocumentFragment();
-    
-        const buttons = [];
-        for (let i = 1; i <= 5; i++) {
-            const button = this.createButton(`${i}`);
-            if (i === 1) {
-                button.className = "button-active";
-            }
-            buttons.push(button);
-            fragment.append(button);
-        }
-        const buttonCtn = this.createButton("...");
-        const buttonNext = this.createButton("", ic_chevron);
-    
-        buttonContainer.append(buttonPre, fragment, buttonCtn, buttonNext);
-        /**
-         * add event for button
-         */
-        buttons.forEach(button => {
-            button.addEventListener('click', async () => {
-                buttons.forEach(btn => {
-                    btn.classList.remove("button-active");
-                });
-                button.className = "button-active";
-                const numberPage = parseInt(button.textContent);
-                const table = document.querySelector(".table-customer");
-
-                const data = await CustomerController.getListCustomer(numberPage);
-                const fragment = await this.createTableMain(data);
-                const tbodyOld = table.querySelector("tbody");
-                tbodyOld.replaceChildren(fragment);
-            });
-        });
-        buttonPre.addEventListener('click', async () => {
-            const presentButton = buttons.find(btn => btn.classList.contains("button-active")); 
-            const check = parseInt(presentButton.textContent);
-            if (check > 1) {
-                buttons.forEach(btn => btn.classList.remove("button-active"));
-                const numberPage = check - 1;
-                buttons[numberPage - 1].className = "button-active";
-                const table = document.querySelector(".table-customer");
-        
-                const data = await CustomerController.getListCustomer(numberPage);
-                const fragment = await this.createTableMain(data);
-                const tbodyOld = table.querySelector("tbody");
-                tbodyOld.replaceChildren(fragment);
-            }
-        });
-        
-        buttonNext.addEventListener('click', async () => {
-            const presentButton = buttons.find(btn => btn.classList.contains("button-active")); 
-            const check = parseInt(presentButton.textContent);
-            if (check < 5) {
-                buttons.forEach(btn => btn.classList.remove("button-active"));
-                const numberPage = check + 1;
-                buttons[numberPage - 1].className = "button-active";
-                const table = document.querySelector(".table-customer");
-        
-                const data = await CustomerController.getListCustomer(numberPage);
-                const fragment = await this.createTableMain(data);
-                const tbodyOld = table.querySelector("tbody");
-                tbodyOld.replaceChildren(fragment);
-            }
-        });
-        this.container.append(spanTitle, buttonContainer);
     }
-    async createTableMain(customer) {
+
+    initFoot() {
+        const buttonContainer = element.divELement("customer-container-foot_button");
+        const spanTitle = element.spanElement("", this.getDisplayText());
+
+        const buttonPre = this.createButton("", ic_chevron);  
+        const buttonNext = this.createButton("", ic_chevron); 
+
+        const buttons = this.createPageButtons(); 
+
+        buttonContainer.append(buttonPre, ...buttons, buttonNext);
+        this.container.append(spanTitle, buttonContainer);
+
+        buttonPre.addEventListener('click', () => this.updateActivePage(buttons, this.pagination.prevPage()));
+        buttonNext.addEventListener('click', () => this.updateActivePage(buttons, this.pagination.nextPage()));
+
+        buttons.forEach((btn, i) => {
+            btn.addEventListener('click', () => this.updateActivePage(buttons, i + 1));
+        });
+    }
+
+    createPageButtons() {
+        const buttons = [];
+        for (let i = 0; i < 6; i++) {
+            const btn = this.createButton(`${i + 1}`);
+            if (i + 1 === this.pagination.currentPage) {
+                btn.className = "button-active";
+            }
+            buttons.push(btn);
+        }
+        return buttons;  
+    }
+
+    getDisplayText() {
+        const start = (this.pagination.currentPage - 1) * this.pagination.itemOfPage + 1;
+        const end = Math.min(this.pagination.currentPage * this.pagination.itemOfPage, this.customers.length);
+        return `Showing ${start}-${end} from ${this.customers.length}`;
+    }
+
+    updateActivePage(buttons, page) {
+        this.pagination.currentPage = page;
+        buttons.forEach(btn => btn.classList.remove("button-active"));
+        buttons[page - 1].classList.add("button-active");
+
+        const spanTitle = this.container.querySelector("span");
+        spanTitle.textContent = this.getDisplayText();
+
+        const table = document.querySelector(".table-customer");
+        table.querySelector("tbody").replaceChildren(this.createTableMain(this.pagination.getCurrentPageItems(this.customers)));
+    }
+
+    createTableMain(customers) {
         const tbody = document.createElement("tbody");
-        const customers = customer;
+
         customers.forEach(customer => {
             const bodyrow = document.createElement("tr");
-            const keys = ["name","phone","orders","balance","status","created"];
+            const keys = ["name", "phone", "orders", "balance", "status", "created"];
             let checkToDelete = null;
+
             keys.forEach(key => {
                 const td = document.createElement("td");
-                if (key === "name"){
+                if (key === "name") {
                     const div = element.divELement("div-name");
                     const input = document.createElement("input");
                     input.type = "checkbox";
-                    const img = element.imgElement(ic_avatar_cus,"icon","");
+                    const img = element.imgElement(ic_avatar_cus, "icon", "");
                     const divContent = element.divELement("");
-                    const spanName = element.spanElement("",customer[key]);
-                    const spanMail = element.spanElement("",customer["mail"]);
+                    const spanName = element.spanElement("", customer[key]);
+                    const spanMail = element.spanElement("", customer["mail"]);
 
                     divContent.append(spanName, spanMail);
                     div.append(input, img, divContent);
@@ -115,39 +102,51 @@ export class FootCustomer{
                     return;
                 }
                 if (key === "status") {
-                    const status = customer[key].startsWith("A") ? `active-status`: `blocked-status`;
-                    const span = element.spanElement(status,customer[key]);
-                    td.appendChild(span)
+                    const status = customer[key].startsWith("A") ? `active-status` : `blocked-status`;
+                    const span = element.spanElement(status, customer[key]);
+                    td.appendChild(span);
                     bodyrow.appendChild(td);
                     return;
                 }
-                const span = element.spanElement("",customer[key])
+                const span = element.spanElement("", customer[key]);
                 td.appendChild(span);
                 bodyrow.appendChild(td);
             });
+
             const td = document.createElement("td");
-            const detail = new Link(`/customer-detail/${customer.id}`).render();
-            detail.appendChild(element.imgElement(ic_eye,"icon",""));
-            const update = new Link (`/404`).render();
-            update.appendChild(element.imgElement(ic_pen,"icon",""));
-            const deletee = element.imgElement(ic_trash,"icon","");
-            deletee.addEventListener('click', async () => {
-                if (checkToDelete) {
-                    const tr = checkToDelete.closest('tr');
-                    if (tr) {
-                        tr.remove();
-                        Toast.toastShow("toast-success",icon_success,"DELETE SUCCESS","Success delete customer");
-                    }
-                }
-                await CustomerController.deleteCustomer(customer.id);
-            });
-            td.append(detail, update, deletee);
+            td.append(
+                this.createLinkIcon(`/customer-detail/${customer.id}`, ic_eye),
+                this.createLinkIcon(`/customer-detail/${customer.id}`, ic_pen),
+                this.createDeleteIcon(customer.id, bodyrow)
+            );
             bodyrow.appendChild(td);
             tbody.appendChild(bodyrow);
         });
+
         return tbody;
     }
-    render(){
+
+    createLinkIcon(url, icon) {
+        const link = new Link(url).render();
+        link.appendChild(element.imgElement(icon, "icon", ""));
+        return link;
+    }
+
+    createDeleteIcon(customerId, row) {
+        const deleteIcon = element.imgElement(ic_trash, "icon", "delete-icon");
+        deleteIcon.addEventListener('click', async () => {
+            try {
+                await CustomerController.deleteCustomer(customerId);
+                row.remove();
+                Toast.toastShow("toast-success", icon_success, "DELETE SUCCESS", "Customer deleted successfully");
+            } catch (error) {
+                Toast.toastShow("toast-error", icon_error, "DELETE FAILED", "Failed to delete customer");
+            }
+        });
+        return deleteIcon;
+    }
+
+    render() {
         return this.container;
     }
 }

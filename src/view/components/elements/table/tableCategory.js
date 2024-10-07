@@ -3,15 +3,20 @@ import { ic_avatar_gray, ic_chevron_down, ic_eye, ic_trash, ic_pen, icon_success
 import { CategoryController } from "@/controllers";
 import { Link } from "../link";
 import { Toast } from "../toast/toast";
+import { Pagination } from "@/utils";
 
 const element = new elementHtml();
+
 export class TableCategory {
-    constructor() {
+    constructor(category) {
         this.table = document.createElement("table");
         this.table.className = "table-category";
         this.initThead();
-        this.initTable();
+        this.pagination = new Pagination(10, category.length);
+        const firstPageItems = this.pagination.getCurrentPageItems(category);
+        this.initTable(firstPageItems);
     }
+
     initThead() {
         const thead = document.createElement("thead");
         const headrow = document.createElement("tr");
@@ -47,13 +52,15 @@ export class TableCategory {
         thead.appendChild(headrow);
         this.table.appendChild(thead);
     }
-    async initTable() {
+
+    async initTable(pageCategories) {
         const tbody = document.createElement("tbody");
-        const categories = await CategoryController.getListCategory(1);
-        categories.forEach(Category => {
+        
+        pageCategories.forEach(Category => {
             const keys = ["name", "sales", "stock", "added"];
             const tr = document.createElement("tr");
             let checkToDelete = null;
+
             keys.forEach((key, index) => {
                 const td = document.createElement("td");
                 if (key === "name") {
@@ -73,6 +80,7 @@ export class TableCategory {
                 td.appendChild(span);
                 tr.appendChild(td);
             });
+
             const td = document.createElement("td");
             const detail = new Link(`/category-detail/${Category.id}`).render();
             detail.appendChild(element.imgElement(ic_eye, "icon", ""));
@@ -84,17 +92,23 @@ export class TableCategory {
                     const tr = checkToDelete.closest('tr');
                     if (tr) {
                         tr.remove();
-                        Toast.toastShow("toast-success",icon_success,"DELETE SUCCESS","Success delete category");
+                        Toast.toastShow("toast-success", icon_success, "DELETE SUCCESS", "Success delete category");
                     }
                 }
                 await CategoryController.deteteCategory(Category.id);
             });
             td.append(detail, update, deletee);
-            tr.appendChild(td);  
+            tr.appendChild(td);
             tbody.appendChild(tr);
         });
+        
+        if (this.table.querySelector("tbody")) {
+            this.table.removeChild(this.table.querySelector("tbody"));
+        }
+        
         this.table.appendChild(tbody);
     }
+
     render() {
         return this.table;
     }

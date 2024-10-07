@@ -10,9 +10,9 @@ export class OrderController{
      * @param {number} page 
      * @returns {Array}
      */
-    static async getListOrder(page){
+    static async getAllOrder(){
         try {
-            const data = await axiosApiGetData(endpointUrl.getListOrder(page));
+            const data = await axiosApiGetData(endpointUrl.getAllOrder());
             const orders = data.map(res => {
                 const order = new Orders(res);
                 return order;

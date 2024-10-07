@@ -1,5 +1,5 @@
 import { HeadOrder, TableRecent, FootRecent } from "../components";
-import { OrderController } from "@/controllers";
+import { CustomerController, OrderController } from "@/controllers";
 import { elementHtml } from "@/utils";
 
 const element = new elementHtml();
@@ -7,8 +7,7 @@ const element = new elementHtml();
 export class order {
     constructor() {
         this.container = element.divELement("order-container");
-        this.initHeadOrder();
-        this.initOrderList();
+        this.handleData();
     }
 
     initHeadOrder() {
@@ -16,28 +15,20 @@ export class order {
         this.container.appendChild(HeadOrder.headBottom());
     }
 
-    async initOrderList() {
+    initOrderList(orders, customers) {
         const orderListContainer = element.divELement("order-container-list");
-        const data = await this.handleData(OrderController.getListOrder(1));
-
-        if (data) {
-            const table = await TableRecent.tableRecentOrder(data);
-            orderListContainer.appendChild(table);
-            orderListContainer.appendChild(FootRecent.createFootRecent());
-        } else {
-            console.log("No data found");
-        }
-
+        const table = new TableRecent(orders, customers);
+        const foot = new FootRecent(orders, customers);
+        orderListContainer.appendChild(table.render());
+        orderListContainer.appendChild(foot.render());
         this.container.appendChild(orderListContainer);
     }
 
-    async handleData(data) {
-        try {
-            return await data;
-        } catch (error) {
-            console.error("Error fetching data: ", error);
-            return null;
-        }
+    async handleData() {
+        const orders = await OrderController.getAllOrder();
+        const customers = await CustomerController.getAllCustomer();
+        this.initHeadOrder();
+        this.initOrderList(orders, customers);
     }
 
     render() {

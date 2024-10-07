@@ -4,8 +4,8 @@ import { button, tabchevron, saleProgressChart,
     statistics, cardList, headSelling, headSaleLocation,
     tableContainer , footSelling, HeadRecentOrder, TableRecent, 
     FootRecent} from "../components";
-import { saleLocationController, productController, OrderController } from "@/controllers";
-import { Toast } from "../components/elements/toast/toast";
+import { saleLocationController, productController, OrderController, CustomerController } from "@/controllers";
+
 
 export class home {
     elHtml = new elementHtml();
@@ -15,8 +15,7 @@ export class home {
         this.chevron();
         this.container.appendChild(cardList());
         this.chart();
-        this.topSellingSale();
-        this.recentOrder();
+        this.handleData();
     }
 
     chevron() {
@@ -42,51 +41,41 @@ export class home {
         this.container.appendChild(container1);
     }
 
-    topSellingSale() {
+    topSellingSale(topSelling, saleLocation) {
         const container1 = this.elHtml.divELement("top-container");
         const leftContainer = this.elHtml.divELement("top-container_left");
         leftContainer.appendChild(headSelling());
-        this.handleDisPlayData(productController.getTopSelling()).then(data => {
-            leftContainer.appendChild(tableContainer.tableSelling(data));
-            leftContainer.appendChild(footSelling.creatFootSelling());
-        })
+        leftContainer.appendChild(tableContainer.tableSelling(topSelling));
+        const foot = new footSelling(topSelling);
+        leftContainer.appendChild(foot.render());
 
         const rightContainer = this.elHtml.divELement("top-container_right");
-        this.handleDisPlayData(saleLocationController.getData()).then(data =>{
-            rightContainer.appendChild(headSaleLocation());
-            rightContainer.appendChild(tableContainer.tableSaleLocation(data));
-        });
-
+        rightContainer.appendChild(headSaleLocation());
+        rightContainer.appendChild(tableContainer.tableSaleLocation(saleLocation));
         container1.appendChild(leftContainer);
         container1.appendChild(rightContainer);
 
         this.container.appendChild(container1);
     }
-    async recentOrder(){
+    recentOrder(orders, customers){
         const container1 = this.elHtml.divELement("recent-order-container");
         const headRecentOrder = HeadRecentOrder.render();
         container1.appendChild(headRecentOrder);
-        const data = await this.handleDisPlayData(OrderController.getListOrder(1));
-        
-        if (data) {
-            const table = await TableRecent.tableRecentOrder(data);
-            container1.appendChild(table);
-            container1.appendChild(FootRecent.createFootRecent());
-        } else {
-            console.log("No data found");
-        }
-
+        const table = new TableRecent(orders, customers).render();
+        const foot = new FootRecent(orders, customers).render();
+        container1.appendChild(table);
+        container1.appendChild(foot);
         this.container.appendChild(container1);
     }
-    /**
-     * Handle get data
-     * @param {data} data 
-     * @returns {data}
-     */
-    async handleDisPlayData(data) {
-        const obj = await data;
-        return obj;
+    async handleData() {
+        const saleLocation = await saleLocationController.getData();
+        const topSelling = await productController.getTopSelling();
+        const orders = await OrderController.getAllOrder();
+        const customers = await CustomerController.getAllCustomer();
+        this.topSellingSale(topSelling, saleLocation);
+        this.recentOrder(orders, customers);
     };
+
 
     render() {
        return this.container;

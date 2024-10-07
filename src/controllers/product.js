@@ -10,9 +10,9 @@ export class productController {
      * @param {pageNumber} page 
      * @param {callback} responseData 
      */
-    static async getTopSelling(page) {
+    static async getTopSelling() {
         try {
-            const data = await axiosApiGetData(endpointUrl.getTopSelling(page));
+            const data = await axiosApiGetData(endpointUrl.getTopSelling());
             const products = data.map(res => {
                 const productRes = new product(res);
                 return productRes;
